@@ -53,19 +53,19 @@ $(function () {
 	});
 
 	$("Users").click(function () {
-		getServerData("ws/coavionnage/flights/users", callDone);
+		getServerData("ws/coavionnage/users", callDone);
 	});
 
 	$("#button2").click(function () {
-		putServerData("ws/coavionnage/flights/users/add",JSON.stringify(data), callDone);
+		putServerData("ws/coavionnage/users/add",JSON.stringify(data), callDone);
 	});
 
 	$("#button2").click(function () {
-		postServerData("ws/coavionnage/flights/users/modify",JSON.stringify(data), callDone);
+		postServerData("ws/coavionnage/users/modify",JSON.stringify(data), callDone);
 	});
 
 	$("#button2").click(function () {
-		deleteServerData("ws/coavionnage/flights/users/delete",JSON.stringify(data), callDone);
+		deleteServerData("ws/coavionnage/users/delete", callDone);
 	});
 
 	$("#Search").click(function () {
@@ -82,7 +82,7 @@ $(function () {
 	});
 
 	$("#button2").click(function () {
-		deleteServerData("ws/coavionnage/flights/bookings/delete",JSON.stringify(data), callDone);
+		deleteServerData("ws/coavionnage/flights/bookings/delete", callDone);
 	});
 
 	
