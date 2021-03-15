@@ -15,7 +15,7 @@ public class FlightBooking {
 	// private List<Passenger> passenger;
 	private int numberPlaces;
 	private String status;
-	public float ticketPrice;
+	
 	public String pilotID;
 
 	public String getBookingID() {
@@ -53,14 +53,6 @@ public class FlightBooking {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public float getTicketPrice() {
-		return ticketPrice;
-	}
-
-	public void setTicketPrice(float ticketPrice) {
-		this.ticketPrice = ticketPrice;
 	}
 
 	public String getPilot() {

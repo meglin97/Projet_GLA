@@ -29,15 +29,15 @@
 							</div>
 							<div class="persent-one">
 								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								<input type="text" name="dep" class="textboxstyle" id="arival"
+								<input type="text" name="dep" class="textboxstyle" id="arrival"
 									placeholder="To City or airport">
 							</div>
 							<div class="persent-one less-per">
 								<i class="fa fa-calendar" aria-hidden="true"></i>
-								<input type="text" name="dep" class="textboxstyle" id="from-date1" placeholder="Time">
+								<input type="text" name="dep" class="textboxstyle" id="date" placeholder="Time">
 							</div>
 							<div class="persent-one less-btn">
-								<input type="Submit" name="submit" value="Search" class="btn btn-info cst-btn"
+								<input type="Submit" name="submit" value="Search" id="btn-search" class="btn btn-info cst-btn"
 									id="srch">
 							</div>
 						</div>
@@ -46,7 +46,32 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
+	<div id="flights-div">
+		<h2>Flights list</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>trajectory</th>
+					<th>departure time</th>
+					<th>departure airfield</th>
+					<th>arrival time</th>
+					<th>arrival airfield</th>
+					<th>price</th>
+					<th>seats available</th>
+				</tr>
+			</thead>
+			<tbody id="flights-list">
+				
+			</tbody>
+		</table>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="home.js"></script>
 </body>
 
 </html>

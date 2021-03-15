@@ -1,6 +1,7 @@
 
 package com.coavionnage.jetty_jersey.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,10 @@ public interface FlightBookingDAO {
 	}
 
 	public static List<FlightBooking> getAllBooking() {
+		return null;
+	}
+	
+	public static List<Flight> searchFlights(String departureAirfield, String arrivalAirfield, LocalDateTime date){
 		return null;
 	}
 }

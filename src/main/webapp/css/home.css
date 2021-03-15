@@ -99,3 +99,7 @@ body {font-family: Arial;}
   position: absolute;
   top: -32px;
 }
+
+#flights-div{
+  margin-top: 250px;
+}

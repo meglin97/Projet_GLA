@@ -36,7 +36,7 @@ public class FlightBookingResource {
 		// newBookFlight.setBookingID(fb.getBookingID());
 		newBookFlight.setFlightID(fb.getFlightID());
 		newBookFlight.setPilot(fb.getPilot());
-		newBookFlight.setTicketPrice(fb.getTicketPrice());
+//		newBookFlight.setTicketPrice(fb.getTicketPrice());
 		newBookFlight.setNumberPlaces(fb.getNumberPlaces());
 
 		FlightBookingDAOImpl.getAllBooking().add(newBookFlight);
@@ -56,7 +56,7 @@ public class FlightBookingResource {
 		newBookFlight.setBookingID(fb.getBookingID());
 		newBookFlight.setFlightID(fb.getFlightID());
 		newBookFlight.setPilot(fb.getPilot());
-		newBookFlight.setTicketPrice(fb.getTicketPrice());
+//		newBookFlight.setTicketPrice(fb.getTicketPrice());
 		newBookFlight.setNumberPlaces(fb.getNumberPlaces());
 		int index = FlightBookingDAOImpl.getAllBooking().indexOf(fb);
 		FlightBookingDAOImpl.getAllBooking().set(index, newBookFlight);

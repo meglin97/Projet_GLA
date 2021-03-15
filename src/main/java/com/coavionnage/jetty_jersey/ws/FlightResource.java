@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,8 +45,11 @@ public class FlightResource {
 	public Response searchFlightByCriteria(@QueryParam("departure") String departure,
 			@QueryParam("arrival") String arrival, @QueryParam("departure_time") String departureTime) {
 		System.out.println("FlightResource.searchByCriteria()");
+		String[] departureDateArray = departureTime.split("-");
+		LocalDateTime departureDate = LocalDateTime.of(Integer.parseInt(departureDateArray[0]), Integer.parseInt(departureDateArray[1]), Integer.parseInt(departureDateArray[2]), 0, 0, 0);
+		
 		return Response.ok().header("departure", departure).header("arrival", arrival)
-				.header("departure_time", departureTime).entity(FlightBookingDAOImpl.getAllFlight().subList(0, 2))
+				.header("departure_time", departureTime).entity(FlightBookingDAOImpl.searchFlights(departure, arrival, departureDate))
 				.build();
 	}
 

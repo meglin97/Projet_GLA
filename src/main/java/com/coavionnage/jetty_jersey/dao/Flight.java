@@ -11,17 +11,21 @@ public class Flight {
 	public String arrivalAirfield;
 	public LocalDateTime departureTime;
 	public LocalDateTime arrivalTime;
+	public float ticketPrice;
+	private int numberPlaces;
 
 	public Flight() {
 
 	}
 
-	public Flight(String id, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime) {
+	public Flight(String id, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime, float ticketPrice, int numberPlaces) {
 		this.flightID = id;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
 		this.departureTime = depTime;
 		this.arrivalTime = arrTime;
+		this.ticketPrice = ticketPrice;
+		this.numberPlaces = numberPlaces;
 
 	}
 
@@ -63,6 +67,22 @@ public class Flight {
 
 	public void setArrivalTime(LocalDateTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
+	}
+	
+	public float getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(float ticketPrice) {
+		this.ticketPrice = ticketPrice;
+	}
+
+	public int getNumberPlaces() {
+		return numberPlaces;
+	}
+
+	public void setNumberPlaces(int numberPlaces) {
+		this.numberPlaces = numberPlaces;
 	}
 
 }
