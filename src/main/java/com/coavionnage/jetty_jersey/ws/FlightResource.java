@@ -25,14 +25,14 @@ public class FlightResource {
 
 	@GET
 	public List<Flight> getFlights() {
-		System.out.println("getFlights");
+		System.out.println("FlightResource.getFlights");
 		return FlightBookingDAOImpl.getAllFlight();
 	}
 
 	@GET
 	@Path("{id}")
 	public Flight getFlight(@PathParam("id") String flightID) {
-		System.out.println("getFlight");
+		System.out.println("FlightResource.getFlight");
 		Optional<Flight> flightByID = FlightBookingDAOImpl.getFlight(flightID);
 		if (!flightByID.isPresent()) {
 			throw new NotFoundException("No matches found");

@@ -13,7 +13,7 @@ public class Flight {
 	public LocalDateTime arrivalTime;
 	public float ticketPrice;
 	private int numberPlaces;
-
+	public int bookingNumber = 0;
 	public Flight() {
 
 	}
