@@ -16,8 +16,8 @@ public class Pilot extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pilot(String id, String name, String email, String password, String role, int years, String qualifications) {
-		super(id, name, email, password, role);
+	public Pilot(String id, String name, String email, String password, int years, String qualifications) {
+		super(id, name, email, password);
 
 		this.yearsOfExperience = years;
 		this.qualifications = qualifications;

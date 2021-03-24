@@ -7,22 +7,20 @@ import javax.jdo.annotations.PrimaryKey;
 public class User {
 
 	@PrimaryKey
-	public String userID;
-	public String name;
-	public String email;
-	public String password;
-	private String role;
+	private String userID;
+	private String name;
+	private String email;
+	private String password;
 
 	public User() {
-
+		super();
 	}
 
-	public User(String id, String name, String email, String password, String r) {
+	public User(String id, String name, String email, String password) {
 		this.userID = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.role = r;
 	}
 
 	public String getUserID() {
@@ -57,11 +55,4 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return this.role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
 }

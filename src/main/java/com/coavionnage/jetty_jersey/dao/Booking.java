@@ -3,7 +3,7 @@ package com.coavionnage.jetty_jersey.dao;
 import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable
-public class FlightBooking {
+public class Booking {
 
 	// public final static String BOOKING_STATUS_PENDING_RESPONSE =
 	// "pending_response";
@@ -12,11 +12,26 @@ public class FlightBooking {
 
 	private String bookID;
 	private String flightID;
-	// private List<Passenger> passenger;
-	private int numberPlaces;
+	private User user;
+	private String numPlace;
 	private String status;
-	
 	public String pilotID;
+	public float ticketPrice;
+
+	public Booking() {
+		super();
+	}
+
+	public Booking(String bid, String fid, User u, String num, String status, String pid, float ticketPrice) {
+		super();
+		this.bookID = bid;
+		this.flightID = fid;
+		this.user = u;
+		this.numPlace = num;
+		this.status = status;
+		this.pilotID = pid;
+		this.ticketPrice = ticketPrice;
+	}
 
 	public String getBookingID() {
 		return bookID;
@@ -34,17 +49,20 @@ public class FlightBooking {
 		this.flightID = fid;
 	}
 
-	// public List<Passenger> getPassenger() {return passenger;}
-
-	// public void setPassenger(Passenger passenger)
-	// {this.passenger.add(passenger);}
-
-	public int getNumberPlaces() {
-		return numberPlaces;
+	public User getUser() {
+		return user;
 	}
 
-	public void setNumberPlaces(int numberPlaces) {
-		this.numberPlaces = numberPlaces;
+	public void setUserID(User user) {
+		this.user = user;
+	}
+
+	public String getPlaceNumber() {
+		return numPlace;
+	}
+
+	public void setPlaceNumber(String numPlace) {
+		this.numPlace = numPlace;
 	}
 
 	public String getStatus() {
@@ -55,12 +73,12 @@ public class FlightBooking {
 		this.status = status;
 	}
 
-	public String getPilot() {
-		return pilotID;
+	public float getTicketPrice() {
+		return ticketPrice;
 	}
 
-	public void setPilot(String pid) {
-		this.pilotID = pid;
+	public void setTicketPrice(float ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 }

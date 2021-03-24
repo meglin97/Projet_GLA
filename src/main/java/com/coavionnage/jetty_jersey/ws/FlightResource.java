@@ -2,10 +2,10 @@ package com.coavionnage.jetty_jersey.ws;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,31 +13,32 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.coavionnage.jetty_jersey.dao.DAO;
 import com.coavionnage.jetty_jersey.dao.Flight;
-import com.coavionnage.jetty_jersey.dao.FlightBookingDAOImpl;
 
 @Path("/flights")
 @Produces(MediaType.APPLICATION_JSON)
 public class FlightResource {
-	public FlightResource() {
 
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/add")
+	public void createFlight(Flight flight) {
+		DAO.getFlightDAO().addFlight(flight);
 	}
 
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlights() {
-		System.out.println("FlightResource.getFlights");
-		return FlightBookingDAOImpl.getAllFlight();
+		return DAO.getFlightDAO().getFlights(null, null, null);
 	}
 
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	public Flight getFlight(@PathParam("id") String flightID) {
-		System.out.println("FlightResource.getFlight");
-		Optional<Flight> flightByID = FlightBookingDAOImpl.getFlight(flightID);
-		if (!flightByID.isPresent()) {
-			throw new NotFoundException("No matches found");
-		}
-		return flightByID.get();
+		return DAO.getFlightDAO().getFlights(flightID, null, null).get(0);
 	}
 
 	@GET
@@ -46,16 +47,17 @@ public class FlightResource {
 			@QueryParam("arrival") String arrival, @QueryParam("departure_time") String departureTime) {
 		System.out.println("FlightResource.searchByCriteria()");
 		String[] departureDateArray = departureTime.split("-");
-		LocalDateTime departureDate = LocalDateTime.of(Integer.parseInt(departureDateArray[0]), Integer.parseInt(departureDateArray[1]), Integer.parseInt(departureDateArray[2]), 0, 0, 0);
-		
+		LocalDateTime departureDate = LocalDateTime.of(Integer.parseInt(departureDateArray[0]),
+				Integer.parseInt(departureDateArray[1]), Integer.parseInt(departureDateArray[2]), 0, 0, 0);
+
 		return Response.ok().header("departure", departure).header("arrival", arrival)
-				.header("departure_time", departureTime).entity(FlightBookingDAOImpl.searchFlights(departure, arrival, departureDate))
-				.build();
+				.header("departure_time", departureTime)
+				.entity(DAO.getFlightDAO().getFlights(departure, arrival, departureDate)).build();
 	}
 
 	@Path("/bookings")
-	public FlightBookingResource getFlightBookingResource() {
-		return new FlightBookingResource();
+	public BookingResource getFlightBookingResource() {
+		return new BookingResource();
 	}
 
 	@Path("/users")

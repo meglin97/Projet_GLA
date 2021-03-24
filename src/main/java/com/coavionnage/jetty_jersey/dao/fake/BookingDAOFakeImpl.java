@@ -1,0 +1,30 @@
+package com.coavionnage.jetty_jersey.dao.fake;
+
+import java.util.List;
+
+import com.coavionnage.jetty_jersey.dao.Booking;
+import com.coavionnage.jetty_jersey.dao.BookingDAO;
+
+public class BookingDAOFakeImpl implements BookingDAO {
+
+	@Override
+	public List<Booking> getBookings(String bid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addBooking(Booking booking) {
+		// TODO Auto-generated method stub
+		Booking book = new Booking();
+		book.setBookingID(booking.getBookingID());
+		book.setFlightID(booking.getFlightID());
+		book.setPlaceNumber(booking.getPlaceNumber());
+		book.setUserID(booking.getUser());
+		book.setTicketPrice(booking.getTicketPrice());
+		book.setStatus(booking.getStatus());
+		getBookings(null).add(book);
+
+	}
+
+}

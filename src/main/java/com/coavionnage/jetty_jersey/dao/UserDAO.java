@@ -1,24 +1,17 @@
 package com.coavionnage.jetty_jersey.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserDAO {
 
-	public static Optional<User> getUser(String id) {
-		return null;
-	}
+	List<User> getUsers(String user);
 
-	public static List<User> getAllUsers() {
-		return null;
-	}
+	List<Pilot> getPilots(String pilot);
 
-	public static List<Passenger> getAllPassengers() {
-		return null;
-	}
+	void addUser(User u);
 
-	public static List<Pilot> getAllPilots() {
-		return null;
-	}
+	void editUser(User u);
+
+	void deleteUser(User u);
 
 }
