@@ -1,4 +1,4 @@
-package com.coavionnage.jetty_jersey.dao;
+package com.coavionage.jetty_jersey.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +14,10 @@ public interface FlightDAO {
 	 * Add a new flight to the database
 	 * 
 	 * @param flight
+	 * @return
 	 */
-	void addFlight(Flight flight);
+	Flight addFlight(Flight flight);
+
+	int getBookingNumber();
 
 }

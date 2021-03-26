@@ -1,4 +1,4 @@
-package com.coavionnage.jetty_jersey.ws;
+package com.coavionage.jetty_jersey.ws;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,19 +13,18 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.coavionnage.jetty_jersey.dao.DAO;
-import com.coavionnage.jetty_jersey.dao.Flight;
+import com.coavionage.jetty_jersey.dao.DAO;
+import com.coavionage.jetty_jersey.dao.Flight;
 
 @Path("/flights")
 @Produces(MediaType.APPLICATION_JSON)
 public class FlightResource {
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add")
-	public void createFlight(Flight flight) {
-		DAO.getFlightDAO().addFlight(flight);
+	public Flight addFlight(Flight flight) {
+		return DAO.getFlightDAO().addFlight(flight);
 	}
 
 	@GET

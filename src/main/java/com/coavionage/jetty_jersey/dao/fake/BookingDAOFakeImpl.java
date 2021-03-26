@@ -1,9 +1,9 @@
-package com.coavionnage.jetty_jersey.dao.fake;
+package com.coavionage.jetty_jersey.dao.fake;
 
 import java.util.List;
 
-import com.coavionnage.jetty_jersey.dao.Booking;
-import com.coavionnage.jetty_jersey.dao.BookingDAO;
+import com.coavionage.jetty_jersey.dao.Booking;
+import com.coavionage.jetty_jersey.dao.BookingDAO;
 
 public class BookingDAOFakeImpl implements BookingDAO {
 

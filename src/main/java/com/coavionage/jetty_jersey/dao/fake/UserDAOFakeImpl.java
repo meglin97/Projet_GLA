@@ -1,13 +1,11 @@
-package com.coavionnage.jetty_jersey.dao.fake;
+package com.coavionage.jetty_jersey.dao.fake;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.NotFoundException;
-
-import com.coavionnage.jetty_jersey.dao.Pilot;
-import com.coavionnage.jetty_jersey.dao.User;
-import com.coavionnage.jetty_jersey.dao.UserDAO;
+import com.coavionage.jetty_jersey.dao.Pilot;
+import com.coavionage.jetty_jersey.dao.User;
+import com.coavionage.jetty_jersey.dao.UserDAO;
 
 public class UserDAOFakeImpl implements UserDAO {
 	private static List<User> users = new ArrayList<User>();
@@ -36,7 +34,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public void addUser(User u) {
+	public User addUser(User u) {
 		// TODO Auto-generated method stub
 		if (getUsers(u.getUserID()) != null) {
 			System.out.println("UserID already used");
@@ -48,25 +46,8 @@ public class UserDAOFakeImpl implements UserDAO {
 		user.setEmail(u.getEmail());
 		user.setPassword(u.getPassword());
 		getUsers(null).add(user);
+		return user;
 
-	}
-
-	@Override
-	public void deleteUser(User u) {
-		// TODO Auto-generated method stub
-		try {
-			getUsers(null).remove(u);
-		} catch (NotFoundException e) {
-			System.out.println("User not found");
-		}
-	}
-
-	@Override
-	public void editUser(User u) {
-		// TODO Auto-generated method stub
-		User user = getUsers(u.getUserID()).get(0);
-		deleteUser(user);
-		addUser(u);
 	}
 
 }

@@ -1,17 +1,16 @@
-package com.coavionnage.jetty_jersey.dao.dn;
+package com.coavionage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionnage.jetty_jersey.dao.Pilot;
-import com.coavionnage.jetty_jersey.dao.User;
-import com.coavionnage.jetty_jersey.dao.UserDAO;
+import com.coavionage.jetty_jersey.dao.Pilot;
+import com.coavionage.jetty_jersey.dao.User;
+import com.coavionage.jetty_jersey.dao.UserDAO;
 import com.example.datanucleus.dao.Action;
 
 public class UserDAOImpl implements UserDAO {
@@ -57,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pilot> getPilots(String pname) {
+	public List<Pilot> getPilots(String pid) {
 		// TODO Auto-generated method stub
 		List<Pilot> actions = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
@@ -66,11 +65,11 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
-			if (pname != null) {
+			if (pid != null) {
 				q.declareParameters("String user");
 				q.setFilter("username == user");
 
-				actions = (List<Pilot>) q.execute(pname);
+				actions = (List<Pilot>) q.execute(pid);
 				detached = (List<Pilot>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<Pilot>) q.execute();
@@ -88,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void addUser(User user) {
+	public User addUser(User user) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -104,50 +103,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
-	}
-
-	@Override
-	public void editUser(User user) {
-		// TODO Auto-generated method stub
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-
-			Extent<User> e = pm.getExtent(User.class, true);
-			for (User u : e) {
-				if (u.getUserID().equals(user.getUserID())) {
-					u.setEmail(user.getEmail());
-					u.setName(user.getName());
-					u.setPassword(user.getPassword());
-				}
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-	}
-
-	@Override
-	public void deleteUser(User u) {
-		// TODO Auto-generated method stub
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-
-			pm.deletePersistent(u);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
+		return user;
 	}
 
 }

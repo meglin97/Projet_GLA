@@ -1,4 +1,4 @@
-package com.coavionnage.jetty_jersey.dao;
+package com.coavionage.jetty_jersey.dao;
 
 import java.util.List;
 
@@ -8,10 +8,6 @@ public interface UserDAO {
 
 	List<Pilot> getPilots(String pilot);
 
-	void addUser(User u);
-
-	void editUser(User u);
-
-	void deleteUser(User u);
+	User addUser(User u);
 
 }

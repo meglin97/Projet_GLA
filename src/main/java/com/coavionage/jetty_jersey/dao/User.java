@@ -1,4 +1,4 @@
-package com.coavionnage.jetty_jersey.dao;
+package com.coavionage.jetty_jersey.dao;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;

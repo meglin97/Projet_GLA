@@ -1,6 +1,8 @@
-package com.coavionnage.jetty_jersey.dao;
+package com.coavionage.jetty_jersey.dao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
 
@@ -11,7 +13,7 @@ public class Flight {
 	public String arrivalAirfield;
 	public LocalDateTime departureTime;
 	public LocalDateTime arrivalTime;
-
+	public List<Booking> bookList;
 	private int numberPlaces;
 	private Pilot pilot;
 
@@ -26,7 +28,7 @@ public class Flight {
 		this.arrivalAirfield = arrival;
 		this.departureTime = depTime;
 		this.arrivalTime = arrTime;
-
+		this.bookList = new ArrayList<Booking>();
 		this.numberPlaces = numberPlaces;
 		this.pilot = p;
 
@@ -86,6 +88,14 @@ public class Flight {
 
 	public void setPilot(Pilot p) {
 		this.pilot = p;
+	}
+
+	public List<Booking> getBookings() {
+		return bookList;
+	}
+
+	public void setBooking(Booking book) {
+		this.bookList.add(book);
 	}
 
 }

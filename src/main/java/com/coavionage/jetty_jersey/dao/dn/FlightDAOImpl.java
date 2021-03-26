@@ -1,4 +1,4 @@
-package com.coavionnage.jetty_jersey.dao.dn;
+package com.coavionage.jetty_jersey.dao.dn;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,8 +9,9 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionnage.jetty_jersey.dao.Flight;
-import com.coavionnage.jetty_jersey.dao.FlightDAO;
+import com.coavionage.jetty_jersey.dao.Booking;
+import com.coavionage.jetty_jersey.dao.Flight;
+import com.coavionage.jetty_jersey.dao.FlightDAO;
 
 public class FlightDAOImpl implements FlightDAO {
 
@@ -52,7 +53,7 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public void addFlight(Flight flight) {
+	public Flight addFlight(Flight flight) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -68,6 +69,27 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		return flight;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int getBookingNumber() {
+		// TODO Auto-generated method stub
+		List<Booking> book = null;
+		List<Booking> detached = new ArrayList<Booking>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("List<Booking> getBookings");
+			book = (List<Booking>) q.execute();
+			detached = (List<Booking>) pm.detachCopy(book);
+		} finally {
+			pm.close();
+		}
+		return detached.size();
 	}
 
 }

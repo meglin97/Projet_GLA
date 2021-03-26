@@ -49,40 +49,28 @@ function callDone(result) {
 
 $(function () {
 	$("#View flights").click(function () {
-		getServerData("ws/coavionnage/flights", callDone);
+		getServerData("ws/coavionage/flights", callDone);
 	});
+
+	$("#button2").click(function () {
+		putServerData("ws/coavinage/flights/add",JSON.stringify(data), callDone);
+	});
+
 
 	$("Users").click(function () {
-		getServerData("ws/coavionnage/users", callDone);
+		getServerData("ws/coavionage/users", callDone);
 	});
 
 	$("#button2").click(function () {
-		putServerData("ws/coavionnage/users/add",JSON.stringify(data), callDone);
-	});
-
-	$("#button2").click(function () {
-		postServerData("ws/coavionnage/users/modify",JSON.stringify(data), callDone);
-	});
-
-	$("#button2").click(function () {
-		deleteServerData("ws/coavionnage/users/delete", callDone);
+		putServerData("ws/coavionage/users/add",JSON.stringify(data), callDone);
 	});
 
 	$("#Search").click(function () {
-		getServerData("ws/coavionnage/flights/bookings", callDone);
+		getServerData("ws/coavionage/flights/bookings", callDone);
 	});
 
 	$("#button").click(function () {
-		putServerData("ws/coavionnage/flights/bookings/add",JSON.stringify(data), callDone);
-	});
-
-	
-	$("#button2").click(function () {
-		postServerData("ws/coavionnage/flights/bookings/modify",JSON.stringify(data), callDone);
-	});
-
-	$("#button2").click(function () {
-		deleteServerData("ws/coavionnage/flights/bookings/delete", callDone);
+		putServerData("ws/coavinage/flights/bookings/add",JSON.stringify(data), callDone);
 	});
 
 	
@@ -103,7 +91,7 @@ $(function () {
 			contentType: "application/json",
 			dataType: "json",
 			data: JSON.stringify(data),
-			url: "/ws/coavionnage/users/signup"
+			url: "/ws/coavionage/users/signup"
 		}).done((response)=>{
 			console.log(response);
 		});
@@ -114,7 +102,7 @@ function getAllFlights() {
     $.ajax({
 		type: 'GET',
 		dataType: "json",
-		url: "ws/coavionnage/flights"
+		url: "ws/coavionage/flights"
 	}).done((response)=>{
         console.log(response);
         updateFlightsList(response);
@@ -125,7 +113,7 @@ function searchFlights() {
 	const departure = document.getElementById("dep").value;
 	const arrival = document.getElementById("arrival").value;
 	const date = document.getElementById("date").value;
-	const url = "ws/coavionnage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_time=" + date;
+	const url = "ws/coavionage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_time=" + date;
 	console.log(url);
 
 	$.ajax({
