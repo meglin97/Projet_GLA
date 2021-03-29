@@ -20,4 +20,8 @@ public interface FlightDAO {
 
 	int getBookingNumber();
 
+	void deleteFlight(Flight flight);
+
+	void editFlight(Flight flight);
+
 }

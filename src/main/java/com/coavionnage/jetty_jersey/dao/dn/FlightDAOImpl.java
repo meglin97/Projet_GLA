@@ -2,8 +2,10 @@ package com.coavionage.jetty_jersey.dao.dn;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -92,4 +94,49 @@ public class FlightDAOImpl implements FlightDAO {
 		return detached.size();
 	}
 
+	@Override
+	public void deleteFlight(Flight flight) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			pm.deletePersistent(flight);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	@Override
+	public void editFlight(Flight flight) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Extent<Flight> e = pm.getExtent(Flight.class, true);
+			Iterator<Flight> iter = e.iterator();
+			while (iter.hasNext()) {
+				Flight fl = iter.next();
+				if (fl.getFlightID().equals(flight.getFlightID())) {
+					fl.setArrivalAirfield(flight.getArrivalAirfield());
+					fl.setDepartureTime(flight.getDepartureTime());
+					fl.setArrivalTime(flight.getArrivalTime());
+					fl.setNumberPlaces(flight.getNumberPlaces());
+				}
+			}
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 }

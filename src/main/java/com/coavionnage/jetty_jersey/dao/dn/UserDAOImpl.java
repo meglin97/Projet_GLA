@@ -1,8 +1,10 @@
 package com.coavionage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -106,4 +108,49 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	@Override
+	public void deleteUser(User user) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			pm.deletePersistent(user);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	@Override
+	public void editUser(User user) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Extent<User> e = pm.getExtent(User.class, true);
+			Iterator<User> iter = e.iterator();
+			while (iter.hasNext()) {
+				User u = iter.next();
+				if (u.getUserID().equals(user.getUserID())) {
+					u.setUserID(user.getUserID());
+					u.setName(user.getName());
+					u.setEmail(user.getEmail());
+					u.setPassword(user.getPassword());
+				}
+			}
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 }

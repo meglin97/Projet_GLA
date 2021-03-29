@@ -15,7 +15,7 @@ public class DAO {
 
 	public static UserDAO getUserDAO() {
 		if (userDAO == null) {
-			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionage");
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionnage");
 			userDAO = new UserDAOImpl(pmf);
 		}
 		return userDAO;
@@ -23,7 +23,7 @@ public class DAO {
 
 	public static BookingDAO getBookingDAO() {
 		if (bookingDAO == null) {
-			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionage");
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionnage");
 			bookingDAO = new BookingDAOImpl(pmf);
 		}
 		return bookingDAO;
@@ -31,10 +31,9 @@ public class DAO {
 
 	public static FlightDAO getFlightDAO() {
 		if (flightDAO == null) {
-			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionage");
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Coavionnage");
 			flightDAO = new FlightDAOImpl(pmf);
 		}
 		return flightDAO;
 	}
-
 }

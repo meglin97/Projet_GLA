@@ -50,4 +50,16 @@ public class UserDAOFakeImpl implements UserDAO {
 
 	}
 
+	@Override
+	public void deleteUser(User user) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editUser(User user) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

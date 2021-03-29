@@ -49,28 +49,29 @@ function callDone(result) {
 
 $(function () {
 	$("#View flights").click(function () {
-		getServerData("ws/coavionage/flights", callDone);
+		getServerData("ws/coavionnage/flights", callDone);
 	});
 
 	$("#button2").click(function () {
-		putServerData("ws/coavinage/flights/add",JSON.stringify(data), callDone);
+
+		putServerData("ws/coavinnage/flights/add",JSON.stringify(data), callDone);
 	});
 
 
 	$("Users").click(function () {
-		getServerData("ws/coavionage/users", callDone);
+		getServerData("ws/coavionnage/users", callDone);
 	});
 
 	$("#button2").click(function () {
-		putServerData("ws/coavionage/users/add",JSON.stringify(data), callDone);
+		putServerData("ws/coavionnage/users/add",JSON.stringify(data), callDone);
 	});
 
 	$("#Search").click(function () {
-		getServerData("ws/coavionage/flights/bookings", callDone);
+		getServerData("ws/coavionnage/flights/bookings", callDone);
 	});
 
 	$("#button").click(function () {
-		putServerData("ws/coavinage/flights/bookings/add",JSON.stringify(data), callDone);
+		putServerData("ws/coavinnage/flights/bookings/add",JSON.stringify(data), callDone);
 	});
 
 	

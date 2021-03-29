@@ -53,7 +53,7 @@ public class Booking {
 		return user;
 	}
 
-	public void setUserID(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

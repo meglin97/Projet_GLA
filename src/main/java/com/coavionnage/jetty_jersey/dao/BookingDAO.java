@@ -7,6 +7,10 @@ public interface BookingDAO {
 
 	List<Booking> getBookings(String bid);
 
-	void addBooking(Booking booking);
+	Booking addBooking(Booking booking);
+
+	void deleteBooking(Booking booking);
+
+	void editBooking(Booking booking);
 
 }

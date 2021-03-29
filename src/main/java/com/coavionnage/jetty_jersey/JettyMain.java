@@ -35,7 +35,7 @@ public class JettyMain {
 		// Add a servlet handler for web services (/ws/*)
 		ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
 		ServletContextHandler handlerWebServices = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		handlerWebServices.setContextPath("/ws/coavionage");
+		handlerWebServices.setContextPath("/ws/coavionnage");
 		handlerWebServices.addServlet(servletHolder, "/*");
 
 		// Add a handler for resources (/*)

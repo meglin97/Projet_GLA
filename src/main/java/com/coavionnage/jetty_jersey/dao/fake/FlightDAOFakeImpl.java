@@ -26,4 +26,16 @@ public class FlightDAOFakeImpl implements FlightDAO {
 		return 0;
 	}
 
+	@Override
+	public void deleteFlight(Flight flight) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editFlight(Flight flight) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
