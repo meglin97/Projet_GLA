@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.ws;
+package com.coavionnage.jetty_jersey.ws;
 
 import java.io.IOException;
 

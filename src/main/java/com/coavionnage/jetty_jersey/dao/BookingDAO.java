@@ -1,5 +1,5 @@
 
-package com.coavionage.jetty_jersey.dao;
+package com.coavionnage.jetty_jersey.dao;
 
 import java.util.List;
 

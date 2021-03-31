@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.dao;
+package com.coavionnage.jetty_jersey.dao;
 
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;

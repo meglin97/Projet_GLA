@@ -1,11 +1,11 @@
-package com.coavionage.jetty_jersey.dao.fake;
+package com.coavionnage.jetty_jersey.dao.fake;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coavionage.jetty_jersey.dao.Pilot;
-import com.coavionage.jetty_jersey.dao.User;
-import com.coavionage.jetty_jersey.dao.UserDAO;
+import com.coavionnage.jetty_jersey.dao.Pilot;
+import com.coavionnage.jetty_jersey.dao.User;
+import com.coavionnage.jetty_jersey.dao.UserDAO;
 
 public class UserDAOFakeImpl implements UserDAO {
 	private static List<User> users = new ArrayList<User>();

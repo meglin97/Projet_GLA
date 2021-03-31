@@ -1,10 +1,10 @@
-package com.coavionage.jetty_jersey.dao.fake;
+package com.coavionnage.jetty_jersey.dao.fake;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.coavionage.jetty_jersey.dao.Flight;
-import com.coavionage.jetty_jersey.dao.FlightDAO;
+import com.coavionnage.jetty_jersey.dao.Flight;
+import com.coavionnage.jetty_jersey.dao.FlightDAO;
 
 public class FlightDAOFakeImpl implements FlightDAO {
 

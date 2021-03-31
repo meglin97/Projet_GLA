@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.dao.dn;
+package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionage.jetty_jersey.dao.Booking;
-import com.coavionage.jetty_jersey.dao.Flight;
-import com.coavionage.jetty_jersey.dao.FlightDAO;
+import com.coavionnage.jetty_jersey.dao.Booking;
+import com.coavionnage.jetty_jersey.dao.Flight;
+import com.coavionnage.jetty_jersey.dao.FlightDAO;
 
 public class FlightDAOImpl implements FlightDAO {
 

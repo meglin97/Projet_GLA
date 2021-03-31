@@ -1,11 +1,11 @@
-package com.coavionage.jetty_jersey.dao;
+package com.coavionnage.jetty_jersey.dao;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
-import com.coavionage.jetty_jersey.dao.dn.BookingDAOImpl;
-import com.coavionage.jetty_jersey.dao.dn.FlightDAOImpl;
-import com.coavionage.jetty_jersey.dao.dn.UserDAOImpl;
+import com.coavionnage.jetty_jersey.dao.dn.BookingDAOImpl;
+import com.coavionnage.jetty_jersey.dao.dn.FlightDAOImpl;
+import com.coavionnage.jetty_jersey.dao.dn.UserDAOImpl;
 
 public class DAO {
 

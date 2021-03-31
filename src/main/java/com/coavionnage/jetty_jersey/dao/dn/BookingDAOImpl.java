@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.dao.dn;
+package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,8 +10,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionage.jetty_jersey.dao.Booking;
-import com.coavionage.jetty_jersey.dao.BookingDAO;
+import com.coavionnage.jetty_jersey.dao.Booking;
+import com.coavionnage.jetty_jersey.dao.BookingDAO;
 
 public class BookingDAOImpl implements BookingDAO {
 

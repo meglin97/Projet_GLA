@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.ws;
+package com.coavionnage.jetty_jersey.ws;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.coavionage.jetty_jersey.dao.DAO;
-import com.coavionage.jetty_jersey.dao.User;
+import com.coavionnage.jetty_jersey.dao.DAO;
+import com.coavionnage.jetty_jersey.dao.User;
 
 @Path("/users")
 public class UserResource {

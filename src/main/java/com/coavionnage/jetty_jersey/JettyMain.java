@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey;
+package com.coavionnage.jetty_jersey;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

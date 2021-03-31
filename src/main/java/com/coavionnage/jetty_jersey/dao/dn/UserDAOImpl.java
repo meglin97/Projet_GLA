@@ -1,4 +1,4 @@
-package com.coavionage.jetty_jersey.dao.dn;
+package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,10 +10,9 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionage.jetty_jersey.dao.Pilot;
-import com.coavionage.jetty_jersey.dao.User;
-import com.coavionage.jetty_jersey.dao.UserDAO;
-import com.example.datanucleus.dao.Action;
+import com.coavionnage.jetty_jersey.dao.Pilot;
+import com.coavionnage.jetty_jersey.dao.User;
+import com.coavionnage.jetty_jersey.dao.UserDAO;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -33,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			Query q = pm.newQuery(Action.class);
+			Query q = pm.newQuery(User.class);
 			if (uid != null) {
 				q.declareParameters("String user");
 				q.setFilter("username == user");
@@ -153,4 +152,5 @@ public class UserDAOImpl implements UserDAO {
 			pm.close();
 		}
 	}
+
 }
