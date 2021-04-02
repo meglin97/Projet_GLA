@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +24,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> getFlights(String departure, String arrival, LocalDateTime departureDate) {
+	public List<Flight> getFlights(String departure) {
 		// TODO Auto-generated method stub
 		List<Flight> actions = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -35,8 +34,8 @@ public class FlightDAOImpl implements FlightDAO {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			if (departure != null) {
-				q.declareParameters("String depatureAirfield");
-				q.setFilter("departure == depatureAirfield");
+				q.declareParameters("String getDepartureAirfield");
+				q.setFilter("departure == getDepartureAirfield");
 				actions = (List<Flight>) q.execute(departure);
 				detached = (List<Flight>) pm.detachCopyAll(actions);
 			} else {
@@ -76,8 +75,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public int getBookingNumber() {
-		// TODO Auto-generated method stub
+	public List<Booking> getBookings() {
 		List<Booking> book = null;
 		List<Booking> detached = new ArrayList<Booking>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -88,10 +86,33 @@ public class FlightDAOImpl implements FlightDAO {
 			q.declareParameters("List<Booking> getBookings");
 			book = (List<Booking>) q.execute();
 			detached = (List<Booking>) pm.detachCopy(book);
+			tx.commit();
 		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			pm.close();
 		}
-		return detached.size();
+		return detached;
+	}
+
+	@Override
+	public int getBookingNumber() {
+		// TODO Auto-generated method stub
+		int bookNumber = 0;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			bookNumber = getBookings().size();
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return bookNumber;
 	}
 
 	@Override

@@ -98,4 +98,7 @@ public class Flight {
 		this.bookList.add(book);
 	}
 
+	public int getBookingNumber() {
+		return this.bookList.size();
+	}
 }

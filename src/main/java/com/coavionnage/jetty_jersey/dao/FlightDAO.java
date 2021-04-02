@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FlightDAO {
@@ -8,7 +7,7 @@ public interface FlightDAO {
 	/**
 	 * @return the list of flights
 	 */
-	List<Flight> getFlights(String departure, String arrival, LocalDateTime departureDate);
+	List<Flight> getFlights(String departure);
 
 	/**
 	 * Add a new flight to the database
@@ -23,5 +22,7 @@ public interface FlightDAO {
 	void deleteFlight(Flight flight);
 
 	void editFlight(Flight flight);
+
+	List<Booking> getBookings();
 
 }

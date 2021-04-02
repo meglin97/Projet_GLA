@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.ws;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -30,14 +29,14 @@ public class FlightResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlights() {
-		return DAO.getFlightDAO().getFlights(null, null, null);
+		return DAO.getFlightDAO().getFlights(null);
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Flight getFlight(@PathParam("id") String flightID) {
-		return DAO.getFlightDAO().getFlights(flightID, null, null).get(0);
+	@Path("{departure}")
+	public Flight getFlight(@PathParam("departure") String departure) {
+		return DAO.getFlightDAO().getFlights(departure).get(0);
 	}
 
 	@GET
@@ -45,22 +44,8 @@ public class FlightResource {
 	public Response searchFlightByCriteria(@QueryParam("departure") String departure,
 			@QueryParam("arrival") String arrival, @QueryParam("departure_time") String departureTime) {
 		System.out.println("FlightResource.searchByCriteria()");
-		String[] departureDateArray = departureTime.split("-");
-		LocalDateTime departureDate = LocalDateTime.of(Integer.parseInt(departureDateArray[0]),
-				Integer.parseInt(departureDateArray[1]), Integer.parseInt(departureDateArray[2]), 0, 0, 0);
 
 		return Response.ok().header("departure", departure).header("arrival", arrival)
-				.header("departure_time", departureTime)
-				.entity(DAO.getFlightDAO().getFlights(departure, arrival, departureDate)).build();
-	}
-
-	@Path("/bookings")
-	public BookingResource getFlightBookingResource() {
-		return new BookingResource();
-	}
-
-	@Path("/users")
-	public UserResource getUserResource() {
-		return new UserResource();
+				.header("departure_time", departureTime).entity(DAO.getFlightDAO().getFlights(departure)).build();
 	}
 }

@@ -38,9 +38,7 @@ public class UserDAOImpl implements UserDAO {
 				q.setFilter("username == user");
 				actions = (List<User>) q.execute(uid);
 				detached = (List<User>) pm.detachCopyAll(actions);
-			}
-
-			else {
+			} else {
 				actions = (List<User>) q.execute();
 				detached = (List<User>) pm.detachCopyAll(actions);
 			}
