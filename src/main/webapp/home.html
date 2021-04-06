@@ -12,64 +12,71 @@
 <body>
 
 	<div class="tab">
-		<button class="tablinks"><a href="signUp.html">Sign Up</a></button>
-		<button class="tablinks"><a href="login.html">Log in</a></button>
-		<button class="tablinks"><a href="planAFlight.html">Plan a Flight</a></button>
+		<a href="signUp.html"><button class="tablinks"> Sign Up</button></a>
+		<a href="login.html"><button class="tablinks">Log in</button></a>
+		<a href="deleteFlight.html"><button class="tablinks">Delete a Flight</button></a>
+		<a href="planAFlight.html"><button class="tablinks">Plan a Flight</button></a>
+		<a href="becomeAPilot.html"><button class="tablinks">Become a Pilot</button></a>
 	</div>
 
-	<div class="flight-engine">
-		<div class="container">
-			<div class="tabing">
-				<div class="tab-content">
-					<div id="1" class="tab1 active">
-						<div class="flight-tab row">
-							<div class="persent-one">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								<input type="text" name="dep" class="textboxstyle" id="dep"
-									placeholder="From City or airport">
+	<div class="image">
+		<img src="images/aircraft2.jpg" alt="Nature" style="width:100%;">
+		<div class="flight-engine">
+			<div class="container">
+				<div class="tabing">
+					<div class="tab-content">
+						<div id="1" class="tab1 active">
+							<div class="flight-tab row">
+								<div class="persent-one">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+									<input type="text" name="dep" class="textboxstyle" id="dep"
+										placeholder="From City or airport">
+								</div>
+								<div class="persent-one">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+									<input type="text" name="dep" class="textboxstyle" id="arrival"
+										placeholder="To City or airport">
+								</div>
+								<div class="persent-one less-per">
+									<i class="fa fa-calendar" aria-hidden="true"></i>
+									<input type="text" name="dep" class="textboxstyle" id="date" placeholder="Date">
+								</div>
+								<div class="persent-one less-btn">
+									<input type="Submit" name="submit" value="Search" id="btn-search" class="btn btn-info cst-btn"
+										id="srch">
+								</div>
 							</div>
-							<div class="persent-one">
-								<i class="fa fa-map-marker" aria-hidden="true"></i>
-								<input type="text" name="dep" class="textboxstyle" id="arrival"
-									placeholder="To City or airport">
-							</div>
-							<div class="persent-one less-per">
-								<i class="fa fa-calendar" aria-hidden="true"></i>
-								<input type="text" name="dep" class="textboxstyle" id="date" placeholder="Date">
-							</div>
-							<div class="persent-one less-btn">
-								<input type="Submit" name="submit" value="Search" id="btn-search" class="btn btn-info cst-btn"
-									id="srch">
-							</div>
+							<!-- tabbing -->
 						</div>
-						<!-- tabbing -->
 					</div>
 				</div>
 			</div>
 		</div>
+		<div id="flights-div" class="flightList">
+			<h2>Flights list</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Trajectory</th>
+						<th>Departure time</th>
+						<th>Departure airfield</th>
+						<th>Arrival time</th>
+						<th>Arrival airfield</th>
+						<th>Price</th>
+						<th>Seats available</th>
+					</tr>
+				</thead>
+				<tbody id="flights-list">
+					
+				</tbody>
+			</table>
+		</div>
 	</div>
 
-	<div id="flights-div">
-		<h2>Flights list</h2>
+	
 
-		<table>
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>trajectory</th>
-					<th>departure time</th>
-					<th>departure airfield</th>
-					<th>arrival time</th>
-					<th>arrival airfield</th>
-					<th>price</th>
-					<th>seats available</th>
-				</tr>
-			</thead>
-			<tbody id="flights-list">
-				
-			</tbody>
-		</table>
-	</div>
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="home.js"></script>
