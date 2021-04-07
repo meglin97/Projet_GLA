@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <head>
-    <title>Plan a flight</title>
+    <title>Delete a flight</title>
     <!-- Main css -->
-    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/flight.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
     <div class="tab">
         <a href="home.html"><button class="tablink">Home</button></a>
 	</div>
-
     <div class="main">
-        <!-- Sign up form -->
         <section class="flight">
             <div class="container">
                 <div class="flight-content">
                     <div class="flight-form">
-                        <h2 class="form-title">Plan a flight</h2>
+                        <h2 class="form-title">Delete a flight</h2>
                         <!-- method="PUT" action="/ws/coavionnage/users/flight" -->
                         <form class="register-form" id="register-form"> 
+                            <div class="form-group">
+                                <input type="number" name="number" id="number" placeholder="Flight ID"/>
+                            </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Departure airfield"/>
@@ -35,18 +36,6 @@
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Arrival time"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="number" name="number" id="number" placeholder="Number of places available"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Ticket price per passenger"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Meeting place"/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>

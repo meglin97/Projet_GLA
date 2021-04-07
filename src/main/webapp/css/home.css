@@ -7,6 +7,11 @@ body {font-family: Arial;}
   background-color: #f1f1f1;
 }
 
+.image {
+  position: relative;
+  font-family: Arial;
+}
+
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
@@ -39,10 +44,9 @@ body {font-family: Arial;}
 
 .flight-engine {
   position: absolute;
-  left: 0px;
-  right: 50px;
-  bottom: 600px;
-  padding: 20px;
+  bottom: 90%;
+  right: 10%;
+  left:10%;
 }
 .tabing {
   float: left;
@@ -101,5 +105,11 @@ body {font-family: Arial;}
 }
 
 #flights-div{
-  margin-top: 250px;
+  position: absolute;
+  bottom: 80%;
+  right: 10%;
+  left:10%;
+}
+.flightList{
+
 }

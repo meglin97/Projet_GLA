@@ -36,11 +36,18 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
+<<<<<<< HEAD
 			if (departureAirfield != null) {
 				q.declareParameters("String departure");
 				q.setFilter("departureAirfield == departure");
 				// Variable 'departure' is unbound and cannot be determined
 				actions = (List<Flight>) q.execute(departureAirfield);
+=======
+			if (departure != null) {
+				q.declareParameters("String departure");
+				q.setFilter("departure == departure");
+				actions = (List<Flight>) q.execute(departure);
+>>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
 				detached = (List<Flight>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<Flight>) q.execute();
@@ -68,6 +75,8 @@ public class FlightDAOImpl implements FlightDAO {
 			pm.makePersistent(flight);
 
 			tx.commit();
+			pm.flush();
+			pm.refresh(flight);
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();

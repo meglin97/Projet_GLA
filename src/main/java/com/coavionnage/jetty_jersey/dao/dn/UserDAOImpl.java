@@ -24,7 +24,11 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
+<<<<<<< HEAD
 	public List<User> getUsers(String userID) {
+=======
+	public List<User> getUsers(Integer uid) {
+>>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
 		// TODO Auto-generated method stub
 		List<User> actions = null;
 		List<User> detached = new ArrayList<User>();
@@ -33,10 +37,17 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
+<<<<<<< HEAD
 			if (userID != null) {
 				q.declareParameters("String user");
 				q.setFilter("userID == user");
 				actions = (List<User>) q.execute(userID);
+=======
+			if (uid != null) {
+				q.declareParameters("Integer userID");
+				q.setFilter("userID == userID");
+				actions = (List<User>) q.execute(uid);
+>>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
 				detached = (List<User>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<User>) q.execute();
@@ -55,8 +66,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
+<<<<<<< HEAD
 	public List<Pilot> getPilots(String userID) {
 		// TODO Auto-generated method stub
+=======
+	public List<Pilot> getPilots(String pid) {
+>>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
 		List<Pilot> actions = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -96,6 +111,9 @@ public class UserDAOImpl implements UserDAO {
 			pm.makePersistent(user);
 
 			tx.commit();
+
+			pm.flush();
+			pm.refresh(user);
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -149,6 +167,30 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
+	}
+
+	@Override
+	public User getUserByEmailAndPassword(String email, String password) {
+		List<User> actions = null;
+		List<User> detached = new ArrayList<User>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		try {
+			Query q = pm.newQuery(User.class);
+			if (email != null && password != null) {
+				q.declareParameters("String email, String password");
+				q.setFilter("email == email");
+				q.setFilter("password == password");
+				actions = (List<User>) q.execute(email, password);
+				detached = (List<User>) pm.detachCopyAll(actions);
+			} else {
+				actions = (List<User>) q.execute();
+				detached = (List<User>) pm.detachCopyAll(actions);
+			}
+
+		} finally {
+			pm.close();
+		}
+		return detached.size() > 0 ? detached.get(0) : null;
 	}
 
 }
