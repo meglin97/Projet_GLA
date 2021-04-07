@@ -1,11 +1,15 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -23,17 +27,26 @@ public class UserResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getUsers() {
-		return DAO.getUserDAO().getUsers(null);
+		List<User> list = DAO.getUserDAO().getUsers(null);
+		Collections.sort(list, new Comparator<User>() {
+
+			@Override
+			public int compare(User o1, User o2) {
+				return o1.getUserID().compareTo(o2.getUserID());
+			}
+
+		});
+		return list;
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") Integer uid) {
-		List<User> users = DAO.getUserDAO().getUsers(uid);
+		User users = DAO.getUserDAO().getUsers(uid).get(0);
 
-		if (users.size() > 0)
-			return Response.ok(users.get(0)).build();
+		if (users != null)
+			return Response.ok(users).build();
 
 		return Response.status(Status.NOT_FOUND).build();
 	}
@@ -64,5 +77,33 @@ public class UserResource {
 					.build();
 
 		return Response.ok(user).build();
+	}
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/delete/{id}")
+	public Response deleteUser(@PathParam("id") Integer uid) {
+		User users = DAO.getUserDAO().getUsers(uid).get(0);
+		if (users == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+
+		DAO.getUserDAO().deleteUser(users);
+		return Response.ok().build();
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/edit")
+	public Response editingUser(User user) {
+		if (user == null) {
+			throw new BadRequestException("User missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getUserDAO().editUser(user)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("User not found").build();
+		}
 	}
 }

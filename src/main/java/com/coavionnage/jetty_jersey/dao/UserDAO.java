@@ -12,7 +12,7 @@ public interface UserDAO {
 
 	void deleteUser(User user);
 
-	void editUser(User user);
+	User editUser(User user);
 
 	User getUserByEmailAndPassword(String email, String password);
 }

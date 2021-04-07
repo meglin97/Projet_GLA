@@ -9,6 +9,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.ws.rs.NotFoundException;
 
 import com.coavionnage.jetty_jersey.dao.Pilot;
 import com.coavionnage.jetty_jersey.dao.User;
@@ -128,7 +129,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void editUser(User user) {
+	public User editUser(User user) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -153,31 +154,29 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
+		return user;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getUserByEmailAndPassword(String email, String password) {
-		List<User> actions = null;
+		List<User> user = null;
 		List<User> detached = new ArrayList<User>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		try {
 			Query q = pm.newQuery(User.class);
-			if (email != null && password != null) {
-				q.declareParameters("String email, String password");
-				q.setFilter("email == email");
-				q.setFilter("password == password");
-				actions = (List<User>) q.execute(email, password);
-				detached = (List<User>) pm.detachCopyAll(actions);
-			} else {
-				actions = (List<User>) q.execute();
-				detached = (List<User>) pm.detachCopyAll(actions);
-			}
+			q.declareParameters("String email, String password");
+			q.setFilter("email == email");
+			q.setFilter("password == password");
+			user = (List<User>) q.execute(email, password);
+			detached = (List<User>) pm.detachCopy(user);
 
+		} catch (Exception e) {
+			throw new NotFoundException();
 		} finally {
 			pm.close();
 		}
-		return detached.size() > 0 ? detached.get(0) : null;
+		return detached.get(0);
 	}
 
 }
