@@ -14,34 +14,25 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Flight {
-	
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	public Integer flightID;
-	
+	public String flightID;
+
 	@Persistent
 	public String departureAirfield;
-	
+
 	@Persistent
 	public String arrivalAirfield;
-<<<<<<< HEAD
+
 	public Date departureTime;
 	public Date arrivalTime;
-=======
-	
-	@Persistent
-	public LocalDateTime departureTime;
-	
-	@Persistent
-	public LocalDateTime arrivalTime;
-	
-	@Persistent
->>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
+
 	public List<Booking> bookList;
-	
+
 	@Persistent
 	private int numberPlaces;
-	
+
 	@Persistent
 	private Pilot pilot;
 
@@ -49,14 +40,10 @@ public class Flight {
 
 	}
 
-<<<<<<< HEAD
-	public Flight(String id, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces, Pilot p) {
-		this.flightID = id;
-=======
-	public Flight(Integer flightID, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime,
-			int numberPlaces, Pilot p) {
+	public Flight(String flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
+			Pilot p) {
 		this.flightID = flightID;
->>>>>>> 4ed12e0ab9b4d2bc07071b35d8a0088cbab96d93
+
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
 		this.departureTime = depTime;
@@ -67,12 +54,12 @@ public class Flight {
 
 	}
 
-	public Integer getFlightID() {
+	public String getFlightID() {
 		return flightID;
 	}
 
-	public void setFlightID(Integer fid) {
-		this.flightID = fid;
+	public void setFlightID(String string) {
+		this.flightID = string;
 	}
 
 	public String getDepartureAirfield() {

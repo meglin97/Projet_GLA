@@ -6,7 +6,7 @@ public interface UserDAO {
 
 	List<User> getUsers(Integer userID);
 
-	List<Pilot> getPilots(String pilot);
+	List<Pilot> getPilots(Integer userID);
 
 	User addUser(User u);
 

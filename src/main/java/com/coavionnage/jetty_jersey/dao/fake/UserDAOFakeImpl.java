@@ -28,7 +28,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public List<Pilot> getPilots(String pilot) {
+	public List<Pilot> getPilots(Integer pilot) {
 		// TODO Auto-generated method stub
 		return pilots;
 	}

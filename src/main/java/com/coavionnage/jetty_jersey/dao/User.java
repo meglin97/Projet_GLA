@@ -12,14 +12,14 @@ public class User {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private Integer userID;
-	
+
 	@Persistent
 	private String name;
-	
+
 	@Persistent
 	@Unique
 	private String email;
-	
+
 	@Persistent
 	private String password;
 

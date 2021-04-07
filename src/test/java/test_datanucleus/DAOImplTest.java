@@ -20,7 +20,7 @@ public class DAOImplTest {
 		Assert.assertEquals(0, DAO.getUserDAO().getPilots(null).size());
 
 		Pilot pilot = new Pilot();
-		pilot.setUserID("hlin");
+		pilot.setUserID(1);
 		pilot.setName("Huiting");
 		pilot.setExperience(5);
 		pilot.setNumberOfHoursFlights(200);
