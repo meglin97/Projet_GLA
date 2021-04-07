@@ -1,33 +1,44 @@
 package com.coavionnage.jetty_jersey.dao;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 public class User {
 
 	@PrimaryKey
-	private String userID;
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private Integer userID;
+	
+	@Persistent
 	private String name;
+	
+	@Persistent
+	@Unique
 	private String email;
+	
+	@Persistent
 	private String password;
 
 	public User() {
 		super();
 	}
 
-	public User(String id, String name, String email, String password) {
-		this.userID = id;
+	public User(Integer userID, String name, String email, String password) {
+		this.userID = userID;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
 
-	public String getUserID() {
+	public Integer getUserID() {
 		return userID;
 	}
 
-	public void setUserID(String uid) {
+	public void setUserID(Integer uid) {
 		this.userID = uid;
 	}
 

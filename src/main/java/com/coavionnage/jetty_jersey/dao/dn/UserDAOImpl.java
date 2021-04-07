@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUsers(String uid) {
+	public List<User> getUsers(Integer uid) {
 		// TODO Auto-generated method stub
 		List<User> actions = null;
 		List<User> detached = new ArrayList<User>();
@@ -34,8 +34,8 @@ public class UserDAOImpl implements UserDAO {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
 			if (uid != null) {
-				q.declareParameters("String user");
-				q.setFilter("username == user");
+				q.declareParameters("Integer userID");
+				q.setFilter("userID == userID");
 				actions = (List<User>) q.execute(uid);
 				detached = (List<User>) pm.detachCopyAll(actions);
 			} else {
@@ -56,7 +56,6 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pilot> getPilots(String pid) {
-		// TODO Auto-generated method stub
 		List<Pilot> actions = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -96,6 +95,9 @@ public class UserDAOImpl implements UserDAO {
 			pm.makePersistent(user);
 
 			tx.commit();
+
+			pm.flush();
+			pm.refresh(user);
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -149,6 +151,30 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
+	}
+
+	@Override
+	public User getUserByEmailAndPassword(String email, String password) {
+		List<User> actions = null;
+		List<User> detached = new ArrayList<User>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		try {
+			Query q = pm.newQuery(User.class);
+			if (email != null && password != null) {
+				q.declareParameters("String email, String password");
+				q.setFilter("email == email");
+				q.setFilter("password == password");
+				actions = (List<User>) q.execute(email, password);
+				detached = (List<User>) pm.detachCopyAll(actions);
+			} else {
+				actions = (List<User>) q.execute();
+				detached = (List<User>) pm.detachCopyAll(actions);
+			}
+
+		} finally {
+			pm.close();
+		}
+		return detached.size() > 0 ? detached.get(0) : null;
 	}
 
 }

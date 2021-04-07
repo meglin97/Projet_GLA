@@ -4,26 +4,46 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Flight {
-	public String flightID;
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	public Integer flightID;
+	
+	@Persistent
 	public String departureAirfield;
+	
+	@Persistent
 	public String arrivalAirfield;
+	
+	@Persistent
 	public LocalDateTime departureTime;
+	
+	@Persistent
 	public LocalDateTime arrivalTime;
+	
+	@Persistent
 	public List<Booking> bookList;
+	
+	@Persistent
 	private int numberPlaces;
+	
+	@Persistent
 	private Pilot pilot;
 
 	public Flight() {
 
 	}
 
-	public Flight(String id, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime,
+	public Flight(Integer flightID, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime,
 			int numberPlaces, Pilot p) {
-		this.flightID = id;
+		this.flightID = flightID;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
 		this.departureTime = depTime;
@@ -34,11 +54,11 @@ public class Flight {
 
 	}
 
-	public String getFlightID() {
+	public Integer getFlightID() {
 		return flightID;
 	}
 
-	public void setFlightID(String fid) {
+	public void setFlightID(Integer fid) {
 		this.flightID = fid;
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserDAO {
 
-	List<User> getUsers(String user);
+	List<User> getUsers(Integer userID);
 
 	List<Pilot> getPilots(String pilot);
 
@@ -14,4 +14,5 @@ public interface UserDAO {
 
 	void editUser(User user);
 
+	User getUserByEmailAndPassword(String email, String password);
 }

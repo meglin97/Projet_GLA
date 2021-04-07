@@ -34,8 +34,8 @@ public class FlightDAOImpl implements FlightDAO {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			if (departure != null) {
-				q.declareParameters("String getDepartureAirfield");
-				q.setFilter("departure == getDepartureAirfield");
+				q.declareParameters("String departure");
+				q.setFilter("departure == departure");
 				actions = (List<Flight>) q.execute(departure);
 				detached = (List<Flight>) pm.detachCopyAll(actions);
 			} else {
@@ -64,6 +64,8 @@ public class FlightDAOImpl implements FlightDAO {
 			pm.makePersistent(flight);
 
 			tx.commit();
+			pm.flush();
+			pm.refresh(flight);
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();

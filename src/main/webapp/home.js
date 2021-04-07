@@ -54,7 +54,7 @@ $(function () {
 
 	$("#button2").click(function () {
 
-		putServerData("ws/coavinnage/flights/add",JSON.stringify(data), callDone);
+		putServerData("ws/coavionnage/flights/add",JSON.stringify(data), callDone);
 	});
 
 
@@ -71,39 +71,17 @@ $(function () {
 	});
 
 	$("#button").click(function () {
-		putServerData("ws/coavinnage/flights/bookings/add",JSON.stringify(data), callDone);
+		putServerData("ws/coavionnage/flights/bookings/add",JSON.stringify(data), callDone);
 	});
 
-	
-	
-	$('#register-form').on('submit', function(event){
-		event.preventDefault();
-		
-		console.log("form submitted");
-
-		let data = {
-			name: document.getElementById("name").value,
-			password: document.getElementById("password").value,
-			email: document.getElementById("email").value
-		};
-
-		$.ajax({
-			type: 'PUT',
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(data),
-			url: "/ws/coavionage/users/signup"
-		}).done((response)=>{
-			console.log(response);
-		});
-	});
+	console.log(sessionStorage.getItem("current_user_id"));
 });
 
 function getAllFlights() {
     $.ajax({
 		type: 'GET',
 		dataType: "json",
-		url: "ws/coavionage/flights"
+		url: "ws/coavionnage/flights"
 	}).done((response)=>{
         console.log(response);
         updateFlightsList(response);
@@ -114,7 +92,7 @@ function searchFlights() {
 	const departure = document.getElementById("dep").value;
 	const arrival = document.getElementById("arrival").value;
 	const date = document.getElementById("date").value;
-	const url = "ws/coavionage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_time=" + date;
+	const url = "ws/coavionnage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_time=" + date;
 	console.log(url);
 
 	$.ajax({
