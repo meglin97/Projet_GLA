@@ -21,12 +21,6 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public int getBookingNumber() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void deleteFlight(Flight flight) {
 		// TODO Auto-generated method stub
 
@@ -39,7 +33,7 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public List<Booking> getBookings() {
+	public List<Booking> getBookings(String s) {
 		// TODO Auto-generated method stub
 		return null;
 	}

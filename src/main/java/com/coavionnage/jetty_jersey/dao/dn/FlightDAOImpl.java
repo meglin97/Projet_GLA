@@ -1,5 +1,7 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.coavionnage.jetty_jersey.dao.Booking;
+import com.coavionnage.jetty_jersey.dao.DAO;
 import com.coavionnage.jetty_jersey.dao.Flight;
 import com.coavionnage.jetty_jersey.dao.FlightDAO;
 
@@ -24,7 +27,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> getFlights(String departure) {
+	public List<Flight> getFlights(String departureAirfield) {
 		// TODO Auto-generated method stub
 		List<Flight> actions = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -33,10 +36,11 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			if (departure != null) {
-				q.declareParameters("String getDepartureAirfield");
-				q.setFilter("departure == getDepartureAirfield");
-				actions = (List<Flight>) q.execute(departure);
+			if (departureAirfield != null) {
+				q.declareParameters("String departure");
+				q.setFilter("departureAirfield == departure");
+				// Variable 'departure' is unbound and cannot be determined
+				actions = (List<Flight>) q.execute(departureAirfield);
 				detached = (List<Flight>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<Flight>) q.execute();
@@ -73,46 +77,19 @@ public class FlightDAOImpl implements FlightDAO {
 		return flight;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Booking> getBookings() {
-		List<Booking> book = null;
-		List<Booking> detached = new ArrayList<Booking>();
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("List<Booking> getBookings");
-			book = (List<Booking>) q.execute();
-			detached = (List<Booking>) pm.detachCopy(book);
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return detached;
-	}
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @Override public List<Booking> getBookings() { List<Booking> book = null;
+	 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
+	 * pm.currentTransaction(); try { tx.begin(); Query q =
+	 * pm.newQuery(Flight.class); book = (List<Booking>) q.execute(); tx.commit(); }
+	 * finally { if (tx.isActive()) { tx.rollback(); } pm.close(); } return book; }
+	 */
 
 	@Override
-	public int getBookingNumber() {
-		// TODO Auto-generated method stub
-		int bookNumber = 0;
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			bookNumber = getBookings().size();
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return bookNumber;
+	public List<Booking> getBookings(String bookID) {
+		return DAO.getBookingDAO().getBookings(bookID);
 	}
 
 	@Override
@@ -134,7 +111,7 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public void editFlight(Flight flight) {
+	public void editFlight(Flight flight) throws ParseException {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -146,8 +123,8 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight fl = iter.next();
 				if (fl.getFlightID().equals(flight.getFlightID())) {
 					fl.setArrivalAirfield(flight.getArrivalAirfield());
-					fl.setDepartureTime(flight.getDepartureTime());
-					fl.setArrivalTime(flight.getArrivalTime());
+					fl.setDepartureTime(new SimpleDateFormat("dd-MM-yyy hh:mm:ss").format(flight.getDepartureTime()));
+					fl.setArrivalTime(new SimpleDateFormat("dd-MM-yyy hh:mm:ss").format(flight.getArrivalTime()));
 					fl.setNumberPlaces(flight.getNumberPlaces());
 				}
 			}

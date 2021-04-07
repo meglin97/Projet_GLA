@@ -22,7 +22,7 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Booking> getBookings(String bid) {
+	public List<Booking> getBookings(String bookID) {
 		List<Booking> books = null;
 		List<Booking> detached = new ArrayList<Booking>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -30,10 +30,10 @@ public class BookingDAOImpl implements BookingDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Booking.class);
-			if (bid != null) {
-				q.declareParameters("String bookID");
-				q.setFilter("bid == bookID");
-				books = (List<Booking>) q.execute(bid);
+			if (bookID != null) {
+				q.declareParameters("String bid");
+				q.setFilter("bookID == bid");
+				books = (List<Booking>) q.execute(bookID);
 				detached = (List<Booking>) pm.detachCopyAll(books);
 			} else {
 				books = (List<Booking>) q.execute();

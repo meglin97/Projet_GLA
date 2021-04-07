@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.dao;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface FlightDAO {
@@ -17,12 +18,10 @@ public interface FlightDAO {
 	 */
 	Flight addFlight(Flight flight);
 
-	int getBookingNumber();
-
 	void deleteFlight(Flight flight);
 
-	void editFlight(Flight flight);
+	void editFlight(Flight flight) throws ParseException;
 
-	List<Booking> getBookings();
+	List<Booking> getBookings(String bid);
 
 }

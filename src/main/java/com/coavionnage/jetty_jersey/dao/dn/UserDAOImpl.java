@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUsers(String uid) {
+	public List<User> getUsers(String userID) {
 		// TODO Auto-generated method stub
 		List<User> actions = null;
 		List<User> detached = new ArrayList<User>();
@@ -33,10 +33,10 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
-			if (uid != null) {
+			if (userID != null) {
 				q.declareParameters("String user");
-				q.setFilter("username == user");
-				actions = (List<User>) q.execute(uid);
+				q.setFilter("userID == user");
+				actions = (List<User>) q.execute(userID);
 				detached = (List<User>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<User>) q.execute();
@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pilot> getPilots(String pid) {
+	public List<Pilot> getPilots(String userID) {
 		// TODO Auto-generated method stub
 		List<Pilot> actions = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
@@ -64,11 +64,11 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
-			if (pid != null) {
+			if (userID != null) {
 				q.declareParameters("String user");
-				q.setFilter("username == user");
+				q.setFilter("userID == user");
 
-				actions = (List<Pilot>) q.execute(pid);
+				actions = (List<Pilot>) q.execute(userID);
 				detached = (List<Pilot>) pm.detachCopyAll(actions);
 			} else {
 				actions = (List<Pilot>) q.execute();

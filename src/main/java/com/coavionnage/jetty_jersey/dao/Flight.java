@@ -1,7 +1,10 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.time.LocalDateTime;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
@@ -11,8 +14,8 @@ public class Flight {
 	public String flightID;
 	public String departureAirfield;
 	public String arrivalAirfield;
-	public LocalDateTime departureTime;
-	public LocalDateTime arrivalTime;
+	public Date departureTime;
+	public Date arrivalTime;
 	public List<Booking> bookList;
 	private int numberPlaces;
 	private Pilot pilot;
@@ -21,8 +24,7 @@ public class Flight {
 
 	}
 
-	public Flight(String id, String departure, String arrival, LocalDateTime depTime, LocalDateTime arrTime,
-			int numberPlaces, Pilot p) {
+	public Flight(String id, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces, Pilot p) {
 		this.flightID = id;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
@@ -58,20 +60,22 @@ public class Flight {
 		this.arrivalAirfield = arrivalAirfield;
 	}
 
-	public LocalDateTime getDepartureTime() {
+	public Date getDepartureTime() {
 		return departureTime;
 	}
 
-	public void setDepartureTime(LocalDateTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDepartureTime(String departureTime) throws ParseException {
+		SimpleDateFormat parse = new SimpleDateFormat("dd-MM-yyy hh:mm:ss");
+		this.departureTime = parse.parse(departureTime);
 	}
 
-	public LocalDateTime getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(LocalDateTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public void setArrivalTime(String arrivalTime) throws ParseException {
+		DateFormat parse = new SimpleDateFormat("dd-MM-yyy hh:mm:ss");
+		this.arrivalTime = parse.parse(arrivalTime);
 	}
 
 	public int getNumberPlaces() {
@@ -94,11 +98,12 @@ public class Flight {
 		return bookList;
 	}
 
-	public void setBooking(Booking book) {
-		this.bookList.add(book);
+	public void setBooking(List<Booking> book) {
+		this.bookList = book;
 	}
 
 	public int getBookingNumber() {
 		return this.bookList.size();
 	}
+
 }
