@@ -58,7 +58,6 @@ public class UserResource {
 		if (user == null) {
 			throw new BadRequestException("User missing");
 		}
-
 		try {
 			return Response.created(null).entity(DAO.getUserDAO().addUser(user)).build();
 		} catch (Exception e) {
@@ -83,13 +82,14 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/delete/{id}")
 	public Response deleteUser(@PathParam("id") Integer uid) {
-		User users = DAO.getUserDAO().getUsers(uid).get(0);
-		if (users == null) {
-			return Response.status(Status.NOT_FOUND).build();
+		if (uid == null) {
+			throw new BadRequestException("User id missing");
 		}
-
-		DAO.getUserDAO().deleteUser(users);
-		return Response.ok().build();
+		try {
+			return Response.created(null).entity(DAO.getUserDAO().deleteUser(uid)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("User not found").build();
+		}
 	}
 
 	@POST
@@ -103,7 +103,7 @@ public class UserResource {
 		try {
 			return Response.created(null).entity(DAO.getUserDAO().editUser(user)).build();
 		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("User not found").build();
+			return Response.status(Status.BAD_REQUEST).entity("Cannot edit: user not found").build();
 		}
 	}
 }

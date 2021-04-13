@@ -57,10 +57,11 @@ public class BookingDAOImpl implements BookingDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
 			pm.makePersistent(booking);
-
 			tx.commit();
+
+			pm.flush();
+			pm.refresh(booking);
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -71,13 +72,21 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
-	public void deleteBooking(Booking booking) {
+	public boolean deleteBooking(String bookID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		boolean bool = false;
 		try {
 			tx.begin();
-
-			pm.deletePersistent(booking);
+			Extent<Booking> e = pm.getExtent(Booking.class, true);
+			Iterator<Booking> iter = e.iterator();
+			while (iter.hasNext()) {
+				Booking book = iter.next();
+				if (book.getBookingID().equals(bookID)) {
+					pm.deletePersistent(book);
+					bool = true;
+				}
+			}
 
 			tx.commit();
 		} finally {
@@ -86,10 +95,11 @@ public class BookingDAOImpl implements BookingDAO {
 			}
 			pm.close();
 		}
+		return bool;
 	}
 
 	@Override
-	public void editBooking(Booking booking) {
+	public Booking editBooking(Booking booking) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -112,5 +122,6 @@ public class BookingDAOImpl implements BookingDAO {
 			}
 			pm.close();
 		}
+		return booking;
 	}
 }

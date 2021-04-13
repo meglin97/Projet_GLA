@@ -1,11 +1,7 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -24,33 +20,31 @@ public class Flight {
 
 	@Persistent
 	public String arrivalAirfield;
-
+	@Persistent
 	public Date departureTime;
+	@Persistent
 	public Date arrivalTime;
-
-	public List<Booking> bookList;
 
 	@Persistent
 	private int numberPlaces;
 
 	@Persistent
-	private Pilot pilot;
+	private String pilot;
 
 	public Flight() {
-
+		super();
 	}
 
 	public Flight(String flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
-			Pilot p) {
-		this.flightID = flightID;
+			String pilotID) throws ParseException {
 
+		this.flightID = flightID;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
 		this.departureTime = depTime;
 		this.arrivalTime = arrTime;
-		this.bookList = new ArrayList<Booking>();
 		this.numberPlaces = numberPlaces;
-		this.pilot = p;
+		this.pilot = pilotID;
 
 	}
 
@@ -82,18 +76,16 @@ public class Flight {
 		return departureTime;
 	}
 
-	public void setDepartureTime(String departureTime) throws ParseException {
-		SimpleDateFormat parse = new SimpleDateFormat("dd-MM-yyy hh:mm:ss");
-		this.departureTime = parse.parse(departureTime);
+	public void setDepartureTime(Date departureTime) throws ParseException {
+		this.departureTime = departureTime;
 	}
 
 	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(String arrivalTime) throws ParseException {
-		DateFormat parse = new SimpleDateFormat("dd-MM-yyy hh:mm:ss");
-		this.arrivalTime = parse.parse(arrivalTime);
+	public void setArrivalTime(Date arrivalTime) throws ParseException {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public int getNumberPlaces() {
@@ -104,24 +96,12 @@ public class Flight {
 		this.numberPlaces = numberPlaces;
 	}
 
-	public Pilot getpilot() {
+	public String getpilot() {
 		return pilot;
 	}
 
-	public void setPilot(Pilot p) {
+	public void setPilot(String p) {
 		this.pilot = p;
-	}
-
-	public List<Booking> getBookings() {
-		return bookList;
-	}
-
-	public void setBooking(List<Booking> book) {
-		this.bookList = book;
-	}
-
-	public int getBookingNumber() {
-		return this.bookList.size();
 	}
 
 }

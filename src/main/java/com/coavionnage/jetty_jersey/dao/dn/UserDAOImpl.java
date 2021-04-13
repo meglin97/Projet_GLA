@@ -94,9 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
 			pm.makePersistent(user);
-
 			tx.commit();
 
 			pm.flush();
@@ -111,13 +109,21 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public boolean deleteUser(int userID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		boolean bool = false;
 		try {
 			tx.begin();
-
-			pm.deletePersistent(user);
+			Extent<User> e = pm.getExtent(User.class, true);
+			Iterator<User> iter = e.iterator();
+			while (iter.hasNext()) {
+				User u = iter.next();
+				if (u.getUserID() == userID) {
+					pm.deletePersistent(u);
+					bool = true;
+				}
+			}
 
 			tx.commit();
 		} finally {
@@ -126,6 +132,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
+		return bool;
 	}
 
 	@Override

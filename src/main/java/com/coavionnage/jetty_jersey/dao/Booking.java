@@ -1,6 +1,9 @@
 package com.coavionnage.jetty_jersey.dao;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Booking {
@@ -10,26 +13,29 @@ public class Booking {
 	// public final static String BOOKING_STATUS_ACCEPTED = "accepted";
 	// public final static String BOOKING_STATUS_REJECTED = "rejected";
 
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private String bookID;
+	@Persistent
 	private String flightID;
-	private User user;
-	private String numPlace;
+	@Persistent
+	private int user;
+	@Persistent
+	private String placeNumber;
+
 	private String status;
-	public String pilotID;
 	public float ticketPrice;
 
 	public Booking() {
 		super();
 	}
 
-	public Booking(String bid, String fid, User u, String num, String status, String pid, float ticketPrice) {
-		super();
+	public Booking(String bid, String fid, int u, String num, String status, float ticketPrice) {
 		this.bookID = bid;
 		this.flightID = fid;
 		this.user = u;
-		this.numPlace = num;
+		this.placeNumber = num;
 		this.status = status;
-		this.pilotID = pid;
 		this.ticketPrice = ticketPrice;
 	}
 
@@ -49,20 +55,20 @@ public class Booking {
 		this.flightID = fid;
 	}
 
-	public User getUser() {
+	public int getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 
 	public String getPlaceNumber() {
-		return numPlace;
+		return placeNumber;
 	}
 
 	public void setPlaceNumber(String numPlace) {
-		this.numPlace = numPlace;
+		this.placeNumber = numPlace;
 	}
 
 	public String getStatus() {
