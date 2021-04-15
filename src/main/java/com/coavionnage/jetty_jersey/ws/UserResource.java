@@ -31,7 +31,7 @@ public class UserResource {
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") Integer uid) {
 		List<User> users = DAO.getUserDAO().getUsers(uid);
-
+		
 		if (users.size() > 0)
 			return Response.ok(users.get(0)).build();
 

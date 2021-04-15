@@ -179,5 +179,4 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return detached.size() > 0 ? detached.get(0) : null;
 	}
-
 }
