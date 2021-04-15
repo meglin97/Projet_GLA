@@ -51,13 +51,15 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public boolean deleteUser(int user) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void editUser(User user) {
+	public User editUser(User user) {
+		return user;
 		// TODO Auto-generated method stub
 
 	}

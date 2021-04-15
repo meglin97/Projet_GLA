@@ -16,26 +16,21 @@ public class BookingDAOFakeImpl implements BookingDAO {
 	@Override
 	public Booking addBooking(Booking booking) {
 		// TODO Auto-generated method stub
-		Booking book = new Booking();
-		book.setBookingID(booking.getBookingID());
-		book.setFlightID(booking.getFlightID());
-		book.setPlaceNumber(booking.getPlaceNumber());
-		book.setUser(booking.getUser());
-		book.setTicketPrice(booking.getTicketPrice());
-		book.setStatus(booking.getStatus());
-		getBookings(null).add(book);
-		return booking;
+
+		return null;
 
 	}
 
 	@Override
-	public void deleteBooking(Booking booking) {
+	public boolean deleteBooking(String booking) {
+		return false;
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void editBooking(Booking booking) {
+	public Booking editBooking(Booking booking) {
+		return booking;
 		// TODO Auto-generated method stub
 
 	}

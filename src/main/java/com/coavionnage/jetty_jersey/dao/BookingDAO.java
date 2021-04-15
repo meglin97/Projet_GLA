@@ -9,8 +9,8 @@ public interface BookingDAO {
 
 	Booking addBooking(Booking booking);
 
-	void deleteBooking(Booking booking);
+	boolean deleteBooking(String bookID);
 
-	void editBooking(Booking booking);
+	Booking editBooking(Booking booking);
 
 }

@@ -18,10 +18,8 @@ public interface FlightDAO {
 	 */
 	Flight addFlight(Flight flight);
 
-	void deleteFlight(Flight flight);
+	boolean deleteFlight(String flightID);
 
-	void editFlight(Flight flight) throws ParseException;
-
-	List<Booking> getBookings(String bid);
+	Flight editFlight(Flight flight) throws ParseException;
 
 }

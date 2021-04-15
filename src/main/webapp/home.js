@@ -63,6 +63,22 @@ $(function () {
 	});
 
 	$("#button2").click(function () {
+		firstName = $('input[name="firstName"]').val();
+        lastName = $('input[name="lastName"]').val();
+        mail = $('input[name="email"]').val();
+        password = $('input[name="password"]').val();
+        experience = $('input[name="experience"]').val();
+        qualification = $('input[name="qualifications"]').val();
+        number_of_flight_hours = $('input[name="nbFlightHours"]').val();
+		data = {
+            "firstName":firstName,
+            "lastName":lastName,
+            "mail":mail,
+            "password":password,
+            "experience":experience,
+            "qualification":qualification,
+            "number_of_flight_hours":number_of_flight_hours
+        }
 		putServerData("ws/coavionnage/users/add",JSON.stringify(data), callDone);
 	});
 

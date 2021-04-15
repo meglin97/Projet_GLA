@@ -1,7 +1,6 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +11,6 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.coavionnage.jetty_jersey.dao.Booking;
-import com.coavionnage.jetty_jersey.dao.DAO;
 import com.coavionnage.jetty_jersey.dao.Flight;
 import com.coavionnage.jetty_jersey.dao.FlightDAO;
 
@@ -66,7 +63,6 @@ public class FlightDAOImpl implements FlightDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
 			pm.makePersistent(flight);
 
 			tx.commit();
@@ -81,30 +77,22 @@ public class FlightDAOImpl implements FlightDAO {
 		return flight;
 	}
 
-	/*
-	 * @SuppressWarnings("unchecked")
-	 * 
-	 * @Override public List<Booking> getBookings() { List<Booking> book = null;
-	 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
-	 * pm.currentTransaction(); try { tx.begin(); Query q =
-	 * pm.newQuery(Flight.class); book = (List<Booking>) q.execute(); tx.commit(); }
-	 * finally { if (tx.isActive()) { tx.rollback(); } pm.close(); } return book; }
-	 */
-
 	@Override
-	public List<Booking> getBookings(String bookID) {
-		return DAO.getBookingDAO().getBookings(bookID);
-	}
-
-	@Override
-	public void deleteFlight(Flight flight) {
+	public boolean deleteFlight(String flightID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		boolean bool = false;
 		try {
 			tx.begin();
-
-			pm.deletePersistent(flight);
-
+			Extent<Flight> e = pm.getExtent(Flight.class, true);
+			Iterator<Flight> iter = e.iterator();
+			while (iter.hasNext()) {
+				Flight f = iter.next();
+				if (f.getFlightID().equals(flightID)) {
+					pm.deletePersistent(f);
+					bool = true;
+				}
+			}
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -112,10 +100,11 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		return bool;
 	}
 
 	@Override
-	public void editFlight(Flight flight) throws ParseException {
+	public Flight editFlight(Flight flight) throws ParseException {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -127,8 +116,8 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight fl = iter.next();
 				if (fl.getFlightID().equals(flight.getFlightID())) {
 					fl.setArrivalAirfield(flight.getArrivalAirfield());
-					fl.setDepartureTime(new SimpleDateFormat("dd-MM-yyy hh:mm:ss").format(flight.getDepartureTime()));
-					fl.setArrivalTime(new SimpleDateFormat("dd-MM-yyy hh:mm:ss").format(flight.getArrivalTime()));
+					fl.setDepartureTime(flight.getDepartureTime());
+					fl.setArrivalTime(flight.getArrivalTime());
 					fl.setNumberPlaces(flight.getNumberPlaces());
 				}
 			}
@@ -140,5 +129,6 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		return flight;
 	}
 }

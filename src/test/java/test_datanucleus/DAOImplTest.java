@@ -16,7 +16,6 @@ public class DAOImplTest {
 	@Test
 	public void test() {
 		Assert.assertEquals(0, DAO.getFlightDAO().getFlights(null).size());
-		Assert.assertEquals(0, DAO.getFlightDAO().getBookings(null).size());
 		Assert.assertEquals(0, DAO.getUserDAO().getPilots(null).size());
 
 		Pilot pilot = new Pilot();
@@ -27,11 +26,9 @@ public class DAOImplTest {
 
 		Booking book1 = new Booking();
 		book1.setBookingID("book1");
-		book1.setUser(pilot);
 
 		Booking book2 = new Booking();
 		book2.setBookingID("book1");
-		book2.setUser(pilot);
 
 		List<Booking> bookings = new ArrayList<Booking>();
 		bookings.add(book1);
@@ -41,14 +38,10 @@ public class DAOImplTest {
 		flight.setFlightID("Air1");
 		flight.setDepartureAirfield("Paris");
 		flight.setArrivalAirfield("Lyon");
-		flight.setBooking(bookings);
-		flight.setPilot(pilot);
 
 		DAO.getFlightDAO().addFlight(flight);
 		Assert.assertEquals(1, DAO.getFlightDAO().getFlights(null).size());
-		Assert.assertEquals(2, DAO.getFlightDAO().getBookings(null).size());
 		Assert.assertEquals(1, DAO.getUserDAO().getPilots(null).size());
 		DAO.getFlightDAO().getFlights("Paris");
-		DAO.getFlightDAO().getBookings("book1");
 	}
 }
