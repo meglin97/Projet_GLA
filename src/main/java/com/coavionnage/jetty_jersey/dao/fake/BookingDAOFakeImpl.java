@@ -14,7 +14,7 @@ public class BookingDAOFakeImpl implements BookingDAO {
 	}
 
 	@Override
-	public Booking addBooking(List<Booking> booking) {
+	public Booking addBooking(Booking booking) {
 		// TODO Auto-generated method stub
 
 		return null;

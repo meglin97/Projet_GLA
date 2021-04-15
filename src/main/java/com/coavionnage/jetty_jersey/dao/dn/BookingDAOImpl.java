@@ -110,7 +110,6 @@ public class BookingDAOImpl implements BookingDAO {
 			while (iter.hasNext()) {
 				Booking book = iter.next();
 				if (book.getBookingID().equals(booking.getBookingID())) {
-					book.setPlaceNumber(booking.getPlaceNumber());
 					book.setUser(booking.getUser());
 				}
 			}

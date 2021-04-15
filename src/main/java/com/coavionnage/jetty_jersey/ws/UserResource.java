@@ -3,7 +3,6 @@ package com.coavionnage.jetty_jersey.ws;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
@@ -43,10 +42,10 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") Integer uid) {
-		User users = DAO.getUserDAO().getUsers(uid).get(0);
+		User user = DAO.getUserDAO().getUsers(uid).get(0);
 
-		if (users != null)
-			return Response.ok(users).build();
+		if (user != null)
+			return Response.ok(user).build();
 
 		return Response.status(Status.NOT_FOUND).build();
 	}
@@ -65,17 +64,20 @@ public class UserResource {
 		}
 	}
 
-	@PUT
+	@SuppressWarnings("unused")
+	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
-	public Response login(Map<String, String> request) {
-		User user = DAO.getUserDAO().getUserByEmailAndPassword(request.get("email"), request.get("password"));
+	public Response login(User request) {
+		if (request == null) {
+			throw new BadRequestException("User missing");
+		}
+		User user = DAO.getUserDAO().getUserByEmailAndPassword(request.getEmail(), request.getPassword());
+		if (user != null) {
+			return Response.ok(user).build();
+		}
+		return Response.status(Status.UNAUTHORIZED).entity("Authentication error: email or password incorrect").build();
 
-		if (user == null)
-			return Response.status(Status.UNAUTHORIZED).entity("Authentication error: email or password incorrect")
-					.build();
-
-		return Response.ok(user).build();
 	}
 
 	@DELETE

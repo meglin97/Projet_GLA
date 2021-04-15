@@ -7,6 +7,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 public class Flight {
@@ -16,27 +17,32 @@ public class Flight {
 	public String flightID;
 
 	@Persistent
+	@Unique
 	public String departureAirfield;
 
 	@Persistent
+	@Unique
 	public String arrivalAirfield;
 	@Persistent
+	@Unique
 	public Date departureTime;
 	@Persistent
+	@Unique
 	public Date arrivalTime;
 
-	@Persistent
 	private int numberPlaces;
 
 	@Persistent
 	private String pilot;
+
+	private float ticketPrice;
 
 	public Flight() {
 		super();
 	}
 
 	public Flight(String flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
-			String pilotID) throws ParseException {
+			String pilotID, float ticketPrice) throws ParseException {
 
 		this.flightID = flightID;
 		this.departureAirfield = departure;
@@ -45,6 +51,7 @@ public class Flight {
 		this.arrivalTime = arrTime;
 		this.numberPlaces = numberPlaces;
 		this.pilot = pilotID;
+		this.setTicketPrice(ticketPrice);
 
 	}
 
@@ -102,6 +109,14 @@ public class Flight {
 
 	public void setPilot(String p) {
 		this.pilot = p;
+	}
+
+	public float getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(float ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 }

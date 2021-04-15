@@ -172,9 +172,9 @@ public class UserDAOImpl implements UserDAO {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		try {
 			Query q = pm.newQuery(User.class);
-			q.declareParameters("String email, String password");
-			q.setFilter("email == email");
-			q.setFilter("password == password");
+			q.declareParameters("String mail, String pass");
+			q.setFilter("email == mail");
+			q.setFilter("password == pass");
 			user = (List<User>) q.execute(email, password);
 			detached = (List<User>) pm.detachCopy(user);
 

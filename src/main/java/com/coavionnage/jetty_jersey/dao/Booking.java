@@ -20,23 +20,19 @@ public class Booking {
 	private String flightID;
 	@Persistent
 	private int user;
-	@Persistent
-	private String placeNumber;
 
 	private String status;
-	public float ticketPrice;
 
 	public Booking() {
 		super();
 	}
 
-	public Booking(String bid, String fid, int u, String num, String status, float ticketPrice) {
+	public Booking(String bid, String fid, int u, String status) {
 		this.bookID = bid;
 		this.flightID = fid;
 		this.user = u;
-		this.placeNumber = num;
 		this.status = status;
-		this.ticketPrice = ticketPrice;
+
 	}
 
 	public String getBookingID() {
@@ -63,14 +59,6 @@ public class Booking {
 		this.user = user;
 	}
 
-	public String getPlaceNumber() {
-		return placeNumber;
-	}
-
-	public void setPlaceNumber(String numPlace) {
-		this.placeNumber = numPlace;
-	}
-
 	public String getStatus() {
 		return this.status;
 	}
@@ -78,13 +66,4 @@ public class Booking {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public float getTicketPrice() {
-		return ticketPrice;
-	}
-
-	public void setTicketPrice(float ticketPrice) {
-		this.ticketPrice = ticketPrice;
-	}
-
 }
