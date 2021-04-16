@@ -15,11 +15,11 @@ public class Booking {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	private String bookID;
+	private Integer bookID;
 	@Persistent
 	private String flightID;
 	@Persistent
-	private int user;
+	private int userID;
 
 	private String status;
 
@@ -27,19 +27,19 @@ public class Booking {
 		super();
 	}
 
-	public Booking(String bid, String fid, int u, String status) {
+	public Booking(Integer bid, String fid, int u, String status) {
 		this.bookID = bid;
 		this.flightID = fid;
-		this.user = u;
+		this.userID = u;
 		this.status = status;
 
 	}
 
-	public String getBookingID() {
+	public Integer getBookingID() {
 		return bookID;
 	}
 
-	public void setBookingID(String bid) {
+	public void setBookingID(Integer bid) {
 		this.bookID = bid;
 	}
 
@@ -52,11 +52,11 @@ public class Booking {
 	}
 
 	public int getUser() {
-		return user;
+		return userID;
 	}
 
 	public void setUser(int user) {
-		this.user = user;
+		this.userID = user;
 	}
 
 	public String getStatus() {

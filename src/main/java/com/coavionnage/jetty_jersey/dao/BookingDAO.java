@@ -9,7 +9,7 @@ public interface BookingDAO {
 
 	Booking addBooking(Booking booking);
 
-	boolean deleteBooking(String bookID);
+	boolean deleteBooking(Integer bookID);
 
 	Booking editBooking(Booking booking);
 

@@ -72,7 +72,7 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
-	public boolean deleteBooking(String bookID) {
+	public boolean deleteBooking(Integer bookID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		boolean bool = false;

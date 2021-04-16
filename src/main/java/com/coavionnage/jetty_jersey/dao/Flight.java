@@ -7,33 +7,29 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 public class Flight {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	public String flightID;
+	public Integer flightID;
 
 	@Persistent
-	@Unique
 	public String departureAirfield;
 
 	@Persistent
-	@Unique
 	public String arrivalAirfield;
 	@Persistent
-	@Unique
 	public Date departureTime;
 	@Persistent
-	@Unique
+
 	public Date arrivalTime;
 
 	private int numberPlaces;
 
 	@Persistent
-	private String pilot;
+	private int pilot;
 
 	private float ticketPrice;
 
@@ -41,8 +37,8 @@ public class Flight {
 		super();
 	}
 
-	public Flight(String flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
-			String pilotID, float ticketPrice) throws ParseException {
+	public Flight(Integer flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
+			int pilotID, float ticketPrice) throws ParseException {
 
 		this.flightID = flightID;
 		this.departureAirfield = departure;
@@ -55,11 +51,11 @@ public class Flight {
 
 	}
 
-	public String getFlightID() {
+	public Integer getFlightID() {
 		return flightID;
 	}
 
-	public void setFlightID(String string) {
+	public void setFlightID(Integer string) {
 		this.flightID = string;
 	}
 
@@ -103,11 +99,11 @@ public class Flight {
 		this.numberPlaces = numberPlaces;
 	}
 
-	public String getpilot() {
+	public int getpilot() {
 		return pilot;
 	}
 
-	public void setPilot(String p) {
+	public void setPilot(int p) {
 		this.pilot = p;
 	}
 
