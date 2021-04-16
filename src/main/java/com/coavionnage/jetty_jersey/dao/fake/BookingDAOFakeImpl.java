@@ -22,7 +22,7 @@ public class BookingDAOFakeImpl implements BookingDAO {
 	}
 
 	@Override
-	public boolean deleteBooking(String booking) {
+	public boolean deleteBooking(Integer booking) {
 		return false;
 		// TODO Auto-generated method stub
 
