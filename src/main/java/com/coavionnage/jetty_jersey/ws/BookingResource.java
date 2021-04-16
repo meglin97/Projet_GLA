@@ -66,7 +66,7 @@ public class BookingResource {
 
 	@DELETE
 	@Path("/delete/{id}")
-	public Response deleteBooking(@PathParam("id") String bookingID) {
+	public Response deleteBooking(@PathParam("id") Integer bookingID) {
 		if (bookingID == null) {
 			throw new BadRequestException("booking missing");
 		}
