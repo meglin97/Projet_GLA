@@ -11,8 +11,6 @@ public interface FlightDAO {
 	 */
 	List<Flight> getFlights();
 
-	List<Flight> getFlights(String departure, String arrival, Date departureDate, Date arrivaldate);
-
 	/**
 	 * Add a new flight to the database
 	 * 
@@ -25,4 +23,5 @@ public interface FlightDAO {
 
 	Flight editFlight(Flight flight) throws ParseException;
 
+	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date);
 }

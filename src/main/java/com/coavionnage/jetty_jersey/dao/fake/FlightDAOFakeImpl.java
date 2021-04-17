@@ -14,12 +14,6 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public List<Flight> getFlights(String departure, String arrival, Date departureDate, Date arrivaldate) {
-
-		return null;
-	}
-
-	@Override
 	public Flight addFlight(Flight flight) {
 		return flight;
 		// TODO Auto-generated method stub
@@ -37,6 +31,12 @@ public class FlightDAOFakeImpl implements FlightDAO {
 		return flight;
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

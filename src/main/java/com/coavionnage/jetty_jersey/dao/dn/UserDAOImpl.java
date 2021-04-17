@@ -1,8 +1,10 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
@@ -172,17 +174,17 @@ public class UserDAOImpl implements UserDAO {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		try {
 			Query q = pm.newQuery(User.class);
-			q.declareParameters("String mail, String pass");
-			q.setFilter("email == mail");
-			q.setFilter("password == pass");
+			q.declareParameters("String email, String password");
+			q.setFilter("email == 'email' && password == 'password'");
 			user = (List<User>) q.execute(email, password);
 			detached = (List<User>) pm.detachCopy(user);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NotFoundException();
 		} finally {
 			pm.close();
 		}
-		return detached.get(0);
+		return user.get(0);
 	}
 }

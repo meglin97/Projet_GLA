@@ -43,6 +43,34 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		if (detached.size() == 0)
+			return null;
+		return detached;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date departureDate) {
+		// TODO Auto-generated method stub
+		List<Flight> actions = null;
+		List<Flight> detached = new ArrayList<Flight>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("String departure, String arrival, Date depDate, Date arrDate");
+			q.setFilter(
+					"departureAirfield=departure && arrivalAirfield=arrival && departureDate=depDate && arrivalDate=arrDate");
+			actions = (List<Flight>) q.execute();
+			detached = (List<Flight>) pm.detachCopyAll(actions);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 		return detached;
 	}
 
@@ -122,30 +150,4 @@ public class FlightDAOImpl implements FlightDAO {
 		return flight;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Flight> getFlights(String departureAirfield, String arrivalAirfield, Date departureDate,
-			Date arrivalDate) {
-		// TODO Auto-generated method stub
-		List<Flight> actions = null;
-		List<Flight> detached = new ArrayList<Flight>();
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("String departure, String arrival, Date depDate, Date arrDate");
-			q.setFilter(
-					"departureAirfield=departure && arrivalAirfield=arrival && departureDate=depDate && arrivalDate=arrDate");
-			actions = (List<Flight>) q.execute();
-			detached = (List<Flight>) pm.detachCopyAll(actions);
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return detached;
-	}
 }

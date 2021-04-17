@@ -46,13 +46,13 @@ public class FlightResource {
 
 	@GET
 	@Path("/search")
-	public Response searchFlightByCriteria(@QueryParam("departure") String departure,
-			@QueryParam("arrival") String arrival, @QueryParam("departure_time") Date departureTime) {
+	public Response searchByCriteria(@QueryParam("departure") String departure, @QueryParam("arrival") String arrival,
+			@QueryParam("departure_time") Date departureTime) {
 		System.out.println("FlightResource.searchByCriteria()");
 
 		return Response.ok().header("departure", departure).header("arrival", arrival)
 				.header("departure_time", departureTime)
-				.entity(DAO.getFlightDAO().getFlights(departure, arrival, departureTime, null)).build();
+				.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, departureTime)).build();
 	}
 
 	@POST

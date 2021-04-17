@@ -65,7 +65,7 @@ public class UserResource {
 	}
 
 	@SuppressWarnings("unused")
-	@GET
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public Response login(User request) {
@@ -73,6 +73,7 @@ public class UserResource {
 			throw new BadRequestException("User missing");
 		}
 		User user = DAO.getUserDAO().getUserByEmailAndPassword(request.getEmail(), request.getPassword());
+		System.out.println(user);
 		if (user != null) {
 			return Response.ok(user).build();
 		}
