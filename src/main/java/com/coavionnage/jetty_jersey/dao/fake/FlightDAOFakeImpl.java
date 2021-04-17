@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.dao.fake;
 
+import java.util.Date;
 import java.util.List;
 
 import com.coavionnage.jetty_jersey.dao.Flight;
@@ -31,6 +32,12 @@ public class FlightDAOFakeImpl implements FlightDAO {
 		return flight;
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

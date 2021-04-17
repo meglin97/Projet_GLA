@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -31,9 +32,13 @@ public class FlightResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{departure}")
+	@Path("/{departure}")
 	public Response getFlight(@PathParam("departure") String departure) {
-		Flight flight = DAO.getFlightDAO().getFlights(departure).get(0);
+		List<Flight> flightList = DAO.getFlightDAO().getFlights(departure);
+		if (flightList == null)
+			return Response.status(Status.NO_CONTENT).build();
+			
+		Flight flight = flightList.get(0);
 
 		if (flight != null)
 			return Response.ok(flight).build();
@@ -62,7 +67,7 @@ public class FlightResource {
 		System.out.println("FlightResource.searchByCriteria()");
 
 		return Response.ok().header("departure", departure).header("arrival", arrival)
-				.header("departure_time", departureTime).entity(DAO.getFlightDAO().getFlights(departure)).build();
+				.header("departure_time", departureTime).entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, departureTime)).build();
 	}
 
 	@POST
