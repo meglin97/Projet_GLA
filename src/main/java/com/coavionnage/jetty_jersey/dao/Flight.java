@@ -21,10 +21,10 @@ public class Flight {
 	@Persistent
 	public String arrivalAirfield;
 	@Persistent
-	public Date departureTime;
+	public Date departureDate;
 	@Persistent
 
-	public Date arrivalTime;
+	public Date arrivalDate;
 
 	private int numberPlaces;
 
@@ -43,8 +43,8 @@ public class Flight {
 		this.flightID = flightID;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
-		this.departureTime = depTime;
-		this.arrivalTime = arrTime;
+		this.departureDate = depTime;
+		this.arrivalDate = arrTime;
 		this.numberPlaces = numberPlaces;
 		this.pilot = pilotID;
 		this.setTicketPrice(ticketPrice);
@@ -75,20 +75,20 @@ public class Flight {
 		this.arrivalAirfield = arrivalAirfield;
 	}
 
-	public Date getDepartureTime() {
-		return departureTime;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDepartureTime(Date departureTime) throws ParseException {
-		this.departureTime = departureTime;
+	public void setDepartureDate(Date departureTime) throws ParseException {
+		this.departureDate = departureTime;
 	}
 
-	public Date getArrivalTime() {
-		return arrivalTime;
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
 
-	public void setArrivalTime(Date arrivalTime) throws ParseException {
-		this.arrivalTime = arrivalTime;
+	public void setArrivalDate(Date arrivalTime) throws ParseException {
+		this.arrivalDate = arrivalTime;
 	}
 
 	public int getNumberPlaces() {

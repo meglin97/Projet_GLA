@@ -1,14 +1,20 @@
 package com.coavionnage.jetty_jersey.dao.fake;
 
+import java.util.Date;
 import java.util.List;
 
 import com.coavionnage.jetty_jersey.dao.Flight;
 import com.coavionnage.jetty_jersey.dao.FlightDAO;
 
 public class FlightDAOFakeImpl implements FlightDAO {
+	@Override
+	public List<Flight> getFlights() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
-	public List<Flight> getFlights(String departure) {
+	public List<Flight> getFlights(String departure, String arrival, Date departureDate, Date arrivaldate) {
 
 		return null;
 	}
@@ -20,7 +26,7 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean deleteFlight(String flight) {
+	public boolean deleteFlight(Integer flight) {
 		return false;
 		// TODO Auto-generated method stub
 

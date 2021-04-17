@@ -2,6 +2,7 @@ package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> getFlights(String departureAirfield) {
+	public List<Flight> getFlights() {
 		// TODO Auto-generated method stub
 		List<Flight> actions = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -33,19 +34,8 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-
-			if (departureAirfield != null) {
-				q.declareParameters("String departure");
-				q.setFilter("departureAirfield == departure");
-				// Variable 'departure' is unbound and cannot be determined
-				actions = (List<Flight>) q.execute(departureAirfield);
-
-				detached = (List<Flight>) pm.detachCopyAll(actions);
-			} else {
-				actions = (List<Flight>) q.execute();
-				detached = (List<Flight>) pm.detachCopyAll(actions);
-			}
-
+			actions = (List<Flight>) q.execute();
+			detached = (List<Flight>) pm.detachCopyAll(actions);
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -78,7 +68,7 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean deleteFlight(String flightID) {
+	public boolean deleteFlight(Integer flightID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		boolean bool = false;
@@ -116,8 +106,8 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight fl = iter.next();
 				if (fl.getFlightID().equals(flight.getFlightID())) {
 					fl.setArrivalAirfield(flight.getArrivalAirfield());
-					fl.setDepartureTime(flight.getDepartureTime());
-					fl.setArrivalTime(flight.getArrivalTime());
+					fl.setDepartureDate(flight.getDepartureDate());
+					fl.setArrivalDate(flight.getArrivalDate());
 					fl.setNumberPlaces(flight.getNumberPlaces());
 				}
 			}
@@ -130,5 +120,32 @@ public class FlightDAOImpl implements FlightDAO {
 			pm.close();
 		}
 		return flight;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Flight> getFlights(String departureAirfield, String arrivalAirfield, Date departureDate,
+			Date arrivalDate) {
+		// TODO Auto-generated method stub
+		List<Flight> actions = null;
+		List<Flight> detached = new ArrayList<Flight>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("String departure, String arrival, Date depDate, Date arrDate");
+			q.setFilter(
+					"departureAirfield=departure && arrivalAirfield=arrival && departureDate=depDate && arrivalDate=arrDate");
+			actions = (List<Flight>) q.execute();
+			detached = (List<Flight>) pm.detachCopyAll(actions);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
 	}
 }

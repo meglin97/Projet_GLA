@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -26,19 +27,7 @@ public class FlightResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlights() {
-		return DAO.getFlightDAO().getFlights(null);
-	}
-
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{departure}")
-	public Response getFlight(@PathParam("departure") String departure) {
-		Flight flight = DAO.getFlightDAO().getFlights(departure).get(0);
-
-		if (flight != null)
-			return Response.ok(flight).build();
-
-		return Response.status(Status.NOT_FOUND).build();
+		return DAO.getFlightDAO().getFlights();
 	}
 
 	@PUT
@@ -58,11 +47,12 @@ public class FlightResource {
 	@GET
 	@Path("/search")
 	public Response searchFlightByCriteria(@QueryParam("departure") String departure,
-			@QueryParam("arrival") String arrival, @QueryParam("departure_time") String departureTime) {
+			@QueryParam("arrival") String arrival, @QueryParam("departure_time") Date departureTime) {
 		System.out.println("FlightResource.searchByCriteria()");
 
 		return Response.ok().header("departure", departure).header("arrival", arrival)
-				.header("departure_time", departureTime).entity(DAO.getFlightDAO().getFlights(departure)).build();
+				.header("departure_time", departureTime)
+				.entity(DAO.getFlightDAO().getFlights(departure, arrival, departureTime, null)).build();
 	}
 
 	@POST
@@ -82,7 +72,7 @@ public class FlightResource {
 
 	@DELETE
 	@Path("/delete/{id}")
-	public Response deleteFlight(@PathParam("id") String flightID) {
+	public Response deleteFlight(@PathParam("id") Integer flightID) {
 		if (flightID == null) {
 			throw new BadRequestException("Flight id missing");
 		}
