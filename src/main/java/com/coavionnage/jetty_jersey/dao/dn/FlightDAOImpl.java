@@ -61,7 +61,7 @@ public class FlightDAOImpl implements FlightDAO {
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("String departure, String arrival, Date depDate, Date arrDate");
 			q.setFilter(
-					"departureAirfield=departure && arrivalAirfield=arrival && departureDate=depDate && arrivalDate=arrDate");
+					"departureAirfield==departure && arrivalAirfield==arrival && departureDate==depDate && arrivalDate==arrDate");
 			actions = (List<Flight>) q.execute();
 			detached = (List<Flight>) pm.detachCopyAll(actions);
 			tx.commit();
