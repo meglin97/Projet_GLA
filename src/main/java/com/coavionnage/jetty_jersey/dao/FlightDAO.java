@@ -23,5 +23,5 @@ public interface FlightDAO {
 
 	Flight editFlight(Flight flight) throws ParseException;
 
-	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date);
+	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield);
 }

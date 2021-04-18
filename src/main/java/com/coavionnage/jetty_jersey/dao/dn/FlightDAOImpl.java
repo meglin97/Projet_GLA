@@ -50,7 +50,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date departureDate) {
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield) {
 		// TODO Auto-generated method stub
 		List<Flight> actions = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -59,10 +59,10 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("String departure, String arrival, Date depDate, Date arrDate");
+			q.declareParameters("String departure, String arrival");
 			q.setFilter(
-					"departureAirfield==departure && arrivalAirfield==arrival && departureDate==depDate && arrivalDate==arrDate");
-			actions = (List<Flight>) q.execute();
+					"departureAirfield==departure && arrivalAirfield==arrival");
+			actions = (List<Flight>) q.execute(departureAirfield,arrivalAirfield);
 			detached = (List<Flight>) pm.detachCopyAll(actions);
 			tx.commit();
 		} finally {

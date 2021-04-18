@@ -4,6 +4,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 public class Booking {
@@ -15,6 +16,7 @@ public class Booking {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	@Unique
 	private Integer bookID;
 	@Persistent
 	private Integer flightID;
@@ -55,8 +57,8 @@ public class Booking {
 		return userID;
 	}
 
-	public void setUser(int user) {
-		this.userID = user;
+	public void setUser(int userID) {
+		this.userID = userID;
 	}
 
 	public String getStatus() {
