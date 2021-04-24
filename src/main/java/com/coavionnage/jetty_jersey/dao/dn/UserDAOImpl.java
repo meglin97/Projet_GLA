@@ -111,7 +111,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean deleteUser(int userID) {
+	public boolean deleteUser(Integer userID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		boolean bool = false;

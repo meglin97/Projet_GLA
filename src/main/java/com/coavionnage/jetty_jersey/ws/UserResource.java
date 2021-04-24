@@ -65,7 +65,7 @@ public class UserResource {
 	}
 
 	@SuppressWarnings("unused")
-	@POST
+	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public Response login(User request) {

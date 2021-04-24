@@ -10,7 +10,7 @@ public interface UserDAO {
 
 	User addUser(User u);
 
-	boolean deleteUser(int userID);
+	boolean deleteUser(Integer userID);
 
 	User editUser(User user);
 

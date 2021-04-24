@@ -29,7 +29,7 @@ public class Flight {
 	private int numberPlaces;
 
 	@Persistent
-	private int pilot;
+	private Integer pilot;
 
 	private float ticketPrice;
 
@@ -38,7 +38,7 @@ public class Flight {
 	}
 
 	public Flight(Integer flightID, String departure, String arrival, Date depTime, Date arrTime, int numberPlaces,
-			int pilotID, float ticketPrice) throws ParseException {
+			Integer pilotID, float ticketPrice) throws ParseException {
 
 		this.flightID = flightID;
 		this.departureAirfield = departure;
@@ -99,11 +99,11 @@ public class Flight {
 		this.numberPlaces = numberPlaces;
 	}
 
-	public int getpilot() {
+	public Integer getpilot() {
 		return pilot;
 	}
 
-	public void setPilot(int p) {
+	public void setPilot(Integer p) {
 		this.pilot = p;
 	}
 

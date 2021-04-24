@@ -21,7 +21,7 @@ public class Booking {
 	@Persistent
 	private Integer flightID;
 	@Persistent
-	private int userID;
+	private Integer userID;
 
 	private String status;
 
@@ -29,7 +29,7 @@ public class Booking {
 		super();
 	}
 
-	public Booking(Integer bid, Integer fid, int u, String status) {
+	public Booking(Integer bid, Integer fid, Integer u, String status) {
 		this.bookID = bid;
 		this.flightID = fid;
 		this.userID = u;
@@ -53,11 +53,11 @@ public class Booking {
 		this.flightID = fid;
 	}
 
-	public int getUser() {
+	public Integer getUser() {
 		return userID;
 	}
 
-	public void setUser(int userID) {
+	public void setUser(Integer userID) {
 		this.userID = userID;
 	}
 
