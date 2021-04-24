@@ -76,5 +76,4 @@ public class BookingResource {
 			return Response.status(Status.BAD_REQUEST).entity("Booking not found").build();
 		}
 	}
-
 }
