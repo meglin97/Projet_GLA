@@ -1,7 +1,8 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -16,23 +17,19 @@ public class Flight {
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	public Integer flightID;
 
-	@Persistent
 	public String departureAirfield;
 
-	@Persistent
 	public String arrivalAirfield;
 
-	@Persistent
-	public LocalDateTime departureDate;
+	public Date departureDate;
 
-	@Persistent
-	public LocalDateTime arrivalDate;
-	@Persistent
+	public Date arrivalDate;
+
 	private int numberPlaces;
-	@Persistent
+
 	@Unique
 	private Integer pilot;
-	@Persistent
+
 	private float ticketPrice;
 
 	public Flight() {
@@ -41,12 +38,17 @@ public class Flight {
 
 	public Flight(Integer flightID, String departure, String arrival, String depTime, String arrTime, int numberPlaces,
 			Integer pilotID, float ticketPrice) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
 		this.flightID = flightID;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
-		this.departureDate = LocalDateTime.parse(depTime, formatter);
-		this.arrivalDate = LocalDateTime.parse(depTime, formatter);
+		try {
+			this.departureDate = new SimpleDateFormat("yyyy-MM-dd").parse(depTime);
+			this.arrivalDate = new SimpleDateFormat("yyyy-MM-dd").parse(arrTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.numberPlaces = numberPlaces;
 		this.pilot = pilotID;
 		this.setTicketPrice(ticketPrice);
@@ -77,19 +79,19 @@ public class Flight {
 		this.arrivalAirfield = arrivalAirfield;
 	}
 
-	public LocalDateTime getDepartureDate() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDepartureDate(LocalDateTime departureTime) {
+	public void setDepartureDate(Date departureTime) {
 		this.departureDate = departureTime;
 	}
 
-	public LocalDateTime getArrivalDate() {
+	public Date getArrivalDate() {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(LocalDateTime arrivalTime) {
+	public void setArrivalDate(Date arrivalTime) {
 		this.arrivalDate = arrivalTime;
 	}
 
