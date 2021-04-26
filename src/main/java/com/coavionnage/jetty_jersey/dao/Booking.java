@@ -1,6 +1,7 @@
 package com.coavionnage.jetty_jersey.dao;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -26,6 +27,7 @@ public class Booking {
 	private Integer userID;
 	@Persistent
 	private String status;
+
 	@Persistent
 	private LocalDateTime date;
 
@@ -72,5 +74,15 @@ public class Booking {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public LocalDateTime getDateTime() {
+		return this.date;
+	}
+
+	@Override
+	public String toString() {
+		return "bookID : " + bookID + "\nflightID : " + flightID + "\nuserID : " + userID + "\nstatus : " + status
+				+ "\ndate time : " + date.format(DateTimeFormatter.ofPattern("EEE dd-MM-yyyy HH:mm:ss"));
 	}
 }

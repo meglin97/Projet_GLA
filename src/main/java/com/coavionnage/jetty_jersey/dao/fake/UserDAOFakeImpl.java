@@ -70,4 +70,10 @@ public class UserDAOFakeImpl implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public Pilot addPilot(Integer u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

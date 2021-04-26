@@ -70,9 +70,11 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
 	public Response login(@QueryParam("email") String email, @QueryParam("password") String password) {
-		return Response.ok().header("email", email).header("password", password)
-				.entity(DAO.getUserDAO().getUserByEmailAndPassword(email, password)).build();
-
+		User u = DAO.getUserDAO().getUserByEmailAndPassword(email, password);
+		if (u != null) {
+			return Response.ok().header("email", email).header("password", password).entity(u).build();
+		}
+		return Response.status(Status.NOT_FOUND).entity("userID or password wrong").build();
 	}
 
 	@DELETE

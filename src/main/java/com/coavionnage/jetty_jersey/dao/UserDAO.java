@@ -10,6 +10,8 @@ public interface UserDAO {
 
 	User addUser(User u);
 
+	Pilot addPilot(Integer u);
+
 	boolean deleteUser(Integer userID);
 
 	User editUser(User user);

@@ -80,7 +80,6 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			pm.makePersistent(flight);
-
 			tx.commit();
 			pm.flush();
 			pm.refresh(flight);

@@ -112,6 +112,29 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public Pilot addPilot(Integer pid) {
+		// TODO Auto-generated method stub
+		User pilot = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			pilot = pm.getObjectById(User.class, pid);
+			pm.makePersistent(pilot);
+			tx.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return (Pilot) pilot;
+	}
+
+	@Override
 	public boolean deleteUser(Integer userID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -198,4 +221,5 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return null;
 	}
+
 }
