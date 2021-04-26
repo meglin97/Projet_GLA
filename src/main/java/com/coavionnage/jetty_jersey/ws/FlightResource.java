@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,12 +47,21 @@ public class FlightResource {
 
 	@GET
 	@Path("/search")
-	public Response searchByCriteria(@QueryParam("departure") String departure, @QueryParam("arrival") String arrival) {
-		System.out.println("FlightResource.searchByCriteria()");
+	public Response searchByCriteria(@QueryParam("departure") String departure, @QueryParam("arrival") String arrival,
+			@QueryParam("departure_time") String departure_time) {
+		Date d = null;
+		try {
+			d = new SimpleDateFormat("dd/MM/yyyy").parse(departure_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			return Response.ok().header("departure", departure).header("arrival", arrival).header("departure_time", d)
+					.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, d)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("Flight not found").build();
+		}
 
-		return Response.ok().header("departure", departure).header("arrival", arrival)
-				//.header("departure_time", departureTime)
-				.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival)).build();
 	}
 
 	@POST

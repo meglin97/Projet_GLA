@@ -1,5 +1,7 @@
 package com.coavionnage.jetty_jersey.dao;
 
+import java.time.LocalDateTime;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -22,8 +24,10 @@ public class Booking {
 	private Integer flightID;
 	@Persistent
 	private Integer userID;
-
+	@Persistent
 	private String status;
+	@Persistent
+	private LocalDateTime date;
 
 	public Booking() {
 		super();
@@ -34,6 +38,7 @@ public class Booking {
 		this.flightID = fid;
 		this.userID = u;
 		this.status = status;
+		this.date = LocalDateTime.now();
 
 	}
 

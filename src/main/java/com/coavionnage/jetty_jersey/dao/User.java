@@ -9,13 +9,12 @@ import javax.jdo.annotations.Unique;
 @PersistenceCapable
 public class User {
 
-	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private Integer userID;
 
 	@Persistent
 	private String name;
-
+	@PrimaryKey
 	@Persistent
 	@Unique
 	private String email;
@@ -71,5 +70,4 @@ public class User {
 		return "User [userID=" + userID + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
 
-	
 }

@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -43,7 +44,7 @@ public class UserResource {
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") Integer uid) {
 		List<User> users = DAO.getUserDAO().getUsers(uid);
-		
+
 		if (users.size() > 0)
 			return Response.ok(users.get(0)).build();
 
@@ -62,22 +63,15 @@ public class UserResource {
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
 		}
+
 	}
 
-	@SuppressWarnings("unused")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/login")
-	public Response login(User request) {
-		if (request == null) {
-			throw new BadRequestException("User missing");
-		}
-		User user = DAO.getUserDAO().getUserByEmailAndPassword(request.getEmail(), request.getPassword());
-		System.out.println(user);
-		if (user != null) {
-			return Response.ok(user).build();
-		}
-		return Response.status(Status.UNAUTHORIZED).entity("Authentication error: email or password incorrect").build();
+	public Response login(@QueryParam("email") String email, @QueryParam("password") String password) {
+		return Response.ok().header("email", email).header("password", password)
+				.entity(DAO.getUserDAO().getUserByEmailAndPassword(email, password)).build();
 
 	}
 

@@ -7,6 +7,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 public class Flight {
@@ -23,14 +24,13 @@ public class Flight {
 	@Persistent
 	public Date departureDate;
 	@Persistent
-
 	public Date arrivalDate;
-
-	private int numberPlaces;
-
 	@Persistent
+	private int numberPlaces;
+	@Persistent
+	@Unique
 	private Integer pilot;
-
+	@Persistent
 	private float ticketPrice;
 
 	public Flight() {

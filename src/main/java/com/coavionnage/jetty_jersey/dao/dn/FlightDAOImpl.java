@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -50,7 +49,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield) {
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date) {
 		// TODO Auto-generated method stub
 		List<Flight> actions = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -59,10 +58,9 @@ public class FlightDAOImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("String departure, String arrival");
-			q.setFilter(
-					"departureAirfield==departure && arrivalAirfield==arrival");
-			actions = (List<Flight>) q.execute(departureAirfield,arrivalAirfield);
+			q.declareParameters("String departure, String arrival,Date d");
+			q.setFilter("departureAirfield==departure && arrivalAirfield==arrival && date==d");
+			actions = (List<Flight>) q.execute(departureAirfield, arrivalAirfield, date);
 			detached = (List<Flight>) pm.detachCopyAll(actions);
 			tx.commit();
 		} finally {
@@ -122,7 +120,7 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public Flight editFlight(Flight flight) throws ParseException {
+	public Flight editFlight(Flight flight) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -134,8 +132,12 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight fl = iter.next();
 				if (fl.getFlightID().equals(flight.getFlightID())) {
 					fl.setArrivalAirfield(flight.getArrivalAirfield());
-					fl.setDepartureDate(flight.getDepartureDate());
-					fl.setArrivalDate(flight.getArrivalDate());
+					try {
+						fl.setDepartureDate(flight.getDepartureDate());
+						fl.setArrivalDate(flight.getArrivalDate());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 					fl.setNumberPlaces(flight.getNumberPlaces());
 				}
 			}

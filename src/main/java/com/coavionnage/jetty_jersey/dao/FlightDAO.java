@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public interface FlightDAO {
 
 	boolean deleteFlight(Integer flightID);
 
-	Flight editFlight(Flight flight) throws ParseException;
+	Flight editFlight(Flight flight);
 
-	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield);
+	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date);
 }

@@ -1,10 +1,8 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
@@ -28,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsers(Integer userID) {
-		List<User> actions = null;
+		List<User> users = null;
 		List<User> detached = new ArrayList<User>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -39,11 +37,11 @@ public class UserDAOImpl implements UserDAO {
 				q.declareParameters("Integer user");
 				q.setFilter("userID == user");
 
-				actions = (List<User>) q.execute(userID);
-				detached = (List<User>) pm.detachCopyAll(actions);
+				users = (List<User>) q.execute(userID);
+				detached = (List<User>) pm.detachCopyAll(users);
 			} else {
-				actions = (List<User>) q.execute();
-				detached = (List<User>) pm.detachCopyAll(actions);
+				users = (List<User>) q.execute();
+				detached = (List<User>) pm.detachCopyAll(users);
 			}
 
 			tx.commit();
@@ -61,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<Pilot> getPilots(Integer userID) {
 
-		List<Pilot> actions = null;
+		List<Pilot> pilots = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -72,11 +70,11 @@ public class UserDAOImpl implements UserDAO {
 				q.declareParameters("Integer user");
 				q.setFilter("userID == user");
 
-				actions = (List<Pilot>) q.execute(userID);
-				detached = (List<Pilot>) pm.detachCopyAll(actions);
+				pilots = (List<Pilot>) q.execute(userID);
+				detached = (List<Pilot>) pm.detachCopyAll(pilots);
 			} else {
-				actions = (List<Pilot>) q.execute();
-				detached = (List<Pilot>) pm.detachCopyAll(actions);
+				pilots = (List<Pilot>) q.execute();
+				detached = (List<Pilot>) pm.detachCopyAll(pilots);
 			}
 
 			tx.commit();
@@ -97,10 +95,13 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			pm.makePersistent(user);
+
 			tx.commit();
 
 			pm.flush();
 			pm.refresh(user);
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -114,20 +115,18 @@ public class UserDAOImpl implements UserDAO {
 	public boolean deleteUser(Integer userID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+
 		boolean bool = false;
 		try {
 			tx.begin();
-			Extent<User> e = pm.getExtent(User.class, true);
-			Iterator<User> iter = e.iterator();
-			while (iter.hasNext()) {
-				User u = iter.next();
-				if (u.getUserID() == userID) {
-					pm.deletePersistent(u);
-					bool = true;
-				}
+			User u = pm.getObjectById(User.class, userID); // cherche si l'utilisateur existe
+			if (u != null) {
+				pm.deletePersistent(u);
+				bool = true;
 			}
-
 			tx.commit();
+		} catch (Exception e) {
+			throw new NotFoundException();
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -149,9 +148,7 @@ public class UserDAOImpl implements UserDAO {
 			while (iter.hasNext()) {
 				User u = iter.next();
 				if (u.getUserID().equals(user.getUserID())) {
-					u.setUserID(user.getUserID());
 					u.setName(user.getName());
-					u.setEmail(user.getEmail());
 					u.setPassword(user.getPassword());
 				}
 			}
@@ -169,22 +166,36 @@ public class UserDAOImpl implements UserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getUserByEmailAndPassword(String email, String password) {
-		List<User> user = null;
+		List<User> users = new ArrayList<User>();
 		List<User> detached = new ArrayList<User>();
 		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
 		try {
+			tx.begin();
 			Query q = pm.newQuery(User.class);
-			q.declareParameters("String email, String password");
-			q.setFilter("email == 'email' && password == 'password'");
-			user = (List<User>) q.execute(email, password);
-			detached = (List<User>) pm.detachCopy(user);
+			if (email != null && password != null) {
+				q.declareParameters("String mail");
+				q.setFilter("email == mail");
+
+				users = (List<User>) q.execute(email);
+				detached = (List<User>) pm.detachCopyAll(users);
+			}
+			for (User u : detached) {
+				if (u.getPassword().equals(password)) {
+					return u;
+				}
+			}
+			tx.commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NotFoundException();
 		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			pm.close();
 		}
-		return user.get(0);
+		return null;
 	}
 }

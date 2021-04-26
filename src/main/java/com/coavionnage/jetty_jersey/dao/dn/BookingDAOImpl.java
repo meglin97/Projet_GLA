@@ -21,6 +21,7 @@ public class BookingDAOImpl implements BookingDAO {
 		this.pmf = pmf;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Booking> getBookings(String bookID) {
 		List<Booking> books = null;
@@ -110,7 +111,8 @@ public class BookingDAOImpl implements BookingDAO {
 			while (iter.hasNext()) {
 				Booking book = iter.next();
 				if (book.getBookingID().equals(booking.getBookingID())) {
-					book.setUser(booking.getUser());
+					book.setStatus(booking.getStatus());
+
 				}
 			}
 

@@ -10,7 +10,7 @@ public class DAOImplTest {
 
 	@Test
 	public void test() {
-		Assert.assertEquals(0, DAO.getFlightDAO().getFlights(null).size());
+		Assert.assertEquals(0, DAO.getFlightDAO().getFlights().size());
 		Assert.assertEquals(0, DAO.getUserDAO().getPilots(null).size());
 
 		Flight flight = new Flight();
@@ -18,8 +18,8 @@ public class DAOImplTest {
 		flight.setArrivalAirfield("Lyon");
 
 		DAO.getFlightDAO().addFlight(flight);
-		Assert.assertEquals(1, DAO.getFlightDAO().getFlights(null).size());
+		Assert.assertEquals(1, DAO.getFlightDAO().getFlights().size());
 		Assert.assertEquals(1, DAO.getUserDAO().getPilots(null).size());
-		DAO.getFlightDAO().getFlights("Paris");
+
 	}
 }
