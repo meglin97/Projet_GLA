@@ -28,4 +28,6 @@ public interface FlightDAO {
 
 	Flight getFlight(Integer fid);
 
+	int flightPlaces(Integer fid);
+
 }

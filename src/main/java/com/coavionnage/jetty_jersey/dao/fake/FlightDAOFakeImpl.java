@@ -51,4 +51,10 @@ public class FlightDAOFakeImpl implements FlightDAO {
 		return null;
 	}
 
+	@Override
+	public int flightPlaces(Integer fid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

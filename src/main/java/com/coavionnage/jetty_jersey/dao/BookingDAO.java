@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface BookingDAO {
 
-	List<Booking> getBookings(String bid);
+	List<Booking> getBookings();
 
 	Booking addBooking(Booking booking);
 
@@ -20,5 +20,7 @@ public interface BookingDAO {
 	int userBookings(Integer uid);
 
 	int totalBooking();
+
+	Booking getBooking(Integer bid);
 
 }

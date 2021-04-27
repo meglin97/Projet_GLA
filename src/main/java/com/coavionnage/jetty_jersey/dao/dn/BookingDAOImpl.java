@@ -3,7 +3,6 @@ package com.coavionnage.jetty_jersey.dao.dn;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
@@ -24,7 +23,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Booking> getBookings(String bookID) {
+	public List<Booking> getBookings() {
 		List<Booking> books = null;
 		List<Booking> detached = new ArrayList<Booking>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -32,15 +31,8 @@ public class BookingDAOImpl implements BookingDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Booking.class);
-			if (bookID != null) {
-				q.declareParameters("String bid");
-				q.setFilter("bookID == bid");
-				books = (List<Booking>) q.execute(bookID);
-				detached = (List<Booking>) pm.detachCopyAll(books);
-			} else {
-				books = (List<Booking>) q.execute();
-				detached = (List<Booking>) pm.detachCopyAll(books);
-			}
+			books = (List<Booking>) q.execute();
+			detached = (List<Booking>) pm.detachCopyAll(books);
 
 			tx.commit();
 		} finally {
@@ -50,6 +42,16 @@ public class BookingDAOImpl implements BookingDAO {
 			pm.close();
 		}
 		return detached;
+	}
+
+	@Override
+	public Booking getBooking(Integer bid) {
+		for (Booking b : this.getBookings()) {
+			if (b.getBookingID().equals(bid)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -136,18 +138,30 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public int totalBooking() {
-		return this.getBookings(null).size();
+		return this.getBookings().size();
 	}
 
 	@Override
+	// number of booking for a flight
 	public int bookingNumber(Integer flightID) {
-		List<Booking> list = this.getBookings(null);
-		return list.stream().filter(b -> b.getFlightID().equals(flightID)).collect(Collectors.toList()).size();
+		int nb = 0;
+		for (Booking b : this.getBookings()) {
+			if (b.getFlightID().equals(flightID)) {
+				nb++;
+			}
+		}
+		return nb;
 	}
 
 	@Override
+	// number of booking the user bought
 	public int userBookings(Integer userID) {
-		List<Booking> list = this.getBookings(null);
-		return list.stream().filter(b -> b.getUser().equals(userID)).collect(Collectors.toList()).size();
+		int nb = 0;
+		for (Booking b : this.getBookings()) {
+			if (b.getUser().equals(userID)) {
+				nb++;
+			}
+		}
+		return nb;
 	}
 }

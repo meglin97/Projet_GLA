@@ -24,7 +24,15 @@ public class BookingResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Booking> getBookings() {
-		return DAO.getBookingDAO().getBookings(null);
+		return DAO.getBookingDAO().getBookings();
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Booking getBooking(@PathParam("id") Integer bookingID) {
+
+		return DAO.getBookingDAO().getBooking(bookingID);
 	}
 
 	@PUT
@@ -41,12 +49,12 @@ public class BookingResource {
 		}
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Booking getBooking(@PathParam("id") String bookingID) {
+	@PUT
+	@Path("/add/{nb}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Booking> addBookings(@PathParam("nb") int nb, Booking book) {
 
-		return DAO.getBookingDAO().getBookings(bookingID).get(0);
+		return DAO.getBookingDAO().addBookings(nb, book);
 	}
 
 	@POST

@@ -8,7 +8,7 @@ import com.coavionnage.jetty_jersey.dao.BookingDAO;
 public class BookingDAOFakeImpl implements BookingDAO {
 
 	@Override
-	public List<Booking> getBookings(String bid) {
+	public List<Booking> getBookings() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,6 +57,12 @@ public class BookingDAOFakeImpl implements BookingDAO {
 	public int totalBooking() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Booking getBooking(Integer bid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
