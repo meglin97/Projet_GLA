@@ -3,6 +3,7 @@ package com.coavionnage.jetty_jersey.ws;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;

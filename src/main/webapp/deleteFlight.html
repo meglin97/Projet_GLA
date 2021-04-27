@@ -17,25 +17,9 @@
                     <div class="flight-form">
                         <h2 class="form-title">Delete a flight</h2>
                         <!-- method="PUT" action="/ws/coavionnage/users/flight" -->
-                        <form class="register-form" id="register-form"> 
+                        <form class="register-form" id="delete_flight_form"> 
                             <div class="form-group">
-                                <input type="number" name="number" id="number" placeholder="Flight ID"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Departure airfield"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Arrival airfield"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Departure time"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Arrival time"/>
+                                <input type="number" name="flight_id" id="flight_id" placeholder="Flight ID"/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>
@@ -49,8 +33,9 @@
             </div>
         </section>
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="home.js"></script>
+    <script src="js/deleteFlight.js"></script>
 </body>
 </html>
 
