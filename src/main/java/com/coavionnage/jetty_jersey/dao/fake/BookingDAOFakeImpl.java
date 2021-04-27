@@ -35,4 +35,28 @@ public class BookingDAOFakeImpl implements BookingDAO {
 
 	}
 
+	@Override
+	public int bookingNumber(Integer flightID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Booking> addBookings(int nbBookings, Booking booking) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int userBookings(Integer uid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int totalBooking() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -20,10 +20,6 @@ public class DAOImplTest {
 		ArrayList<Flight> flights = new ArrayList<Flight>();
 		ArrayList<Booking> books = new ArrayList<Booking>();
 
-		Pilot pilot = new Pilot(1, "Huiting", "hlin@mail.fr", "password", 5, "Co-pilot");
-		users.add(pilot);
-		pilots.add(pilot);
-
 		Booking book = new Booking(1, 1, 1, "pending");
 		books.add(book);
 

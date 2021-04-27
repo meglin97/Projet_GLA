@@ -31,16 +31,31 @@ public class FlightResource {
 		return DAO.getFlightDAO().getFlights();
 	}
 
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response getFlight(@PathParam("id") Integer fid) {
+		if (fid == null) {
+			throw new BadRequestException("flight ID missed");
+		}
+		try {
+			return Response.created(null).entity(DAO.getFlightDAO().getFlight(fid)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("Error: Flight not found").build();
+		}
+	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add")
 	public Response addFlight(Flight flight) {
 		if (flight == null) {
-			throw new BadRequestException("Flight missing");
+			throw new BadRequestException("Flight information missed");
 		}
 		try {
 			return Response.created(null).entity(DAO.getFlightDAO().addFlight(flight)).build();
 		} catch (Exception e) {
+
 			return Response.status(Status.BAD_REQUEST).entity("Error: one or more flights already exist").build();
 		}
 	}
@@ -68,7 +83,7 @@ public class FlightResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/edit")
-	public Response editingFlight(Flight flight) {
+	public Response editFlight(Flight flight) {
 		if (flight == null) {
 			throw new BadRequestException("Flight missing");
 		}
@@ -89,6 +104,17 @@ public class FlightResource {
 			return Response.created(null).entity(DAO.getFlightDAO().deleteFlight(flightID)).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Cannot edit: flight not found").build();
+		}
+	}
+
+	@GET
+	@Path("/totalflights")
+	public Response totalFLight() {
+		try {
+			return Response.created(null).entity("There are " + DAO.getFlightDAO().flightNumber() + " flights in total")
+					.build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("No flights").build();
 		}
 	}
 }

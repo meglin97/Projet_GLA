@@ -47,6 +47,16 @@ public class FlightDAOImpl implements FlightDAO {
 		return detached;
 	}
 
+	@Override
+	public Flight getFlight(Integer fid) {
+		for (Flight f : this.getFlights()) {
+			if (f.getFlightID().equals(fid)) {
+				return f;
+			}
+		}
+		return null;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date) {
@@ -151,4 +161,8 @@ public class FlightDAOImpl implements FlightDAO {
 		return flight;
 	}
 
+	@Override
+	public int flightNumber() {
+		return this.getFlights().size();
+	}
 }

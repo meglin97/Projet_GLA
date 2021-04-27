@@ -39,4 +39,16 @@ public class FlightDAOFakeImpl implements FlightDAO {
 		return null;
 	}
 
+	@Override
+	public int flightNumber() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Flight getFlight(Integer fid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

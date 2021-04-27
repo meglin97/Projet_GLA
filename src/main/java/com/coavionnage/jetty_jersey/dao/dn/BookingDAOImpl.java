@@ -3,6 +3,7 @@ package com.coavionnage.jetty_jersey.dao.dn;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
@@ -73,6 +74,16 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
+	public List<Booking> addBookings(int nbBookings, Booking booking) {
+		// TODO Auto-generated method stub
+		List<Booking> books = new ArrayList<Booking>();
+		for (int i = 0; i < nbBookings; i++) {
+			books.add(addBooking(booking));
+		}
+		return books;
+	}
+
+	@Override
 	public boolean deleteBooking(Integer bookID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -88,7 +99,6 @@ public class BookingDAOImpl implements BookingDAO {
 					bool = true;
 				}
 			}
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -112,10 +122,8 @@ public class BookingDAOImpl implements BookingDAO {
 				Booking book = iter.next();
 				if (book.getBookingID().equals(booking.getBookingID())) {
 					book.setStatus(booking.getStatus());
-
 				}
 			}
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -124,5 +132,22 @@ public class BookingDAOImpl implements BookingDAO {
 			pm.close();
 		}
 		return booking;
+	}
+
+	@Override
+	public int totalBooking() {
+		return this.getBookings(null).size();
+	}
+
+	@Override
+	public int bookingNumber(Integer flightID) {
+		List<Booking> list = this.getBookings(null);
+		return list.stream().filter(b -> b.getFlightID().equals(flightID)).collect(Collectors.toList()).size();
+	}
+
+	@Override
+	public int userBookings(Integer userID) {
+		List<Booking> list = this.getBookings(null);
+		return list.stream().filter(b -> b.getUser().equals(userID)).collect(Collectors.toList()).size();
 	}
 }

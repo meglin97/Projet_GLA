@@ -16,8 +16,6 @@ public class UserDAOFakeImpl implements UserDAO {
 		users.add(new User(2, "Thor Odinson", "thor@mail.com", "jane"));
 		users.add(new User(3, "Stark", "ironman@mail.com", "pepperpotts"));
 		users.add(new User(4, "Odinson", "thor@mail.com", "jane"));
-		pilots.add(new Pilot(5, "Shuvo Das", "sdas@mail.com", "password", 3, "formations, diplomes etc."));
-		pilots.add(new Pilot(6, "huiting", "hlin@mail.com", "pwd", 4, "qualified"));
 		users.addAll(pilots);
 	}
 

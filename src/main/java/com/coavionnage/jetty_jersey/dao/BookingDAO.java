@@ -13,4 +13,12 @@ public interface BookingDAO {
 
 	Booking editBooking(Booking booking);
 
+	int bookingNumber(Integer flightID);
+
+	List<Booking> addBookings(int nbBookings, Booking booking);
+
+	int userBookings(Integer uid);
+
+	int totalBooking();
+
 }
