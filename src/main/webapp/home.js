@@ -90,7 +90,7 @@ $(function () {
 		putServerData("ws/coavionnage/flights/bookings/add",JSON.stringify(data), callDone);
 	});
 
-	console.log(sessionStorage.getItem("current_user_id"));
+	console.log(JSON.parse(sessionStorage.getItem("current_user")));
 });
 
 function getAllFlights() {
@@ -125,9 +125,14 @@ function updateFlightsList(flights) {
 	const flightsDiv = document.querySelector("#flights-list");
 
 	flightsDiv.innerHTML = "";
-        
+
+	if (!flights)
+		return;
+
 	flights.forEach(flight => {
 		const flightRow = document.createElement("tr");
+		const flDepDate = new Date(flight.departureDate);
+		const flArrDate = new Date(flight.arrivalDate);
 
 		let flightCol = document.createElement("td");
 		flightCol.innerText = flight.flightID;
@@ -138,7 +143,7 @@ function updateFlightsList(flights) {
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flight.departureTime.hour + "h" + flight.departureTime.minute;
+		flightCol.innerText = flDepDate.getHours() + "h" + (flDepDate.getMinutes().toString().length == 1 ? 0 : "") + flDepDate.getMinutes();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
@@ -146,7 +151,7 @@ function updateFlightsList(flights) {
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flight.arrivalTime.hour + "h" + flight.arrivalTime.minute;
+		flightCol.innerText = flArrDate.getHours() + "h" + (flArrDate.getMinutes().toString().length == 1 ? 0 : "") + flArrDate.getMinutes();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
@@ -159,6 +164,20 @@ function updateFlightsList(flights) {
 
 		flightCol = document.createElement("td");
 		flightCol.innerText = flight.numberPlaces + " seats available";
+		flightRow.append(flightCol);
+
+		flightCol = document.createElement("td");
+		btnPilot = document.createElement("a");
+		btnPilot.href = "/pilotInformations.html?pilotID=" + flight.pilot;
+		btnPilot.innerHTML = "Pilot";
+		flightCol.append(btnPilot);
+		flightRow.append(flightCol);
+
+		flightCol = document.createElement("td");
+		btnBook = document.createElement("a");
+		btnBook.href = "/bookFlight.html?flightID=" + flight.flightID;
+		btnBook.innerHTML = "Book";
+		flightCol.append(btnBook);
 		flightRow.append(flightCol);
 
 		flightsDiv.append(flightRow);

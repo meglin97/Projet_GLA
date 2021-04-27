@@ -2,8 +2,6 @@ $(function () {
     $('#register-form').on('submit', function(event){
 		event.preventDefault();
 		
-		console.log("form submitted");
-
 		let data = {
 			name: document.getElementById("name").value,
 			password: document.getElementById("password").value,
@@ -18,6 +16,7 @@ $(function () {
 			url: "/ws/coavionnage/users/add"
 		}).done((response)=>{
 			console.log(response);
+			window.location.href = "/login.html";
 		});
 	});
 })

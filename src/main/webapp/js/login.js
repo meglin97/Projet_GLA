@@ -2,21 +2,16 @@ $(function () {
     $('#login-form').on('submit', function(event){
 		event.preventDefault();
 
-		let data = {
-			password: document.getElementById("password").value,
-			email: document.getElementById("email").value
-		};
+		const password = document.getElementById("password").value;
+		const email = document.getElementById("email").value;
 
 		$.ajax({
-			type: 'PUT',
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(data),
-			url: "/ws/coavionnage/users/login"
+			type: 'GET',
+			url: "/ws/coavionnage/users/login?email=" + email + "&password=" + password
 		}).done((response)=>{
 			console.log(response);
 
-            sessionStorage.setItem("current_user_id", response.userID);
+			sessionStorage.setItem("current_user", JSON.stringify(response));
             window.location.href = "/home.html";
 		});
 	});
