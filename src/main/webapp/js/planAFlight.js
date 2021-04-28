@@ -1,5 +1,5 @@
 $(function () {
-    $('#plan-flight-form').on('submit', function(event){
+    $('#plan_flight_form').on('submit', function(event){
 		event.preventDefault();
 
         const currentUser = JSON.parse(sessionStorage.getItem("current_user"));
