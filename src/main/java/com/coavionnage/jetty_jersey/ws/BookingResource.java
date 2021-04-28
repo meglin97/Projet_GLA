@@ -78,6 +78,12 @@ public class BookingResource {
 			throw new BadRequestException("User missing");
 		}
 
+		int places = DAO.getFlightDAO().getFlight(book.getFlightID()).getNumberPlaces();
+		int bookings = DAO.getBookingDAO().bookingNumber(book.getBookingID());
+		if ((bookings + nb) > places) {
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Cannot add bookings : not enough available places ")
+					.build();
+		}
 		int i = 0;
 		while (i < nb) {
 			list.add(DAO.getBookingDAO().addBooking(book));
