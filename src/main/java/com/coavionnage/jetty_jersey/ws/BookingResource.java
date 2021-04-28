@@ -1,5 +1,6 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -35,15 +36,34 @@ public class BookingResource {
 		return DAO.getBookingDAO().getBooking(bookingID);
 	}
 
+	@GET
+	@Path("/totalBookings")
+	public int totalBookings() {
+		return DAO.getBookingDAO().totalBooking();
+	}
+
+	@GET
+	@Path("/userBookings/{id}")
+	public int userBookings(@PathParam("id") Integer userID) {
+		return DAO.getBookingDAO().userBookings(userID);
+	}
+
+	@GET
+	@Path("/flightBookings/{id}")
+	public int flightBookings(@PathParam("id") Integer flightID) {
+		return DAO.getBookingDAO().bookingNumber(flightID);
+	}
+
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addFlightBooking(Booking fb) {
-		if (fb == null) {
+	public Response addFlightBooking(Booking book) {
+		if (book == null) {
 			throw new BadRequestException("User missing");
 		}
+
 		try {
-			return Response.created(null).entity(DAO.getBookingDAO().addBooking(fb)).build();
+			return Response.created(null).entity(DAO.getBookingDAO().addBooking(book)).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Error: Booking already exists").build();
 		}
@@ -52,9 +72,18 @@ public class BookingResource {
 	@PUT
 	@Path("/add/{nb}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Booking> addBookings(@PathParam("nb") int nb, Booking book) {
+	public Response addBookings(@PathParam("nb") int nb, Booking book) {
+		List<Booking> list = new ArrayList<Booking>();
+		if (book == null) {
+			throw new BadRequestException("User missing");
+		}
 
-		return DAO.getBookingDAO().addBookings(nb, book);
+		int i = 0;
+		while (i < nb) {
+			list.add(DAO.getBookingDAO().addBooking(book));
+			i++;
+		}
+		return Response.ok(nb + " bookings created for the flight " + book.getFlightID()).build();
 	}
 
 	@POST

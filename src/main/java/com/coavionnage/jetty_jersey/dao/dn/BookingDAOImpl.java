@@ -78,11 +78,26 @@ public class BookingDAOImpl implements BookingDAO {
 	@Override
 	public List<Booking> addBookings(int nbBookings, Booking booking) {
 		// TODO Auto-generated method stub
-		List<Booking> books = new ArrayList<Booking>();
+		List<Booking> bookings = new ArrayList<Booking>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
 		for (int i = 0; i < nbBookings; i++) {
-			books.add(addBooking(booking));
+			bookings.add(booking);
 		}
-		return books;
+		try {
+			tx.begin();
+			pm.makePersistentAll(bookings);
+			tx.commit();
+			pm.flush();
+			pm.refresh(booking);
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return bookings;
 	}
 
 	@Override

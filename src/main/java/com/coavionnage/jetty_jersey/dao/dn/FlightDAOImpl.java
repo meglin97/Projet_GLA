@@ -150,7 +150,6 @@ public class FlightDAOImpl implements FlightDAO {
 					fl.setNumberPlaces(flight.getNumberPlaces());
 				}
 			}
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
