@@ -69,7 +69,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public Pilot addPilot(Integer u) {
+	public Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications) {
 		// TODO Auto-generated method stub
 		return null;
 	}

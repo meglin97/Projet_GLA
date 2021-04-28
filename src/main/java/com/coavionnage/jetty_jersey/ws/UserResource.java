@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.coavionnage.jetty_jersey.dao.DAO;
+import com.coavionnage.jetty_jersey.dao.Pilot;
 import com.coavionnage.jetty_jersey.dao.User;
 
 @Path("/users")
@@ -29,12 +30,10 @@ public class UserResource {
 	public List<User> getUsers() {
 		List<User> list = DAO.getUserDAO().getUsers(null);
 		Collections.sort(list, new Comparator<User>() {
-
 			@Override
 			public int compare(User o1, User o2) {
 				return o1.getUserID().compareTo(o2.getUserID());
 			}
-
 		});
 		return list;
 	}
@@ -51,6 +50,14 @@ public class UserResource {
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/pilots")
+	public List<Pilot> getPilot() {
+		return DAO.getUserDAO().getPilots(null);
+
+	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add")
@@ -60,6 +67,23 @@ public class UserResource {
 		}
 		try {
 			return Response.created(null).entity(DAO.getUserDAO().addUser(user)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
+		}
+
+	}
+
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/add/{id}")
+	public Response addPilot(@PathParam("id") Integer uid, @QueryParam("numberOfHours") int nbHours,
+			@QueryParam("numberOfYears") int expYears, @QueryParam("qualifications") String qualifications) {
+		if (uid == null) {
+			throw new BadRequestException("User missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getUserDAO().addPilot(uid, nbHours, expYears, qualifications))
+					.build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
 		}

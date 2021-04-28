@@ -10,7 +10,7 @@ public interface UserDAO {
 
 	User addUser(User u);
 
-	Pilot addPilot(Integer u);
+	Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications);
 
 	boolean deleteUser(Integer userID);
 

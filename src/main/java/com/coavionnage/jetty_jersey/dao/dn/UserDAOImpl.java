@@ -112,14 +112,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Pilot addPilot(Integer pid) {
+	public Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications) {
 		// TODO Auto-generated method stub
-		User pilot = null;
+		Pilot pilot = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			pilot = pm.getObjectById(User.class, pid);
+			pilot = (Pilot) pm.getObjectById(User.class, pid);
+			pilot.setNumberOfHoursFlights(nbHours);
+			pilot.setExperience(expYears);
+			pilot.setQualifications(qualifications);
 			pm.makePersistent(pilot);
 			tx.commit();
 
@@ -131,7 +134,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
-		return (Pilot) pilot;
+		return pilot;
 	}
 
 	@Override
