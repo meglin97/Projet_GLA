@@ -30,6 +30,4 @@ public interface FlightDAO {
 
 	int flightPlaces(Integer fid);
 
-	void availablePlaces(int nb, Integer fid);
-
 }

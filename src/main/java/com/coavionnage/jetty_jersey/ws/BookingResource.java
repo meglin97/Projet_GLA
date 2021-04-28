@@ -85,7 +85,6 @@ public class BookingResource {
 		int i = 0;
 		while (i < nb) {
 			list.add(DAO.getBookingDAO().addBooking(booking));
-			// DAO.getFlightDAO().availablePlaces(1, booking.getFlightID());
 			i++;
 		}
 
