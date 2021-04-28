@@ -1,95 +1,4 @@
-
-function getServerData(url, success) {
-	$.ajax({
-		type: 'GET',
-		dataType: "json",
-		url: url
-	}).done(success);
-}
-
-function postServerData(url, data, success) {
-	$.ajax({
-		type: 'POST',
-		dataType: "json",
-		data: data,
-		contentType:'application/json',
-		url: url
-	}).done(success);
-}
-
-function putServerData(url, data, success) {
-	$.ajax({
-		type: 'PUT',
-		dataType: "json",
-		data: data,
-		contentType:'application/json',
-		url: url
-	}).done(success);
-}
-
-function deleteServerData(url, success) {
-	$.ajax({
-		type: 'DELETE',
-		dataType: "json",
-		url: url
-	}).done(success);
-}
-
-
-function callDone(result) {
-	var templateExample = _.template($('#templateExample').html());
-
-	var html = templateExample({
-		"attribute": JSON.stringify(result)
-	});
-
-	$("#result").append(html);
-}
-
-
 $(function () {
-	$("#View flights").click(function () {
-		getServerData("ws/coavionnage/flights", callDone);
-	});
-
-	$("#button2").click(function () {
-
-		putServerData("ws/coavionnage/flights/add",JSON.stringify(data), callDone);
-	});
-
-
-	$("Users").click(function () {
-		getServerData("ws/coavionnage/users", callDone);
-	});
-
-	$("#button2").click(function () {
-		firstName = $('input[name="firstName"]').val();
-        lastName = $('input[name="lastName"]').val();
-        mail = $('input[name="email"]').val();
-        password = $('input[name="password"]').val();
-        experience = $('input[name="experience"]').val();
-        qualification = $('input[name="qualifications"]').val();
-        number_of_flight_hours = $('input[name="nbFlightHours"]').val();
-		data = {
-            "firstName":firstName,
-            "lastName":lastName,
-            "mail":mail,
-            "password":password,
-            "experience":experience,
-            "qualification":qualification,
-            "number_of_flight_hours":number_of_flight_hours
-        }
-		putServerData("ws/coavionnage/users/add",JSON.stringify(data), callDone);
-	});
-
-	$("#Search").click(function () {
-		getServerData("ws/coavionnage/flights/bookings", callDone);
-	});
-
-	$("#button").click(function () {
-		putServerData("ws/coavionnage/flights/bookings/add",JSON.stringify(data), callDone);
-	});
-
 	const current_user = JSON.parse(sessionStorage.getItem("current_user"));
 	console.log(current_user);
 });
@@ -122,6 +31,31 @@ function searchFlights() {
     });
 }
 
+async function getFlightBookingsNumber(flightID) {
+	let result;
+
+    try {
+        result = await $.ajax({
+            url: "ws/coavionnage/bookings/flightBookings/" + flightID,
+            type: 'GET',
+            dataType: "json"
+        }).done((response)=>{
+			console.log(response);
+		}).catch((error)=>{
+			console.error(error);
+		});
+
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function calculateSeatsAvailable(flightID, numberPlaces) {
+	const bookingsNumber = await getFlightBookingsNumber(flightID);
+	return parseInt(numberPlaces) - parseInt(bookingsNumber);
+}
+
 function updateFlightsList(flights) {
 	const flightsDiv = document.querySelector("#flights-list");
 
@@ -130,7 +64,7 @@ function updateFlightsList(flights) {
 	if (!flights)
 		return;
 
-	flights.forEach(flight => {
+	flights.forEach(async flight => {
 		const flightRow = document.createElement("tr");
 		const flDepDate = new Date(flight.departureDate);
 		const flArrDate = new Date(flight.arrivalDate);
@@ -164,7 +98,7 @@ function updateFlightsList(flights) {
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flight.numberPlaces + " seats available";
+		flightCol.innerText = await calculateSeatsAvailable(flight.flightID, flight.numberPlaces) + " seat(s) available";
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
@@ -185,6 +119,7 @@ function updateFlightsList(flights) {
 	});
 }
 
+// récupère liste de vols à la fin du chargement de la page
 $(document).ready(function(){
     getAllFlights();
 });

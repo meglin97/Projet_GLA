@@ -3,10 +3,17 @@ $(function () {
 		event.preventDefault();
 		
 		let data = {
-			name: document.getElementById("name").value,
+			firstname: document.getElementById("firstname").value,
+			lastname: document.getElementById("lastname").value,
 			password: document.getElementById("password").value,
 			email: document.getElementById("email").value
 		};
+
+		const confirm_password = document.getElementById("re_pass").value;
+		if(data.password != confirm_password){
+			$.notify("Your passwords do not match", { className: "error"});
+			return;
+		}
 
 		$.ajax({
 			type: 'PUT',

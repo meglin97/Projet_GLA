@@ -23,7 +23,11 @@ $(function () {
             url: "/ws/coavionnage/bookings/add/" + placeNumber
         }).done((response)=>{
             console.log(response);
-            window.location.href = "/home.html";
+            $.notify(response.message, { className: "success"});
+            // window.location.href = "/home.html";
+        }).catch((error)=>{
+            console.log(error);
+            $.notify(error.message, { className: "error"});
         });
     });
 })
