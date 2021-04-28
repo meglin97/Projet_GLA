@@ -2,6 +2,16 @@ $(function () {
     $('#book_flight_form').on('submit', function(event){
         event.preventDefault();
         
+        const urlParams = new URLSearchParams(window.location.search);
+		const currentUser = JSON.parse(sessionStorage.getItem("current_user"));
+
+		const data = {
+			flightID: urlParams.get('flightID'),
+			user: currentUser.userID,
+			status: "pending_response"
+		};
+
+        console.log(data);
         
         const placeNumber = document.getElementById("number").value;
         
@@ -13,7 +23,7 @@ $(function () {
             url: "/ws/coavionnage/bookings/add/" + placeNumber
         }).done((response)=>{
             console.log(response);
-            window.location.href = "/bookFlight.html";
+            window.location.href = "/home.html";
         });
     });
 })

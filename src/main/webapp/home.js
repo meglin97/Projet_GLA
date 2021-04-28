@@ -90,7 +90,8 @@ $(function () {
 		putServerData("ws/coavionnage/flights/bookings/add",JSON.stringify(data), callDone);
 	});
 
-	console.log(JSON.parse(sessionStorage.getItem("current_user")));
+	const current_user = JSON.parse(sessionStorage.getItem("current_user"));
+	console.log(current_user);
 });
 
 function getAllFlights() {
