@@ -1,11 +1,7 @@
 $(function () {
     $('#become_pilot_form').on('submit', function(event){
 		event.preventDefault();
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const pilotID = urlParams.get('pilotID');
-        console.log("pilotID: " + pilotID);
-
+		
         let data = {
 			numberOfHours: document.getElementById("experience").value,
 			numberOfYears: document.getElementById("qualifications").value,
