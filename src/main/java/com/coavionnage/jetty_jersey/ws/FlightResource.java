@@ -25,9 +25,27 @@ import com.coavionnage.jetty_jersey.dao.Flight;
 @Produces(MediaType.APPLICATION_JSON)
 public class FlightResource {
 
+	// shows only available flights
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Flight> getFlights() {
+	public List<Flight> getAvailableFlights() {
+		List<Flight> all = DAO.getFlightDAO().getFlights();
+
+		for (Flight f : all) {
+			int places = DAO.getFlightDAO().getFlight(f.getFlightID()).getNumberPlaces();
+			int bookings = DAO.getBookingDAO().bookingNumber(f.getFlightID());
+			if (bookings == places) {
+				all.remove(f);
+			}
+		}
+		return all;
+	}
+
+	// shows all flights
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/all")
+	public List<Flight> getAllFlights() {
 		return DAO.getFlightDAO().getFlights();
 	}
 
