@@ -12,10 +12,10 @@ public class UserDAOFakeImpl implements UserDAO {
 	private static ArrayList<Pilot> pilots = new ArrayList<Pilot>();
 
 	static {
-		users.add(new User(1, "Tony Stark", "ironman@mail.com", "pepperpotts"));
-		users.add(new User(2, "Thor Odinson", "thor@mail.com", "jane"));
-		users.add(new User(3, "Stark", "ironman@mail.com", "pepperpotts"));
-		users.add(new User(4, "Odinson", "thor@mail.com", "jane"));
+		users.add(new User(1, "Tony", "Stark", "ironman@mail.com", "pepperpotts"));
+		users.add(new User(2, "Thor", "Odinson", "thor@mail.com", "jane"));
+		users.add(new User(3, "Stark", "", "ironman@mail.com", "pepperpotts"));
+		users.add(new User(4, "Odinson", "", "thor@mail.com", "jane"));
 		users.addAll(pilots);
 	}
 
@@ -40,7 +40,8 @@ public class UserDAOFakeImpl implements UserDAO {
 		}
 		User user = new User();
 		user.setUserID(u.getUserID());
-		user.setName(u.getName());
+		u.setFirstName(user.getFirstName());
+		u.setLastName(user.getLastName());
 		user.setEmail(u.getEmail());
 		user.setPassword(u.getPassword());
 		getUsers(null).add(user);

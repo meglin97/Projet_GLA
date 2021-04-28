@@ -6,6 +6,10 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+
+@JsonPropertyOrder
 @PersistenceCapable
 public class User {
 
@@ -13,7 +17,9 @@ public class User {
 	private Integer userID;
 
 	@Persistent
-	private String name;
+	private String firstname;
+	@Persistent
+	private String lastname;
 	@PrimaryKey
 	@Persistent
 	@Unique
@@ -26,9 +32,10 @@ public class User {
 		super();
 	}
 
-	public User(Integer userID, String name, String email, String password) {
+	public User(Integer userID, String firstname, String lastname, String email, String password) {
 		this.userID = userID;
-		this.name = name;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
 	}
@@ -41,12 +48,22 @@ public class User {
 		this.userID = uid;
 	}
 
-	public String getName() {
-		return name;
+	@JsonProperty("firstname")
+	public String getFirstName() {
+		return firstname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
+	}
+
+	@JsonProperty("lastname")
+	public String getLastName() {
+		return lastname;
+	}
+
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getEmail() {
@@ -67,7 +84,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userID=" + userID + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+		return "User [userID=" + userID + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + password + "]";
 	}
 
 }

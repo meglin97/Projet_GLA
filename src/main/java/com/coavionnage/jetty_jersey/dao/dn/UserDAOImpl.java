@@ -174,7 +174,9 @@ public class UserDAOImpl implements UserDAO {
 			while (iter.hasNext()) {
 				User u = iter.next();
 				if (u.getUserID().equals(user.getUserID())) {
-					u.setName(user.getName());
+					u.setFirstName(user.getFirstName());
+					u.setLastName(user.getLastName());
+					u.setEmail(user.getEmail());
 					u.setPassword(user.getPassword());
 				}
 			}
