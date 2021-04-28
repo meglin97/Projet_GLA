@@ -169,4 +169,9 @@ public class FlightDAOImpl implements FlightDAO {
 	public int flightPlaces(Integer fid) {
 		return this.getFlight(fid).getNumberPlaces();
 	}
+
+	@Override
+	public void availablePlaces(int nb, Integer fid) {
+		this.getFlight(fid).setNumberPlaces(this.getFlight(fid).getNumberPlaces() - nb);
+	}
 }

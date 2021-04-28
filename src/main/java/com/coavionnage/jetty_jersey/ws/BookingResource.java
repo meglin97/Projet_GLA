@@ -61,7 +61,6 @@ public class BookingResource {
 		if (book == null) {
 			throw new BadRequestException("User missing");
 		}
-
 		try {
 			return Response.created(null).entity(DAO.getBookingDAO().addBooking(book)).build();
 		} catch (Exception e) {
@@ -72,24 +71,25 @@ public class BookingResource {
 	@PUT
 	@Path("/add/{nb}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addBookings(@PathParam("nb") int nb, Booking book) {
+	public Response addBookings(@PathParam("nb") int nb, Booking booking) {
 		List<Booking> list = new ArrayList<Booking>();
-		if (book == null) {
+		if (booking == null) {
 			throw new BadRequestException("User missing");
 		}
-
-		int places = DAO.getFlightDAO().getFlight(book.getFlightID()).getNumberPlaces();
-		int bookings = DAO.getBookingDAO().bookingNumber(book.getBookingID());
-		if ((bookings + nb) > places) {
+		int places = DAO.getFlightDAO().flightPlaces(booking.getFlightID());
+		int bookings = DAO.getBookingDAO().bookingNumber(booking.getFlightID());
+		if (places - bookings < nb) {
 			return Response.status(Status.NOT_ACCEPTABLE).entity("Cannot add bookings : not enough available places ")
 					.build();
 		}
 		int i = 0;
 		while (i < nb) {
-			list.add(DAO.getBookingDAO().addBooking(book));
+			list.add(DAO.getBookingDAO().addBooking(booking));
+			// DAO.getFlightDAO().availablePlaces(1, booking.getFlightID());
 			i++;
 		}
-		return Response.ok(nb + " bookings created for the flight " + book.getFlightID()).build();
+
+		return Response.ok(nb + " bookings created for the flight " + booking.getFlightID()).build();
 	}
 
 	@POST
