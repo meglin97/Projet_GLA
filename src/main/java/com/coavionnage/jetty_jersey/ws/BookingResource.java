@@ -112,7 +112,7 @@ public class BookingResource {
 			i++;
 		}
 
-		return Response.ok(nb + " bookings created for the flight " + booking.getFlightID()).build();
+		return Response.ok().build();
 	}
 
 	@POST
