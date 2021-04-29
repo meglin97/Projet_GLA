@@ -27,34 +27,35 @@ public class UserResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getUsers() {
-		List<User> list = DAO.getUserDAO().getUsers(null);
+	public Response getUsers() {
+		List<User> list = DAO.getUserDAO().getUsers();
 		Collections.sort(list, new Comparator<User>() {
 			@Override
 			public int compare(User o1, User o2) {
 				return o1.getUserID().compareTo(o2.getUserID());
 			}
 		});
-		return list;
+		return Response.ok(list).build();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Response getUser(@PathParam("id") Integer uid) {
-		List<User> users = DAO.getUserDAO().getUsers(uid);
+		User user = DAO.getUserDAO().getUser(uid);
 
-		if (users.size() > 0)
-			return Response.ok(users.get(0)).build();
-
-		return Response.status(Status.NOT_FOUND).build();
+		try {
+			return Response.ok(user).build();
+		} catch (Exception e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/pilots")
-	public List<Pilot> getPilot() {
-		return DAO.getUserDAO().getPilots(null);
+	public Response getPilot() {
+		return Response.ok(DAO.getUserDAO().getPilots(null)).build();
 
 	}
 
@@ -81,11 +82,13 @@ public class UserResource {
 		if (uid == null) {
 			throw new BadRequestException("User missing");
 		}
+		User u = DAO.getUserDAO().getUser(uid);
+		Pilot pilot = new Pilot(uid, u.getFirstName(), u.getLastName(), u.getEmail());
+		User newUser = pilot;
 		try {
-			return Response.created(null).entity(DAO.getUserDAO().addPilot(uid, nbHours, expYears, qualifications))
-					.build();
+			return Response.created(null).entity(DAO.getUserDAO().addPilot(newUser)).build();
 		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
+			return Response.status(Status.BAD_REQUEST).entity("Error: cannot add pilot").build();
 		}
 
 	}

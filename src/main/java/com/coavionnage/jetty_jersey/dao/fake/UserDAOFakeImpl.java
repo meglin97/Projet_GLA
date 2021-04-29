@@ -20,21 +20,15 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public List<User> getUsers(Integer user) {
+	public List<User> getUsers() {
 		// TODO Auto-generated method stub
 		return users;
 	}
 
 	@Override
-	public List<Pilot> getPilots(Integer pilot) {
-		// TODO Auto-generated method stub
-		return pilots;
-	}
-
-	@Override
 	public User addUser(User u) {
 		// TODO Auto-generated method stub
-		if (getUsers(u.getUserID()) != null) {
+		if (getUser(u.getUserID()) != null) {
 			System.out.println("UserID already used");
 			System.exit(0);
 		}
@@ -44,7 +38,7 @@ public class UserDAOFakeImpl implements UserDAO {
 		u.setLastName(user.getLastName());
 		user.setEmail(u.getEmail());
 		user.setPassword(u.getPassword());
-		getUsers(null).add(user);
+		getUsers().add(user);
 		return user;
 
 	}
@@ -70,7 +64,25 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications) {
+	public List<Pilot> getPilots(Integer userID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUser(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pilot addPilot(User pilot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pilot editPilot(Integer id, int nbHours, int nbYears, String qualifications) {
 		// TODO Auto-generated method stub
 		return null;
 	}

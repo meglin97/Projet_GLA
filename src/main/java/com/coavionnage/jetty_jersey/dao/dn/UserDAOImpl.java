@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUsers(Integer userID) {
+	public List<User> getUsers() {
 		List<User> users = null;
 		List<User> detached = new ArrayList<User>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -33,16 +33,8 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(User.class);
-			if (userID != null) {
-				q.declareParameters("Integer user");
-				q.setFilter("userID == user");
-
-				users = (List<User>) q.execute(userID);
-				detached = (List<User>) pm.detachCopyAll(users);
-			} else {
-				users = (List<User>) q.execute();
-				detached = (List<User>) pm.detachCopyAll(users);
-			}
+			users = (List<User>) q.execute();
+			detached = (List<User>) pm.detachCopyAll(users);
 
 			tx.commit();
 		} finally {
@@ -53,6 +45,16 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return detached;
 
+	}
+
+	@Override
+	public User getUser(Integer id) {
+		for (User u : this.getUsers()) {
+			if (u.getUserID().equals(id)) {
+				return u;
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -112,17 +114,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications) {
+	public Pilot addPilot(User pilot) {
 		// TODO Auto-generated method stub
-		Pilot pilot = null;
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			pilot = (Pilot) pm.getObjectById(User.class, pid);
-			pilot.setNumberOfHoursFlights(nbHours);
-			pilot.setExperience(expYears);
-			pilot.setQualifications(qualifications);
 			pm.makePersistent(pilot);
 			tx.commit();
 
@@ -134,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
-		return pilot;
+		return (Pilot) pilot;
 	}
 
 	@Override
@@ -227,4 +225,33 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public Pilot editPilot(Integer id, int nbHours, int nbYears, String qualifications) {
+		Pilot pilot = new Pilot();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Extent<User> e = pm.getExtent(User.class, true);
+			Iterator<User> iter = e.iterator();
+			while (iter.hasNext()) {
+				User u = iter.next();
+				if (u.getUserID().equals(id)) {
+					pilot = (Pilot) u;
+					pilot.setNumberOfHoursFlights(nbHours);
+					pilot.setExperience(nbYears);
+					pilot.setQualifications(qualifications);
+				}
+			}
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return pilot;
+	}
 }

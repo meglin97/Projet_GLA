@@ -14,6 +14,7 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 public class User {
 
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	@Unique
 	private Integer userID;
 
 	@Persistent
@@ -29,7 +30,14 @@ public class User {
 	private String password;
 
 	public User() {
-		super();
+
+	}
+
+	public User(Integer id, String firstname, String lastname, String email) {
+		this.userID = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
 	}
 
 	public User(Integer userID, String firstname, String lastname, String email, String password) {

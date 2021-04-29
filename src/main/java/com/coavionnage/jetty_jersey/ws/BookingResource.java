@@ -31,27 +31,51 @@ public class BookingResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Booking getBooking(@PathParam("id") Integer bookingID) {
-
-		return DAO.getBookingDAO().getBooking(bookingID);
+	public Response getBooking(@PathParam("id") Integer bookingID) {
+		if (bookingID == null) {
+			throw new BadRequestException("User id is missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getBookingDAO().getBooking(bookingID)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("Error: Booking already exists").build();
+		}
 	}
 
 	@GET
 	@Path("/totalBookings")
-	public int totalBookings() {
-		return DAO.getBookingDAO().totalBooking();
+	public Response totalBookings() {
+		try {
+			return Response.created(null).entity(DAO.getBookingDAO().totalBooking()).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("Error: Booking already exists").build();
+		}
 	}
 
 	@GET
 	@Path("/userBookings/{id}")
-	public int userBookings(@PathParam("id") Integer userID) {
-		return DAO.getBookingDAO().userBookings(userID);
+	public Response userBookings(@PathParam("id") Integer userID) {
+		if (userID == null) {
+			throw new BadRequestException("User id is missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getBookingDAO().userBookings(userID)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 
 	@GET
 	@Path("/flightBookings/{id}")
-	public int flightBookings(@PathParam("id") Integer flightID) {
-		return DAO.getBookingDAO().bookingNumber(flightID);
+	public Response flightBookings(@PathParam("id") Integer flightID) {
+		if (flightID == null) {
+			throw new BadRequestException("flight id is missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getBookingDAO().bookingNumber(flightID)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 
 	@PUT

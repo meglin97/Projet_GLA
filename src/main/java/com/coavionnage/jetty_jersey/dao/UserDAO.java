@@ -4,17 +4,22 @@ import java.util.List;
 
 public interface UserDAO {
 
-	List<User> getUsers(Integer userID);
+	List<User> getUsers();
+
+	User getUser(Integer id);
 
 	List<Pilot> getPilots(Integer userID);
 
 	User addUser(User u);
 
-	Pilot addPilot(Integer pid, int nbHours, int expYears, String qualifications);
+	Pilot addPilot(User pilot);
 
 	boolean deleteUser(Integer userID);
 
 	User editUser(User user);
 
 	User getUserByEmailAndPassword(String email, String password);
+
+	Pilot editPilot(Integer id, int nbHours, int nbYears, String qualifications);
+
 }
