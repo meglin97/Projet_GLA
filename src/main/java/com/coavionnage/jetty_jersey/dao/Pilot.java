@@ -6,19 +6,25 @@ import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable
 @Discriminator(strategy = DiscriminatorStrategy.CLASS_NAME)
-public class Pilot extends User {
+public class Pilot {
+
+	private Integer userID;
+
+	private String firstname;
+	private String lastname;
+
+	private String email;
 
 	private int numberOfHoursFlights;
 	private int yearsOfExperience;
 	private String qualifications;
 
-	public Pilot(Integer id, String firstname, String lastname, String email, String password) {
-		super(id, firstname, lastname, email, password);
-	}
-
-	public Pilot(Integer id, String firstname, String lastname, String email, String pass, int nbHours, int nbYears,
+	public Pilot(Integer id, String firstname, String lastname, String email, int nbHours, int nbYears,
 			String qualification) {
-		super(id, firstname, lastname, email, pass);
+		this.setUserID(id);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setEmail(email);
 		this.numberOfHoursFlights = nbHours;
 		this.yearsOfExperience = nbYears;
 		this.qualifications = qualification;
@@ -27,6 +33,38 @@ public class Pilot extends User {
 	public Pilot() {
 		// TODO Auto-generated constructor stub
 
+	}
+
+	public Integer getUserID() {
+		return userID;
+	}
+
+	public void setUserID(Integer userID) {
+		this.userID = userID;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getNumberOfHoursFlights() {

@@ -50,14 +50,6 @@ public class UserResource {
 		}
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/pilots")
-	public Response getPilot() {
-		return Response.ok(DAO.getUserDAO().getPilots(null)).build();
-
-	}
-
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add")
@@ -69,27 +61,6 @@ public class UserResource {
 			return Response.created(null).entity(DAO.getUserDAO().addUser(user)).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
-		}
-
-	}
-
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/add/{id}")
-	public Response addPilot(@PathParam("id") Integer uid, @QueryParam("numberOfHours") int nbHours,
-			@QueryParam("numberOfYears") int expYears, @QueryParam("qualifications") String qualifications) {
-		if (uid == null) {
-			throw new BadRequestException("User missing");
-		}
-		User u = DAO.getUserDAO().getUser(uid);
-		// Pilot pilot = new Pilot(uid, u.getFirstName(), u.getLastName(),
-		// u.getEmail());
-
-		try {
-			return Response.created(null).entity(DAO.getUserDAO().addPilot(u, nbHours, expYears, qualifications))
-					.build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Error: cannot add pilot").build();
 		}
 
 	}

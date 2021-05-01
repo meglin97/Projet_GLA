@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface PilotDAO {
 
-	List<Pilot> getPilots();
+	List<Pilot> getPilots(Integer userID);
 
 	Pilot addPilot(User u, int nbHours, int nbYears, String qualifications);
 
-	void editPilot(User u, int nbHours, int nbYears, String qualifications);
+	Pilot editPilot(User u, int nbHours, int nbYears, String qualifications);
 
 }

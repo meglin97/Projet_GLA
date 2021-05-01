@@ -11,14 +11,6 @@ public class UserDAOFakeImpl implements UserDAO {
 	private static List<User> users = new ArrayList<User>();
 	private static ArrayList<Pilot> pilots = new ArrayList<Pilot>();
 
-	static {
-		users.add(new User(1, "Tony", "Stark", "ironman@mail.com", "pepperpotts"));
-		users.add(new User(2, "Thor", "Odinson", "thor@mail.com", "jane"));
-		users.add(new User(3, "Stark", "", "ironman@mail.com", "pepperpotts"));
-		users.add(new User(4, "Odinson", "", "thor@mail.com", "jane"));
-		users.addAll(pilots);
-	}
-
 	@Override
 	public List<User> getUsers() {
 		// TODO Auto-generated method stub
@@ -64,25 +56,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public List<Pilot> getPilots() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public User getUser(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void editPilot(User u, int nbHours, int nbYears, String qualifications) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Pilot addPilot(User u, int nbHours, int nbYears, String qualifications) {
 		// TODO Auto-generated method stub
 		return null;
 	}

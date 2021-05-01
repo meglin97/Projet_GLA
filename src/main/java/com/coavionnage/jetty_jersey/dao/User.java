@@ -4,7 +4,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Unique;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
@@ -12,18 +11,17 @@ import org.codehaus.jackson.annotate.JsonPropertyOrder;
 @JsonPropertyOrder
 @PersistenceCapable
 public class User {
-
+	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	@Unique
 	private Integer userID;
 
 	@Persistent
 	private String firstname;
 	@Persistent
 	private String lastname;
-	@PrimaryKey
+
 	@Persistent
-	@Unique
+	// @Unique
 	private String email;
 
 	@Persistent
@@ -33,8 +31,7 @@ public class User {
 
 	}
 
-	public User(Integer userID, String firstname, String lastname, String email, String password) {
-		this.userID = userID;
+	public User(String firstname, String lastname, String email, String password) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
