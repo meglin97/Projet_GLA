@@ -76,13 +76,13 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public Pilot addPilot(User pilot) {
+	public void editPilot(User u, int nbHours, int nbYears, String qualifications) {
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 	@Override
-	public Pilot editPilot(Integer id, int nbHours, int nbYears, String qualifications) {
+	public Pilot addPilot(User u, int nbHours, int nbYears, String qualifications) {
 		// TODO Auto-generated method stub
 		return null;
 	}

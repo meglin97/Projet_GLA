@@ -33,13 +33,6 @@ public class User {
 
 	}
 
-	public User(Integer id, String firstname, String lastname, String email) {
-		this.userID = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-	}
-
 	public User(Integer userID, String firstname, String lastname, String email, String password) {
 		this.userID = userID;
 		this.firstname = firstname;

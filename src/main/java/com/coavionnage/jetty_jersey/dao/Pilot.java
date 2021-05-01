@@ -12,13 +12,13 @@ public class Pilot extends User {
 	private int yearsOfExperience;
 	private String qualifications;
 
-	public Pilot(Integer id, String firstname, String lastname, String email) {
-		super(id, firstname, lastname, email);
+	public Pilot(Integer id, String firstname, String lastname, String email, String password) {
+		super(id, firstname, lastname, email, password);
 	}
 
-	public Pilot(Integer id, String firstname, String lastname, String email, int nbHours, int nbYears,
+	public Pilot(Integer id, String firstname, String lastname, String email, String pass, int nbHours, int nbYears,
 			String qualification) {
-		super(id, firstname, lastname, email);
+		super(id, firstname, lastname, email, pass);
 		this.numberOfHoursFlights = nbHours;
 		this.yearsOfExperience = nbYears;
 		this.qualifications = qualification;
