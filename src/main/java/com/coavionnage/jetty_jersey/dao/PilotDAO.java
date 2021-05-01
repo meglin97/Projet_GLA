@@ -8,6 +8,8 @@ public interface PilotDAO {
 
 	Pilot addPilot(User u, int nbHours, int nbYears, String qualifications);
 
+	boolean deleteUser(Integer userID);
+
 	Pilot editPilot(User u, int nbHours, int nbYears, String qualifications);
 
 }

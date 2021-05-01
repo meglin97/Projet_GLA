@@ -2,6 +2,7 @@ package com.coavionnage.jetty_jersey.ws;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -43,6 +44,20 @@ public class PilotResource {
 			return Response.status(Status.BAD_REQUEST).entity("Error: cannot add pilot").build();
 		}
 
+	}
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/delete/{id}")
+	public Response deleteUser(@PathParam("id") Integer uid) {
+		if (uid == null) {
+			throw new BadRequestException("User id missing");
+		}
+		try {
+			return Response.created(null).entity(DAO.getUserDAO().deleteUser(uid)).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity("User not found").build();
+		}
 	}
 
 	@POST

@@ -7,12 +7,14 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.ws.rs.NotFoundException;
 
 import com.coavionnage.jetty_jersey.dao.Pilot;
 import com.coavionnage.jetty_jersey.dao.PilotDAO;
 import com.coavionnage.jetty_jersey.dao.User;
 
 public class PilotDAOImpl implements PilotDAO {
+
 	private PersistenceManagerFactory pmf;
 
 	public PilotDAOImpl(PersistenceManagerFactory pmf) {
@@ -72,6 +74,28 @@ public class PilotDAOImpl implements PilotDAO {
 			pm.close();
 		}
 		return pilot;
+	}
+
+	@Override
+	public boolean deleteUser(Integer userID) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		boolean bool = false;
+		try {
+			tx.begin();
+			Pilot pilot = this.getPilots(userID).get(0);
+			pm.deletePersistent(pilot);
+			tx.commit();
+		} catch (Exception e) {
+			throw new NotFoundException();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return bool;
 	}
 
 	@Override
