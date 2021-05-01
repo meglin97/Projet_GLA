@@ -64,7 +64,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public List<Pilot> getPilots(Integer userID) {
+	public List<Pilot> getPilots() {
 		// TODO Auto-generated method stub
 		return null;
 	}

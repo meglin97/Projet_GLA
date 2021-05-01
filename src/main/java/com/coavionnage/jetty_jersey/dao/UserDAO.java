@@ -8,11 +8,11 @@ public interface UserDAO {
 
 	User getUser(Integer id);
 
-	// List<Pilot> getPilots();
+	List<Pilot> getPilots(Integer userID);
 
 	User addUser(User u);
 
-	// Pilot addPilot(User u, int nbHours, int nbYears, String qualifications);
+	public Pilot addPilot(User u, int nbHours, int nbYears, String qualifications);
 
 	boolean deleteUser(Integer userID);
 
@@ -20,6 +20,6 @@ public interface UserDAO {
 
 	User getUserByEmailAndPassword(String email, String password);
 
-	// void editPilot(User u, int nbHours, int nbYears, String qualifications);
+	void editPilot(User u, int nbHours, int nbYears, String qualifications);
 
 }
