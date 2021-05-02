@@ -22,8 +22,8 @@ $(function () {
 			url: "/ws/coavionnage/users/add"
 		}).done((response)=>{
 			console.log(response);
-			$.notify("Account successfully created, please sign in", { className: "success"});
-			// window.location.href = "/login.html";
+			// $.notify("Account successfully created, please sign in", { className: "success"});
+			window.location.href = "/login.html";
 		}).catch((error)=>{
 			$.notify(error.responseText, { className: "error"});
 		});
