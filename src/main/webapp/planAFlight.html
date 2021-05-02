@@ -4,6 +4,7 @@
     <!-- Main css -->
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/flight.css">
+    <link rel="stylesheet" href="css/jquery.datetimepicker.min.css">
 </head>
 
 <body>
@@ -30,7 +31,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="departure_date" id="departure_date" placeholder="Departure date"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="departure_time" id="departure_time" placeholder="Departure time"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="arrival_date" id="arrival_date" placeholder="Arrival date"/>
                             </div>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -44,10 +53,6 @@
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="ticket_price" id="ticket_price" placeholder="Ticket price per passenger"/>
                             </div>
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Meeting place"/>
-                            </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>
                             </div>
@@ -60,7 +65,11 @@
             </div>
         </section>
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="vendor/notify.min.js"></script>
+    <script src="vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="js/planAFlight.js"></script>
 </body>
 </html>
 

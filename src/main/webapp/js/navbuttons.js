@@ -4,6 +4,7 @@ $(async function () {
 		document.getElementById("btn-logout").style.display="none";
         document.getElementById("btn-delete-flight").style.display="none";
         document.getElementById("btn-plan-flight").style.display="none";
+        document.getElementById("btn-modify-flight").style.display="none";
         document.getElementById("btn-become-pilot").style.display="none";
         document.getElementById("btn-user-profile").style.display="none";
 	} else { // user is logged in
@@ -14,6 +15,7 @@ $(async function () {
         if(!pilot.userID){
             // if user is not pilot
             document.getElementById("btn-plan-flight").style.display="none";
+            document.getElementById("btn-modify-flight").style.display="none";
             document.getElementById("btn-delete-flight").style.display="none";
         }else{
             // if user is pilot
