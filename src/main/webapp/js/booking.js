@@ -3,11 +3,15 @@ $(function () {
         event.preventDefault();
         
         const urlParams = new URLSearchParams(window.location.search);
-		const currentUser = JSON.parse(sessionStorage.getItem("current_user"));
+		const current_user = JSON.parse(sessionStorage.getItem("current_user"));
+        
+        if (current_user == undefined || current_user == null ){ // user not logged in
+            window.location.href = "/signUp.html";
+        }
 
 		const data = {
 			flightID: urlParams.get('flightID'),
-			user: currentUser.userID,
+			user: current_user.userID,
 			status: "pending_response"
 		};
 
@@ -23,11 +27,12 @@ $(function () {
             url: "/ws/coavionnage/bookings/add/" + placeNumber
         }).done((response)=>{
             console.log(response);
-            $.notify(response.message, { className: "success"});
-            // window.location.href = "/home.html";
+            $.notify(response, { className: "success"});
+            window.location.href = "/home.html";
         }).catch((error)=>{
             console.log(error);
-            $.notify(error.message, { className: "error"});
+            $.notify(error, { className: "error"});
+            window.location.href = "/home.html";
         });
     });
 })
