@@ -2,12 +2,18 @@ package com.coavionnage.jetty_jersey.dao;
 
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 @PersistenceCapable
 @Discriminator(strategy = DiscriminatorStrategy.CLASS_NAME)
 public class Pilot {
-
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	@Unique
 	private Integer userID;
 
 	private String firstname;
@@ -19,9 +25,8 @@ public class Pilot {
 	private int yearsOfExperience;
 	private String qualifications;
 
-	public Pilot(Integer id, String firstname, String lastname, String email, int nbHours, int nbYears,
-			String qualification) {
-		this.setUserID(id);
+	public Pilot(String firstname, String lastname, String email, int nbHours, int nbYears, String qualification) {
+		// this.setUserID(id);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setEmail(email);

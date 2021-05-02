@@ -1,5 +1,7 @@
 package com.coavionnage.jetty_jersey.ws;
 
+import java.util.List;
+
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.coavionnage.jetty_jersey.dao.DAO;
+import com.coavionnage.jetty_jersey.dao.Pilot;
 import com.coavionnage.jetty_jersey.dao.User;
 
 @Path("/pilots")
@@ -36,13 +39,13 @@ public class PilotResource {
 			throw new BadRequestException("User missing");
 		}
 		User u = DAO.getUserDAO().getUser(uid);
-
-		try {
-			return Response.created(null).entity(DAO.getPilotDAO().addPilot(u, nbHours, expYears, qualifications))
-					.build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Error: cannot add pilot").build();
+		List<Pilot> list = DAO.getPilotDAO().getPilots(null);
+		for (Pilot p : list) {
+			if (p.getEmail().equals(u.getEmail())) {
+				return Response.status(Status.BAD_REQUEST).entity("Error: pilot already exists").build();
+			}
 		}
+		return Response.created(null).entity(DAO.getPilotDAO().addPilot(u, nbHours, expYears, qualifications)).build();
 
 	}
 
@@ -53,6 +56,7 @@ public class PilotResource {
 		if (uid == null) {
 			throw new BadRequestException("User id missing");
 		}
+
 		try {
 			return Response.created(null).entity(DAO.getUserDAO().deleteUser(uid)).build();
 		} catch (Exception e) {

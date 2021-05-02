@@ -63,8 +63,7 @@ public class PilotDAOImpl implements PilotDAO {
 		tx.setRetainValues(true);
 		try {
 			tx.begin();
-			pilot = new Pilot(u.getUserID(), u.getFirstName(), u.getLastName(), u.getEmail(), nbHours, nbYears,
-					qualifications);
+			pilot = new Pilot(u.getFirstName(), u.getLastName(), u.getEmail(), nbHours, nbYears, qualifications);
 			pm.makePersistent(pilot);
 			tx.commit();
 		} finally {

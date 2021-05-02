@@ -57,11 +57,13 @@ public class UserResource {
 		if (user == null) {
 			throw new BadRequestException("User missing");
 		}
-		try {
-			return Response.created(null).entity(DAO.getUserDAO().addUser(user)).build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
+		List<User> list = DAO.getUserDAO().getUsers();
+		for (User u : list) {
+			if (u.getEmail().equals(user.getEmail())) {
+				return Response.status(Status.BAD_REQUEST).entity("Error: email already used").build();
+			}
 		}
+		return Response.created(null).entity(DAO.getUserDAO().addUser(user)).build();
 
 	}
 
