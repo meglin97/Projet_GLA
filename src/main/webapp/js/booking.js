@@ -26,11 +26,11 @@ $(function () {
             url: "/ws/coavionnage/bookings/add/" + placeNumber
         }).done((response)=>{
             console.log(response);
-            $.notify(response, { className: "success"});
-            window.location.href = "/home.html";  
+            $.notify(response.responseText, { className: "success"});
+            // window.location.href = "/home.html";  
         }).catch((error)=>{
 			$.notify(error.responseText, { className: "error"});
-            window.location.href = "/home.html";
+            // window.location.href = "/home.html";
 		});
     });
 })
