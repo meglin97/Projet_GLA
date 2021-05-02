@@ -18,7 +18,7 @@ public interface FlightDAO {
 	 */
 	Flight addFlight(Flight flight);
 
-	boolean deleteFlight(Integer flightID);
+	void deleteFlight(Integer flightID);
 
 	Flight editFlight(Flight flight);
 

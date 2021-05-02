@@ -24,8 +24,8 @@ public class BookingResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Booking> getBookings() {
-		return DAO.getBookingDAO().getBookings();
+	public Response getBookings() {
+		return Response.ok().entity(DAO.getBookingDAO().getBookings()).build();
 	}
 
 	@GET
@@ -81,7 +81,7 @@ public class BookingResource {
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addFlightBooking(Booking book) {
+	public Response addBooking(Booking book) {
 		if (book == null) {
 			throw new BadRequestException("User missing");
 		}

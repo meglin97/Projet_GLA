@@ -103,10 +103,10 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean deleteFlight(Integer flightID) {
+	public void deleteFlight(Integer flightID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		boolean bool = false;
+		// boolean bool = false;
 		try {
 			tx.begin();
 			Extent<Flight> e = pm.getExtent(Flight.class, true);
@@ -115,7 +115,7 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight f = iter.next();
 				if (f.getFlightID().equals(flightID)) {
 					pm.deletePersistent(f);
-					bool = true;
+					// bool = true;
 				}
 			}
 			tx.commit();
@@ -125,7 +125,7 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
-		return bool;
+		// return bool;
 	}
 
 	@Override
