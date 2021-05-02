@@ -26,7 +26,15 @@ public class PilotResource {
 	@Produces(MediaType.APPLICATION_JSON)
 
 	public Response getPilot() {
-		return Response.ok(DAO.getPilotDAO().getPilots(null)).build();
+		return Response.ok(DAO.getPilotDAO().getPilots()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{id}")
+	public Response getPilot(@PathParam("id") Integer uid) {
+		return Response.ok(DAO.getPilotDAO().getPilot(uid)).build();
 
 	}
 
@@ -39,7 +47,7 @@ public class PilotResource {
 			throw new BadRequestException("User missing");
 		}
 		User u = DAO.getUserDAO().getUser(uid);
-		List<Pilot> list = DAO.getPilotDAO().getPilots(null);
+		List<Pilot> list = DAO.getPilotDAO().getPilots();
 		for (Pilot p : list) {
 			if (p.getEmail().equals(u.getEmail())) {
 				return Response.status(Status.BAD_REQUEST).entity("Error: pilot already exists").build();

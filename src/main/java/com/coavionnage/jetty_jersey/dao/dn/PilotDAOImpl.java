@@ -23,7 +23,7 @@ public class PilotDAOImpl implements PilotDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pilot> getPilots(Integer userID) {
+	public List<Pilot> getPilots() {
 
 		List<Pilot> pilots = null;
 		List<Pilot> detached = new ArrayList<Pilot>();
@@ -32,16 +32,9 @@ public class PilotDAOImpl implements PilotDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Pilot.class);
-			if (userID != null) {
-				q.declareParameters("Integer user");
-				q.setFilter("userID == user");
 
-				pilots = (List<Pilot>) q.execute(userID);
-				detached = (List<Pilot>) pm.detachCopyAll(pilots);
-			} else {
-				pilots = (List<Pilot>) q.execute();
-				detached = (List<Pilot>) pm.detachCopyAll(pilots);
-			}
+			pilots = (List<Pilot>) q.execute();
+			detached = (List<Pilot>) pm.detachCopyAll(pilots);
 
 			tx.commit();
 		} finally {
@@ -51,6 +44,16 @@ public class PilotDAOImpl implements PilotDAO {
 			pm.close();
 		}
 		return detached;
+	}
+
+	@Override
+	public Pilot getPilot(Integer userID) {
+		for (Pilot p : this.getPilots()) {
+			if (p.getUserID().equals(userID)) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class PilotDAOImpl implements PilotDAO {
 		boolean bool = false;
 		try {
 			tx.begin();
-			Pilot pilot = this.getPilots(userID).get(0);
+			Pilot pilot = this.getPilot(userID);
 			pm.deletePersistent(pilot);
 			tx.commit();
 		} catch (Exception e) {
@@ -104,7 +107,7 @@ public class PilotDAOImpl implements PilotDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			pilot = this.getPilots(u.getUserID()).get(0);
+			pilot = this.getPilot(u.getUserID());
 			pilot.setNumberOfHoursFlights(nbHours);
 			pilot.setExperience(nbYears);
 			pilot.setQualifications(qualifications);
