@@ -7,6 +7,7 @@ $(async function () {
         document.getElementById("btn-modify-flight").style.display="none";
         document.getElementById("btn-become-pilot").style.display="none";
         document.getElementById("btn-user-profile").style.display="none";
+        document.getElementById("btn-modify-pilot-profile").style.display="none";
 	} else { // user is logged in
 		document.getElementById("btn-signup").style.display="none";  
 		document.getElementById("btn-login").style.display="none";
@@ -17,6 +18,7 @@ $(async function () {
             document.getElementById("btn-plan-flight").style.display="none";
             document.getElementById("btn-modify-flight").style.display="none";
             document.getElementById("btn-delete-flight").style.display="none";
+            document.getElementById("btn-modify-pilot-profile").style.display="none";
         }else{
             // if user is pilot
             document.getElementById("btn-become-pilot").style.display="none";

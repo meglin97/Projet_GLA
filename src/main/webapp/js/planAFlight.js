@@ -2,8 +2,6 @@ $(function () {
     $('#plan_flight_form').on('submit', function(event){
 		event.preventDefault();
 
-		// 2021-02-16T00:00:00.000+01:00
-
 		const departure_date = document.getElementById("departure_date").value;
 		const departure_time = document.getElementById("departure_time").value;
 		const arrival_date = document.getElementById("arrival_date").value;
