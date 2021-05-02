@@ -112,6 +112,7 @@ function updateFlightsList(flights) {
 		btnBook = document.createElement("a");
 		btnBook.href = "/bookFlight.html?flightID=" + flight.flightID;
 		btnBook.innerHTML = "Book";
+		btnBook.className = "btn-book";
 		flightCol.append(btnBook);
 		flightRow.append(flightCol);
 

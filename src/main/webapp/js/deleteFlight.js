@@ -2,8 +2,8 @@ $(function () {
     $('#delete_flight_form').on('submit', function(event){
 		event.preventDefault();
 
-        const currentUser = JSON.parse(sessionStorage.getItem("current_user"));
-        console.log(currentUser);
+        const current_user = JSON.parse(sessionStorage.getItem("current_user"));
+        console.log(current_user);
 		
 		const flightID = document.getElementById("flight_id").value;
 

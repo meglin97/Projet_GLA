@@ -1,4 +1,8 @@
-body {font-family: Arial;}
+body {
+  font-family: Arial;
+  background: url("../images/aircraft2.jpg");
+  background-size: cover;
+}
 
 /* Style the tab */
 .tab {
@@ -8,7 +12,7 @@ body {font-family: Arial;}
 }
 
 .image {
-  position: relative;
+  /*position: relative;*/
   font-family: Arial;
 }
 
@@ -43,14 +47,15 @@ body {font-family: Arial;}
 }
 
 .flight-engine {
-  position: absolute;
-  bottom: 90%;
-  right: 10%;
-  left:10%;
+  /*position: absolute;*/
+  /*bottom: 85%;
+  left:25%;*/
 }
 .tabing {
+  margin-top: 15px;
   float: left;
-  width: 50%;
+  margin-left: 19%;
+  width: 60%;
   background: rgba(0, 130, 185, .8);
   padding: 0 10px 10px 10px;
   color: #fff;
@@ -73,7 +78,7 @@ body {font-family: Arial;}
   line-height: 20px;
 }
 .persent-one {
-  width: 19%;
+  width: 30%;
   float: left;
   margin-right: 1%;
   position: relative;
@@ -104,12 +109,37 @@ body {font-family: Arial;}
   top: -32px;
 }
 
-#flights-div{
-  position: absolute;
-  bottom: 80%;
-  right: 10%;
-  left:10%;
+#flights-div table{
+  float: left;
+  /*position: absolute;*/
+  /*bottom: 75%;*/
+  margin-left:17%;
+  margin-top: 15px;
 }
-.flightList{
+
+table, th, td {
+  background-color: rgba(33, 157, 211, 0.4) ;
+  color: 0;
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+}
+
+table a{
+  background-color: #1e5de6; 
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 
 }
+

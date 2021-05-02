@@ -5,7 +5,7 @@ $(function () {
         document.getElementById("btn-delete-flight").style.display="none";
         document.getElementById("btn-plan-flight").style.display="none";
         document.getElementById("btn-become-pilot").style.display="none";
-
+        document.getElementById("btn-user-profile").style.display="none";
 	} else { // user is logged in
 		document.getElementById("btn-signup").style.display="none";  
 		document.getElementById("btn-login").style.display="none";
