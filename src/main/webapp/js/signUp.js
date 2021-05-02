@@ -18,13 +18,14 @@ $(function () {
 		$.ajax({
 			type: 'PUT',
 			contentType: "application/json",
-			dataType: "json",
 			data: JSON.stringify(data),
 			url: "/ws/coavionnage/users/add"
 		}).done((response)=>{
 			console.log(response);
 			$.notify("Account successfully created, please sign in", { className: "success"});
 			// window.location.href = "/login.html";
+		}).catch((error)=>{
+			$.notify(error.responseText, { className: "error"});
 		});
 	});
 })
