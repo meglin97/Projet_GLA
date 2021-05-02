@@ -12,13 +12,12 @@ $(function () {
 		$.ajax({
 			type: 'PUT',
 			contentType: "application/json",
-			dataType: "json",
 			url: "/ws/coavionnage/pilots/add/" + userId + "?numberOfHours=" + numberOfHours + "&numberOfYears=" + numberOfYears + "&qualifications="+ qualifications
 		}).done((response)=>{
 			console.log(response);
 			window.location.href = "/home.html";
 		}).catch((error)=>{
-			console.error(error);
+			$.notify(error.responseText, { className: "error"});
 		});
 	});
 })

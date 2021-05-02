@@ -9,10 +9,10 @@ $(function () {
 			type: 'GET',
 			url: "/ws/coavionnage/users/login?email=" + email + "&password=" + password
 		}).done((response)=>{
-			console.log(response);
-
 			sessionStorage.setItem("current_user", JSON.stringify(response));
             window.location.href = "/home.html";
+		}).catch((error)=>{
+			$.notify(error.responseText, { className: "error"});
 		});
 	});
 })

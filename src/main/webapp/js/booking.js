@@ -15,8 +15,6 @@ $(function () {
 			status: "pending_response"
 		};
 
-        console.log(data);
-        
         const placeNumber = document.getElementById("number").value;
         
         $.ajax({
@@ -26,11 +24,9 @@ $(function () {
             url: "/ws/coavionnage/bookings/add/" + placeNumber
         }).done((response)=>{
             console.log(response);
-            $.notify(response.responseText, { className: "success"});
-            // window.location.href = "/home.html";  
+            window.location.href = "/home.html";  
         }).catch((error)=>{
 			$.notify(error.responseText, { className: "error"});
-            // window.location.href = "/home.html";
 		});
     });
 })
