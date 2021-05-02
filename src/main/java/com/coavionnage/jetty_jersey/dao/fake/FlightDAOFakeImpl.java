@@ -20,8 +20,7 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean deleteFlight(Integer flight) {
-		return false;
+	public void deleteFlight(Integer flight) {
 		// TODO Auto-generated method stub
 
 	}
