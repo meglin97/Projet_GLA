@@ -76,14 +76,14 @@ public class PilotResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/edit/{id}")
-	public Response editingUser(@PathParam("id") Integer uid, @QueryParam("numberOfHours") int nbHours,
+	public Response editingPilot(@PathParam("id") Integer uid, @QueryParam("numberOfHours") int nbHours,
 			@QueryParam("numberOfYears") int expYears, @QueryParam("qualifications") String qualifications) {
 		if (uid == null) {
 			throw new BadRequestException("User missing");
 		}
-		User u = DAO.getUserDAO().getUser(uid);
+
 		try {
-			return Response.created(null).entity(DAO.getPilotDAO().editPilot(u, nbHours, expYears, qualifications))
+			return Response.created(null).entity(DAO.getPilotDAO().editPilot(uid, nbHours, expYears, qualifications))
 					.build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Cannot edit: user not found").build();

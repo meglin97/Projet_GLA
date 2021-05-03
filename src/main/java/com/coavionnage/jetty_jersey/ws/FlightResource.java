@@ -31,7 +31,9 @@ public class FlightResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAvailableFlights() {
 		List<Flight> all = DAO.getFlightDAO().getFlights();
-
+		if (all == null) {
+			return Response.status(Status.NOT_FOUND).entity("No flights").build();
+		}
 		for (Flight f : all) {
 			int places = DAO.getFlightDAO().getFlight(f.getFlightID()).getNumberPlaces();
 			int bookings = DAO.getBookingDAO().bookingNumber(f.getFlightID());
@@ -47,7 +49,7 @@ public class FlightResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/all")
 	public Response getAllFlights() {
-		return Response.ok().entity(DAO.getFlightDAO().getFlights()).build();
+		return Response.created(null).entity(DAO.getFlightDAO().getFlights()).build();
 	}
 
 	@GET
@@ -105,16 +107,20 @@ public class FlightResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/edit")
-	public Response editFlight(Flight flight) {
-		if (flight == null) {
+	@Path("/edit{id}")
+	public Response editFlight(@PathParam("id") Integer flightID, @QueryParam("arrival") String arrival,
+			@QueryParam("departure_time") Date departure_time, @QueryParam("arrival_time") Date arrival_time,
+			@QueryParam("numberOfPlaces") int places) {
+		if (flightID == null) {
 			throw new BadRequestException("Flight missing");
 		}
-		try {
-			return Response.created(null).entity(DAO.getFlightDAO().editFlight(flight)).build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Flight not found").build();
+		boolean bool = DAO.getFlightDAO().editFlight(flightID, arrival, departure_time, arrival_time, places);
+		if (bool == true) {
+
+			return Response.ok().entity("Flight edited").build();
 		}
+		return Response.status(Status.BAD_REQUEST).entity("Cannot edit: flight not found").build();
+
 	}
 
 	@DELETE
@@ -123,12 +129,13 @@ public class FlightResource {
 		if (flightID == null) {
 			throw new BadRequestException("Flight id missing");
 		}
-		try {
-			DAO.getFlightDAO().deleteFlight(flightID);
+		boolean bool = DAO.getFlightDAO().deleteFlight(flightID);
+		if (bool == true) {
 			return Response.ok().entity("Flight deleted").build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Cannot edit: flight not found").build();
 		}
+
+		return Response.status(Status.NOT_FOUND).entity("Cannot delete: flight not found").build();
+
 	}
 
 	@GET

@@ -87,8 +87,11 @@ public class PilotDAOImpl implements PilotDAO {
 		boolean bool = false;
 		try {
 			tx.begin();
-			Pilot pilot = this.getPilot(userID);
-			pm.deletePersistent(pilot);
+			Pilot pilot = pm.getObjectById(Pilot.class, userID);
+			if (pilot != null) {
+				pm.deletePersistent(pilot);
+				bool = true;
+			}
 			tx.commit();
 		} catch (Exception e) {
 			throw new NotFoundException();
@@ -102,17 +105,24 @@ public class PilotDAOImpl implements PilotDAO {
 	}
 
 	@Override
-	public Pilot editPilot(User u, int nbHours, int nbYears, String qualifications) {
+	public Pilot editPilot(Integer u, int nbHours, int nbYears, String qualifications) {
 		Pilot pilot = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			pilot = this.getPilot(u.getUserID());
-			pilot.setNumberOfHoursFlights(nbHours);
-			pilot.setExperience(nbYears);
-			pilot.setQualifications(qualifications);
-
+			pilot = pm.getObjectById(Pilot.class, u);
+			if (pilot != null) {
+				if (nbHours != 0) {
+					pilot.setNumberOfHoursFlights(nbHours);
+				}
+				if (nbYears != 0) {
+					pilot.setExperience(nbYears);
+				}
+				if (qualifications != null) {
+					pilot.setQualifications(qualifications);
+				}
+			}
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {

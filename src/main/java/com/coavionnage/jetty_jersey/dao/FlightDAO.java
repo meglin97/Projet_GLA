@@ -18,9 +18,9 @@ public interface FlightDAO {
 	 */
 	Flight addFlight(Flight flight);
 
-	void deleteFlight(Integer flightID);
+	boolean deleteFlight(Integer flightID);
 
-	Flight editFlight(Flight flight);
+	boolean editFlight(Integer id, String arrival, Date dep, Date arr, int nb);
 
 	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date);
 

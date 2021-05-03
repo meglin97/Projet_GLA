@@ -103,10 +103,10 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public void deleteFlight(Integer flightID) {
+	public boolean deleteFlight(Integer flightID) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		// boolean bool = false;
+		boolean bool = false;
 		try {
 			tx.begin();
 			Extent<Flight> e = pm.getExtent(Flight.class, true);
@@ -115,7 +115,7 @@ public class FlightDAOImpl implements FlightDAO {
 				Flight f = iter.next();
 				if (f.getFlightID().equals(flightID)) {
 					pm.deletePersistent(f);
-					// bool = true;
+					bool = true;
 				}
 			}
 			tx.commit();
@@ -125,13 +125,14 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
-		// return bool;
+		return bool;
 	}
 
 	@Override
-	public Flight editFlight(Flight flight) {
+	public boolean editFlight(Integer id, String arrival, Date dep, Date arr, int nb) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		boolean bool = false;
 		try {
 			tx.begin();
 
@@ -139,15 +140,16 @@ public class FlightDAOImpl implements FlightDAO {
 			Iterator<Flight> iter = e.iterator();
 			while (iter.hasNext()) {
 				Flight fl = iter.next();
-				if (fl.getFlightID().equals(flight.getFlightID())) {
-					fl.setArrivalAirfield(flight.getArrivalAirfield());
+				if (fl.getFlightID().equals(id)) {
+					fl.setArrivalAirfield(arrival);
 					try {
-						fl.setDepartureDate(flight.getDepartureDate());
-						fl.setArrivalDate(flight.getArrivalDate());
+						fl.setDepartureDate(dep);
+						fl.setArrivalDate(arr);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					fl.setNumberPlaces(flight.getNumberPlaces());
+					fl.setNumberPlaces(nb);
+					bool = true;
 				}
 			}
 			tx.commit();
@@ -157,7 +159,7 @@ public class FlightDAOImpl implements FlightDAO {
 			}
 			pm.close();
 		}
-		return flight;
+		return bool;
 	}
 
 	@Override

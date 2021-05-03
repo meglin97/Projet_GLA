@@ -20,19 +20,6 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public void deleteFlight(Integer flight) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Flight editFlight(Flight flight) {
-		return flight;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date) {
 		// TODO Auto-generated method stub
 		return null;
@@ -54,6 +41,18 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	public int flightPlaces(Integer fid) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean deleteFlight(Integer flightID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean editFlight(Integer id, String arrival, Date dep, Date arr, int nb) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
