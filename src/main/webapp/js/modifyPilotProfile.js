@@ -10,9 +10,9 @@ $(function () {
 		const qualifications = document.getElementById("qualifications").value;
 
 		$.ajax({
-			type: 'PUT',
+			type: 'POST',
 			contentType: "application/json",
-			url: "/ws/coavionnage/pilots/add/" + userId + "?numberOfHours=" + numberOfHours + "&numberOfYears=" + numberOfYears + "&qualifications="+ qualifications
+			url: "/ws/coavionnage/pilots/edit/" + userId + "?numberOfHours=" + numberOfHours + "&numberOfYears=" + numberOfYears + "&qualifications="+ qualifications
 		}).done((response)=>{
 			console.log(response);
 			window.location.href = "/home.html";

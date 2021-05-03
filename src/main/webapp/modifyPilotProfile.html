@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Flight booking</title>
+    <title>Become a Pilot</title>
     <!-- Main css -->
     <link rel="stylesheet" href="css/flight.css">
     <link rel="stylesheet" href="css/home.css">
@@ -9,6 +9,8 @@
 <body>
     <div class="tab">
         <a href="home.html"><button class="tablinks">Home</button></a>
+		<a href="deleteFlight.html"><button class="tablinks">Delete a Flight</button></a>
+		<a href="planAFlight.html"><button class="tablinks">Plan a Flight</button></a>
 	</div>
 
     <div class="main">
@@ -17,11 +19,16 @@
             <div class="container">
                 <div class="flight-content">
                     <div class="flight-form">
-                        <h2 class="form-title">Flight booking</h2>
-                        <!-- method="PUT" action="/ws/coavionnage/users/flight" -->
-                        <form class="register-form" id="book_flight_form"> 
+                        <h2 class="form-title">Modify Pilot Profile</h2>
+                        <form class="register-form" id="become_pilot_form"> 
                             <div class="form-group">
-                                <input type="number" name="number" id="number" placeholder="Number of places"/>
+                                <input type="number" name="name" id="experience" placeholder="Experience"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="name" id="qualifications" placeholder="Qualifications"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="number" id="number" placeholder="Number of flight hours"/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>
@@ -29,7 +36,7 @@
                         </form>
                     </div>
                     <div class="flight-image">
-                        <figure><img src="images/booking2.jpeg" ></figure>
+                        <figure><img src="images/avatar.jpeg" ></figure>
                     </div>
                 </div>
             </div>
@@ -38,7 +45,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script src="vendor/notify.min.js"></script>
-    <script src="js/booking.js"></script>
+    <script src="js/modifyPilotProfile.js"></script>
 </body>
 </html>
 

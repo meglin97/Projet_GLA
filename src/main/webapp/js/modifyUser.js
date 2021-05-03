@@ -1,8 +1,15 @@
 $(function () {
-    $('#register-form').on('submit', function(event){
+
+	const current_user = JSON.parse(sessionStorage.getItem("current_user"));
+	document.getElementById("firstname").value = current_user.firstname;
+	document.getElementById("lastname").value = current_user.lastname;
+	document.getElementById("email").value = current_user.email;
+
+    $('#modify-user-form').on('submit', function(event){
 		event.preventDefault();
 		
 		let data = {
+			userID: current_user.userID,
 			firstname: document.getElementById("firstname").value,
 			lastname: document.getElementById("lastname").value,
 			password: document.getElementById("password").value,
@@ -16,14 +23,14 @@ $(function () {
 		}
 
 		$.ajax({
-			type: 'PUT',
+			type: 'POST',
 			contentType: "application/json",
 			data: JSON.stringify(data),
-			url: "/ws/coavionnage/users/add"
+			url: "/ws/coavionnage/users/edit"
 		}).done((response)=>{
 			console.log(response);
-			// $.notify("Account successfully created, please sign in", { className: "success"});
-			window.location.href = "/login.html";
+			sessionStorage.setItem("current_user", JSON.stringify(response));
+			window.location.href = "/userProfile.html";
 		}).catch((error)=>{
 			$.notify(error.responseText, { className: "error"});
 		});
