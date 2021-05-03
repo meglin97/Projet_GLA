@@ -7,9 +7,10 @@
 
 <body>
     <div class="tab">
+        <a id="btn-logout" href="#"><button class="tablinks">Sign out</button></a>
         <a href="home.html"><button class="tablinks">Home</button></a>
-		<a href="deleteFlight.html"><button class="tablinks">Delete a Flight</button></a>
-		<a href="planAFlight.html"><button class="tablinks">Plan a Flight</button></a>
+		<a id="btn-delete-flight" href="deleteFlight.html"><button class="tablinks">Delete a Flight</button></a>
+		<a id="btn-plan-flight" href="planAFlight.html"><button class="tablinks">Plan a Flight</button></a>
 	</div>
 
     <div class="main">
@@ -47,6 +48,8 @@
                     </div>
                     <div class="user-image">
                         <figure><img src="images/pilot3.png" ></figure>
+                        <a id="btn-modify-pilot-profile" href="modifyPilotProfile.html" class="user-image-link">Modify your account</a>
+                        <!-- <a id="btn-delete-user" href="#" class="user-image-link">Delete your account</a> -->
                     </div>
                 </div>
             </div>
@@ -55,6 +58,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/pilotInfo.js"></script>
+    <script src="js/navbuttons.js"></script>
 </body>
 </html>
 
