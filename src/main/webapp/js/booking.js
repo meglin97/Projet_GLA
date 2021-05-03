@@ -1,14 +1,13 @@
 $(function () {
+    const current_user = JSON.parse(sessionStorage.getItem("current_user"));
+    if (current_user == undefined || current_user == null ){ // user not logged in
+        window.location.href = "/signUp.html";
+    }
+
     $('#book_flight_form').on('submit', function(event){
         event.preventDefault();
         
         const urlParams = new URLSearchParams(window.location.search);
-		const current_user = JSON.parse(sessionStorage.getItem("current_user"));
-        
-        if (current_user == undefined || current_user == null ){ // user not logged in
-            window.location.href = "/signUp.html";
-        }
-
 		const data = {
 			flightID: urlParams.get('flightID'),
 			user: current_user.userID,
