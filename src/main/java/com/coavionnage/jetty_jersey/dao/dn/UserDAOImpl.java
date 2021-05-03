@@ -1,8 +1,10 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -104,24 +106,24 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User editUser(Integer id, String first, String last, String pass) {
-		User u = null;
+	public User editUser(User user) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			u = pm.getObjectById(User.class, id);
-			if (u != null) {
-				if (first != null) {
-					u.setFirstName(first);
-				}
-				if (last != null) {
-					u.setLastName(last);
-				}
-				if (pass != null) {
-					u.setPassword(pass);
+
+			Extent<User> e = pm.getExtent(User.class, true);
+			Iterator<User> iter = e.iterator();
+			while (iter.hasNext()) {
+				User u = iter.next();
+				if (u.getUserID().equals(user.getUserID())) {
+					u.setFirstName(user.getFirstName());
+					u.setLastName(user.getLastName());
+					u.setEmail(user.getEmail());
+					u.setPassword(user.getPassword());
 				}
 			}
+
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -129,7 +131,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
-		return u;
+		return user;
 	}
 
 	@SuppressWarnings("unchecked")

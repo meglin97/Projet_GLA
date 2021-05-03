@@ -95,15 +95,13 @@ public class UserResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/edit/{id}")
-	public Response editingUser(@PathParam("id") Integer uid, @QueryParam("Firstname") String first,
-			@QueryParam("LastName") String last, @QueryParam("Password") String pass) {
-		if (uid == null) {
+	@Path("/edit")
+	public Response editingUser(User user) {
+		if (user == null) {
 			throw new BadRequestException("User missing");
 		}
-
 		try {
-			return Response.created(null).entity(DAO.getUserDAO().editUser(uid, first, last, pass)).build();
+			return Response.created(null).entity(DAO.getUserDAO().editUser(user)).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity("Cannot edit: user not found").build();
 		}

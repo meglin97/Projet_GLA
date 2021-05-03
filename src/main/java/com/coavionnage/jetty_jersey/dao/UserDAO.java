@@ -12,7 +12,7 @@ public interface UserDAO {
 
 	boolean deleteUser(Integer userID);
 
-	User editUser(Integer id, String first, String last, String pass);
+	User editUser(User u);
 
 	User getUserByEmailAndPassword(String email, String password);
 
