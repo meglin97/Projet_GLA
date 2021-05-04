@@ -24,32 +24,28 @@
                         <form class="register-form" id="modify_pilot_form"> 
                             <div class="form-group">
                                 <label for="firstname"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="firstname" id="firstname" placeholder="Your firstname"/>
+                                <input type="text" name="firstname" id="firstname" required placeholder="Your firstname"/>
                             </div>
                             <div class="form-group">
                                 <label for="lastname"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="lastname" id="lastname" placeholder="Your lastname"/>
+                                <input type="text" name="lastname" id="lastname" required placeholder="Your lastname"/>
                             </div>
                             <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                <input type="number" name="name" id="experience" required placeholder="Experience"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" name="name" id="experience" placeholder="Experience"/>
+                                <input type="text" name="name" id="qualifications" required placeholder="Qualifications"/>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="name" id="qualifications" placeholder="Qualifications"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" name="number" id="number" placeholder="Number of flight hours"/>
+                                <input type="number" name="number" id="number" required placeholder="Number of flight hours"/>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="password" id="password" required placeholder="Password"/>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                                <input type="password" name="re_pass" id="re_pass" required placeholder="Repeat your password"/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>

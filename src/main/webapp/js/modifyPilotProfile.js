@@ -5,7 +5,6 @@ $(async function () {
 
 	document.getElementById("firstname").value = current_user.firstname;
 	document.getElementById("lastname").value = current_user.lastname;
-	document.getElementById("email").value = current_user.email;
 	document.getElementById("number").value = pilot.numberOfHoursFlights;
 	document.getElementById("experience").value = pilot.experience;
 	document.getElementById("qualifications").value = pilot.qualifications;
@@ -22,7 +21,7 @@ $(async function () {
 			firstname: document.getElementById("firstname").value,
 			lastname: document.getElementById("lastname").value,
 			password: document.getElementById("password").value,
-			email: document.getElementById("email").value
+			email: current_user.email
 		};
 
 		const confirm_password = document.getElementById("re_pass").value;
