@@ -11,6 +11,7 @@ public class Flight {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	@Unique
 	public Integer flightID;
 
 	public String departureAirfield;
@@ -133,4 +134,9 @@ public class Flight {
 		this.ticketPrice = ticketPrice;
 	}
 
+	@Override
+	public String toString() {
+		return this.departureAirfield + " ---> " + this.arrivalAirfield + " for " + this.departureDate + " "
+				+ this.departureTime + " to " + this.arrivalDate + " " + this.arrivalTime;
+	}
 }

@@ -1,17 +1,27 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import com.coavionnage.jetty_jersey.dao.Booking;
 import com.coavionnage.jetty_jersey.dao.BookingDAO;
+import com.coavionnage.jetty_jersey.dao.User;
 
 public class BookingDAOImpl implements BookingDAO {
 
@@ -178,6 +188,51 @@ public class BookingDAOImpl implements BookingDAO {
 			}
 		}
 		return nb;
+	}
+
+	@Override
+	public void sendingMail(User u, Booking b, int bookNumber, String flight) {
+		// TODO Auto-generated method stub
+		String from = "uberplane_eidd@outlook.com";
+		String to = u.getEmail();
+		String host = "smtp-mail.outlook.com";
+		String port = "587";
+		String password = "choco0234xx";
+		// Set system properties
+		Properties props = new Properties();
+		props.put("mail.smtp.user", from);
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+
+		try {
+			Authenticator auth = new javax.mail.Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(from, password);
+				}
+			};
+
+			Session session = Session.getInstance(props, auth);
+
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(from, "UberPlane"));
+			message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to));
+			message.setSubject("Booking confirmation");
+			// for the tests, we send a mail to a default address
+			message.setText("Hello " + u.getFirstName() + "," + "\nThank you for your bookings.\nYou booked "
+					+ bookNumber + " places for the flight " + flight);
+
+			Transport.send(message);
+
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

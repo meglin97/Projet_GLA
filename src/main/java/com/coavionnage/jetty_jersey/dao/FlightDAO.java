@@ -21,8 +21,7 @@ public interface FlightDAO {
 
 	boolean editFlight(Flight flight);
 
-	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate,
-			String arrivalDate);
+	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate);
 
 	int flightNumber();
 

@@ -57,15 +57,14 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate,
-			String arrivalDate) {
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate) {
 		// TODO Auto-generated method stub
 		List<Flight> flights = new ArrayList<Flight>();
 		for (Flight f : this.getFlights()) {
 			System.out.println(f.getDepartureAirfield());
 			System.out.println(departureAirfield);
 			if (f.getDepartureAirfield().equals(departureAirfield) && f.getArrivalAirfield().equals(arrivalAirfield)
-					&& f.getDepartureDate().equals(departureDate) && f.getArrivalDate().equals(arrivalDate)) {
+					&& f.getDepartureDate().equals(departureDate)) {
 				flights.add(f);
 			}
 		}

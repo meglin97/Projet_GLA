@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response.Status;
 
 import com.coavionnage.jetty_jersey.dao.Booking;
 import com.coavionnage.jetty_jersey.dao.DAO;
-import com.coavionnage.jetty_jersey.dao.MailService;
 import com.coavionnage.jetty_jersey.dao.User;
 
 @Path("/bookings")
@@ -115,8 +114,13 @@ public class BookingResource {
 		}
 		User u = DAO.getUserDAO().getUser(booking.getUser());
 		String flight = DAO.getFlightDAO().getFlight(booking.getFlightID()).toString();
-		Object mailservice = MailService.sendingMail(u, booking, list.size(), flight);
-		return Response.ok().entity(mailservice).build();
+		try {
+			DAO.getBookingDAO().sendingMail(u, booking, list.size(), flight);
+			return Response.ok().entity("Email sended").build();
+		} catch (Exception e) {
+			return Response.status(javax.transaction.Status.STATUS_COMMITTED).build();
+		}
+
 	}
 
 	@POST

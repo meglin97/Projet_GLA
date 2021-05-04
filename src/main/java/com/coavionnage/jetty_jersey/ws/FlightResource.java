@@ -86,10 +86,9 @@ public class FlightResource {
 	@GET
 	@Path("/search")
 	public Response searchByCriteria(@QueryParam("departure") String departure, @QueryParam("arrival") String arrival,
-			@QueryParam("departure_date") String departure_date, @QueryParam("arrival_date") String arrival_date) {
+			@QueryParam("departure_date") String departure_date) {
 
-		return Response.ok()
-				.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, departure_date, arrival_date)).build();
+		return Response.ok().entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, departure_date)).build();
 
 	}
 

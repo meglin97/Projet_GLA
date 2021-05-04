@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.coavionnage.jetty_jersey.dao.Booking;
 import com.coavionnage.jetty_jersey.dao.BookingDAO;
+import com.coavionnage.jetty_jersey.dao.User;
 
 public class BookingDAOFakeImpl implements BookingDAO {
 
@@ -63,6 +64,12 @@ public class BookingDAOFakeImpl implements BookingDAO {
 	public Booking getBooking(Integer bid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void sendingMail(User u, Booking b, int bookNumber, String flight) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

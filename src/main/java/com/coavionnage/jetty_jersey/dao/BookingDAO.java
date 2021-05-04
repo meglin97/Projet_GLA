@@ -23,4 +23,6 @@ public interface BookingDAO {
 
 	Booking getBooking(Integer bid);
 
+	void sendingMail(User u, Booking b, int bookNumber, String flight);
+
 }
