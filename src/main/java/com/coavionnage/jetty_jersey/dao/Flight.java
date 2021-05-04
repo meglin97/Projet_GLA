@@ -1,9 +1,5 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -21,9 +17,13 @@ public class Flight {
 
 	public String arrivalAirfield;
 
-	public Date departureDate;
+	public String departureDate;
 
-	public Date arrivalDate;
+	public String arrivalDate;
+
+	public String departureTime;
+
+	public String arrivalTime;
 
 	private int numberPlaces;
 
@@ -36,19 +36,17 @@ public class Flight {
 		super();
 	}
 
-	public Flight(Integer flightID, String departure, String arrival, String depTime, String arrTime, int numberPlaces,
-			Integer pilotID, float ticketPrice) {
+	public Flight(String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime,
+			int numberPlaces, Integer pilotID, float ticketPrice) {
 
-		this.flightID = flightID;
 		this.departureAirfield = departure;
 		this.arrivalAirfield = arrival;
-		try {
-			this.departureDate = new SimpleDateFormat("yyyy-MM-dd").parse(depTime);
-			this.arrivalDate = new SimpleDateFormat("yyyy-MM-dd").parse(arrTime);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		this.departureDate = depDate;
+		this.arrivalDate = arrDate;
+		this.departureTime = depTime;
+		this.arrivalTime = arrTime;
+
 		this.numberPlaces = numberPlaces;
 		this.pilot = pilotID;
 		this.setTicketPrice(ticketPrice);
@@ -79,20 +77,36 @@ public class Flight {
 		this.arrivalAirfield = arrivalAirfield;
 	}
 
-	public Date getDepartureDate() {
+	public String getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDepartureDate(Date departureTime) {
+	public void setDepartureDate(String departureTime) {
 		this.departureDate = departureTime;
 	}
 
-	public Date getArrivalDate() {
+	public String getArrivalDate() {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(Date arrivalTime) {
+	public void setArrivalDate(String arrivalTime) {
 		this.arrivalDate = arrivalTime;
+	}
+
+	public String getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public int getNumberPlaces() {

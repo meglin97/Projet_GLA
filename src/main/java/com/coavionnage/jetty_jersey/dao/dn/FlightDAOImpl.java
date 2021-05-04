@@ -1,7 +1,6 @@
 package com.coavionnage.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,29 +56,21 @@ public class FlightDAOImpl implements FlightDAO {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date) {
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate,
+			String arrivalDate) {
 		// TODO Auto-generated method stub
-		List<Flight> actions = null;
-		List<Flight> detached = new ArrayList<Flight>();
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("String departure, String arrival,Date d");
-			q.setFilter("departureAirfield==departure && arrivalAirfield==arrival && date==d");
-			actions = (List<Flight>) q.execute(departureAirfield, arrivalAirfield, date);
-			detached = (List<Flight>) pm.detachCopyAll(actions);
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
+		List<Flight> flights = new ArrayList<Flight>();
+		for (Flight f : this.getFlights()) {
+			System.out.println(f.getDepartureAirfield());
+			System.out.println(departureAirfield);
+			if (f.getDepartureAirfield().equals(departureAirfield) && f.getArrivalAirfield().equals(arrivalAirfield)
+					&& f.getDepartureDate().equals(departureDate) && f.getArrivalDate().equals(arrivalDate)) {
+				flights.add(f);
 			}
-			pm.close();
 		}
-		return detached;
+
+		return flights;
 	}
 
 	@Override
@@ -129,7 +120,7 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean editFlight(Integer id, String arrival, Date dep, Date arr, int nb) {
+	public boolean editFlight(Flight flight) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		boolean bool = false;
@@ -139,16 +130,19 @@ public class FlightDAOImpl implements FlightDAO {
 			Extent<Flight> e = pm.getExtent(Flight.class, true);
 			Iterator<Flight> iter = e.iterator();
 			while (iter.hasNext()) {
-				Flight fl = iter.next();
-				if (fl.getFlightID().equals(id)) {
-					fl.setArrivalAirfield(arrival);
-					try {
-						fl.setDepartureDate(dep);
-						fl.setArrivalDate(arr);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					fl.setNumberPlaces(nb);
+				Flight f = iter.next();
+				if (f.getFlightID().equals(flight.getFlightID())) {
+					f.setDepartureAirfield(flight.getDepartureAirfield());
+					f.setArrivalAirfield(flight.getArrivalAirfield());
+
+					f.setDepartureDate(flight.getDepartureDate());
+					f.setArrivalDate(flight.getArrivalDate());
+					f.setDepartureTime(flight.getDepartureTime());
+
+					f.setArrivalTime(flight.getArrivalTime());
+
+					f.setNumberPlaces(flight.getNumberPlaces());
+
 					bool = true;
 				}
 			}

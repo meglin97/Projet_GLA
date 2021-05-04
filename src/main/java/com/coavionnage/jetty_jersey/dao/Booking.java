@@ -12,11 +12,6 @@ import javax.jdo.annotations.Unique;
 @PersistenceCapable
 public class Booking {
 
-	// public final static String BOOKING_STATUS_PENDING_RESPONSE =
-	// "pending_response";
-	// public final static String BOOKING_STATUS_ACCEPTED = "accepted";
-	// public final static String BOOKING_STATUS_REJECTED = "rejected";
-
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	@Unique
@@ -29,18 +24,16 @@ public class Booking {
 	private String status;
 
 	@Persistent
-	private LocalDateTime date;
+	private String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm"));
 
 	public Booking() {
 		super();
 	}
 
-	public Booking(Integer bid, Integer fid, Integer u, String status) {
-		this.bookID = bid;
+	public Booking(Integer fid, Integer u, String status) {
 		this.flightID = fid;
 		this.userID = u;
 		this.status = status;
-		this.date = LocalDateTime.now();
 
 	}
 
@@ -76,13 +69,13 @@ public class Booking {
 		this.status = status;
 	}
 
-	public LocalDateTime getDateTime() {
+	public String getDateTime() {
 		return this.date;
 	}
 
 	@Override
 	public String toString() {
 		return "bookID : " + bookID + "\nflightID : " + flightID + "\nuserID : " + userID + "\nstatus : " + status
-				+ "\ndate time : " + date.format(DateTimeFormatter.ofPattern("EEE dd-MM-yyyy HH:mm:ss"));
+				+ "\ndate time : " + date;
 	}
 }

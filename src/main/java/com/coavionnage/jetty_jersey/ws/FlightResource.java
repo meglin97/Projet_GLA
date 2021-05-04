@@ -1,7 +1,5 @@
 package com.coavionnage.jetty_jersey.ws;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -78,7 +76,7 @@ public class FlightResource {
 			return Response.status(Status.BAD_REQUEST).entity("Pilot not exists").build();
 		}
 		try {
-			return Response.created(null).entity(DAO.getFlightDAO().addFlight(flight)).build();
+			return Response.ok().entity(DAO.getFlightDAO().addFlight(flight)).build();
 		} catch (Exception e) {
 
 			return Response.status(Status.BAD_REQUEST).entity("Error: flight already exists").build();
@@ -88,33 +86,22 @@ public class FlightResource {
 	@GET
 	@Path("/search")
 	public Response searchByCriteria(@QueryParam("departure") String departure, @QueryParam("arrival") String arrival,
-			@QueryParam("departure_time") String departure_time) {
-		Date d = null;
-		try {
-			d = new SimpleDateFormat("dd/MM/yyyy").parse(departure_time);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			return Response.ok().header("departure", departure).header("arrival", arrival).header("departure_time", d)
-					.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, d)).build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Flight not found").build();
-		}
+			@QueryParam("departure_date") String departure_date, @QueryParam("arrival_date") String arrival_date) {
+
+		return Response.ok()
+				.entity(DAO.getFlightDAO().searchByCriteria(departure, arrival, departure_date, arrival_date)).build();
 
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/edit{id}")
-	public Response editFlight(@PathParam("id") Integer flightID, @QueryParam("arrival") String arrival,
-			@QueryParam("departure_time") Date departure_time, @QueryParam("arrival_time") Date arrival_time,
-			@QueryParam("numberOfPlaces") int places) {
-		if (flightID == null) {
+	@Path("/edit")
+	public Response editFlight(Flight flight) {
+		if (flight == null) {
 			throw new BadRequestException("Flight missing");
 		}
-		boolean bool = DAO.getFlightDAO().editFlight(flightID, arrival, departure_time, arrival_time, places);
+		boolean bool = DAO.getFlightDAO().editFlight(flight);
 		if (bool == true) {
 
 			return Response.ok().entity("Flight edited").build();

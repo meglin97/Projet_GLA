@@ -1,6 +1,5 @@
 package com.coavionnage.jetty_jersey.dao;
 
-import java.util.Date;
 import java.util.List;
 
 public interface FlightDAO {
@@ -20,9 +19,10 @@ public interface FlightDAO {
 
 	boolean deleteFlight(Integer flightID);
 
-	boolean editFlight(Integer id, String arrival, Date dep, Date arr, int nb);
+	boolean editFlight(Flight flight);
 
-	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, Date date);
+	List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate,
+			String arrivalDate);
 
 	int flightNumber();
 

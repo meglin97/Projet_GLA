@@ -122,6 +122,7 @@ public class UserDAOImpl implements UserDAO {
 					u.setEmail(user.getEmail());
 					u.setPassword(user.getPassword());
 				}
+				return u;
 			}
 
 			tx.commit();
@@ -131,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
 			}
 			pm.close();
 		}
-		return user;
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
