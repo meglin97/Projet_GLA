@@ -22,7 +22,6 @@ public class MailServiceImpl implements MailService {
 		String host = "smtp-mail.outlook.com";
 		String port = "587";
 		String password = "choco0234xx";
-
 		// Set system properties
 		Properties properties = System.getProperties();
 		properties.put("mail.smtp.auth", "true");

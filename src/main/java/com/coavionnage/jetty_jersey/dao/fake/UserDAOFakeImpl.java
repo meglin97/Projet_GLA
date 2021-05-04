@@ -55,7 +55,7 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public User editUser(Integer id, String firstname, String lastname, String password) {
+	public User editUser(User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
