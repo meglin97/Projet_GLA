@@ -78,19 +78,19 @@ function updateFlightsList(flights) {
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flDepDate.getHours() + "h" + (flDepDate.getMinutes().toString().length == 1 ? 0 : "") + flDepDate.getMinutes();
+		flightCol.innerText = (flDepDate.getDay().toString().length == 1 ? "0" : "") + flDepDate.getDay() + '-' + (flDepDate.getMonth().toString().length == 1 ? "0" : "") + flDepDate.getMonth() + '-' + flDepDate.getFullYear();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flight.departureAirfield;
+		flightCol.innerText = flDepDate.getHours() + "h" + (flDepDate.getMinutes().toString().length == 1 ? "0" : "") + flDepDate.getMinutes();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flArrDate.getHours() + "h" + (flArrDate.getMinutes().toString().length == 1 ? 0 : "") + flArrDate.getMinutes();
+		flightCol.innerText = (flArrDate.getDay().toString().length == 1 ? "0" : "") + flArrDate.getDay() + '-' + (flArrDate.getMonth().toString().length == 1 ? "0" : "") + flArrDate.getMonth() + '-' + flArrDate.getFullYear();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flight.arrivalAirfield;
+		flightCol.innerText = flArrDate.getHours() + "h" + (flArrDate.getMinutes().toString().length == 1 ? "0" : "") + flArrDate.getMinutes();
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");

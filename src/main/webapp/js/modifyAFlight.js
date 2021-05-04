@@ -1,4 +1,34 @@
 $(function () {
+
+	// quand la valeur flight id est modifié, on récupère le vol associé à cet ID et pré-remplit le formulaire
+	$("#flight_id").on("input", async function() {
+		const flightID = $(this).val();
+
+		if (flightID == ''){
+			return null;
+		}
+
+		const flight = await getFlightInfo(flightID);
+
+		if (!flight || !flight.flightID){
+			$.notify("Flight does not exist", { className: "error"});
+			return null;
+		}
+
+		const flDepDate = new Date(flight.departureDate);
+		const flArrDate = new Date(flight.arrivalDate);
+
+
+		document.getElementById("departure_airfield").value = flight.departureAirfield;
+		document.getElementById("arrival_airfield").value = flight.arrivalAirfield;
+		document.getElementById("departure_date").value = flDepDate.getFullYear() + '-' + (flDepDate.getMonth().toString().length == 1 ? "0" : "") + flDepDate.getMonth() + '-' + (flDepDate.getDay().toString().length == 1 ? "0" : "") + flDepDate.getDay();
+		document.getElementById("departure_time").value = (flDepDate.getHours().toString().length == 1 ? "0" : "") + flDepDate.getHours() + ':' + (flDepDate.getMinutes().toString().length == 1 ? "0" : "") + flDepDate.getMinutes();
+		document.getElementById("arrival_date").value = flArrDate.getFullYear() + '-' + (flArrDate.getMonth().toString().length == 1 ? "0" : "") + flArrDate.getMonth() + '-' + (flArrDate.getDay().toString().length == 1 ? "0" : "") + flArrDate.getDay();
+		document.getElementById("arrival_time").value = (flArrDate.getHours().toString().length == 1 ? "0" : "") + flArrDate.getHours() + ':' + (flArrDate.getMinutes().toString().length == 1 ? "0" : "") + flArrDate.getMinutes();
+		document.getElementById("nb_places").value = flight.numberPlaces;
+		document.getElementById("ticket_price").value = flight.ticketPrice;
+	 });
+
     $('#plan_flight_form').on('submit', async function(event){
 		event.preventDefault();
 

@@ -3,7 +3,6 @@ $(function () {
 	const current_user = JSON.parse(sessionStorage.getItem("current_user"));
 	document.getElementById("firstname").value = current_user.firstname;
 	document.getElementById("lastname").value = current_user.lastname;
-	document.getElementById("email").value = current_user.email;
 
     $('#modify-user-form').on('submit', function(event){
 		event.preventDefault();
@@ -13,7 +12,7 @@ $(function () {
 			firstname: document.getElementById("firstname").value,
 			lastname: document.getElementById("lastname").value,
 			password: document.getElementById("password").value,
-			email: document.getElementById("email").value
+			email: current_user.email
 		};
 
 		const confirm_password = document.getElementById("re_pass").value;
