@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <title>Plan a flight</title>
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/flight.css">
+    <link rel="stylesheet" href="css/jquery.datetimepicker.min.css">
+</head>
+
+<body>
+    <div class="tab">
+        <a id="btn-logout" href="#"><button class="tablinks">Sign out</button></a>
+        <a href="home.html"><button class="tablink">Home</button></a>
+	</div>
+
+    <div class="main">
+        <!-- Sign up form -->
+        <section class="flight">
+            <div class="container">
+                <div class="flight-content">
+                    <div class="flight-form">
+                        <h2 class="form-title">Modify a flight</h2>
+                        <!-- method="PUT" action="/ws/coavionnage/users/flight" -->
+                        <form class="plan-flight-form" id="plan_flight_form"> 
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="flight_id" id="flight_id" placeholder="Flight ID"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="departure_airfield" id="departure_airfield" placeholder="Departure airfield"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="arrival_airfield" id="arrival_airfield" placeholder="Arrival airfield"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="departure_date" id="departure_date" placeholder="Departure date"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="departure_time" id="departure_time" placeholder="Departure time"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="arrival_date" id="arrival_date" placeholder="Arrival date"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="arrival_time" id="arrival_time" placeholder="Arrival time"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="number" name="nb_places" id="nb_places" placeholder="Number of places available"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="ticket_price" id="ticket_price" placeholder="Ticket price per passenger"/>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="valid" id="flight" class="form-submit" value="Valid"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flight-image">
+                        <figure><img src="images/flight2.jpg" ></figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="vendor/notify.min.js"></script>
+    <script src="vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="js/modifyAFlight.js"></script>
+    <script src="js/navbuttons.js"></script>
+</body>
+</html>
+
