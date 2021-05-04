@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response.Status;
 
 import com.coavionnage.jetty_jersey.dao.Booking;
 import com.coavionnage.jetty_jersey.dao.DAO;
+import com.coavionnage.jetty_jersey.dao.MailService;
+import com.coavionnage.jetty_jersey.dao.User;
 
 @Path("/bookings")
 public class BookingResource {
@@ -78,19 +80,19 @@ public class BookingResource {
 		}
 	}
 
-	@PUT
-	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addBooking(Booking book) {
-		if (book == null) {
-			throw new BadRequestException("User missing");
-		}
-		try {
-			return Response.created(null).entity(DAO.getBookingDAO().addBooking(book)).build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("Error: Booking already exists").build();
-		}
-	}
+	/*
+	 * @PUT
+	 * 
+	 * @Path("/add")
+	 * 
+	 * @Consumes(MediaType.APPLICATION_JSON) public Response addBooking(Booking
+	 * book) { if (book == null) { throw new BadRequestException("User missing"); }
+	 * try { return
+	 * Response.created(null).entity(DAO.getBookingDAO().addBooking(book)).build();
+	 * } catch (Exception e) { return
+	 * Response.status(Status.BAD_REQUEST).entity("Error: Booking already exists").
+	 * build(); } }
+	 */
 
 	@PUT
 	@Path("/add/{nb}")
@@ -111,8 +113,10 @@ public class BookingResource {
 			list.add(DAO.getBookingDAO().addBooking(booking));
 			i++;
 		}
-
-		return Response.ok().build();
+		User u = DAO.getUserDAO().getUser(booking.getUser());
+		String flight = DAO.getFlightDAO().getFlight(booking.getFlightID()).toString();
+		Object mailservice = MailService.sendingMail(u, booking, list.size(), flight);
+		return Response.ok().entity(mailservice).build();
 	}
 
 	@POST

@@ -38,6 +38,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/datanucleus-master"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/datanucleus"/>
+	<classpathentry kind="lib" path="javax.activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="javax.mail-1.6.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

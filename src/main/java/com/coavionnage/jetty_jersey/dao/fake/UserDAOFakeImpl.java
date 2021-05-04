@@ -43,13 +43,6 @@ public class UserDAOFakeImpl implements UserDAO {
 	}
 
 	@Override
-	public User editUser(User user) {
-		return user;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public User getUserByEmailAndPassword(String email, String password) {
 		// TODO Auto-generated method stub
 		return null;
@@ -57,6 +50,12 @@ public class UserDAOFakeImpl implements UserDAO {
 
 	@Override
 	public User getUser(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User editUser(Integer id, String firstname, String lastname, String password) {
 		// TODO Auto-generated method stub
 		return null;
 	}

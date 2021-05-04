@@ -179,4 +179,5 @@ public class BookingDAOImpl implements BookingDAO {
 		}
 		return nb;
 	}
+
 }

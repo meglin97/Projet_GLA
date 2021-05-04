@@ -50,7 +50,7 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public boolean editFlight(Integer id, String arrival, String depTime, String arrTime, int nb) {
+	public boolean editFlight(Flight flight) {
 		// TODO Auto-generated method stub
 		return false;
 	}
