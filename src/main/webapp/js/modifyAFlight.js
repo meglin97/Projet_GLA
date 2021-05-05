@@ -15,27 +15,18 @@ $(function () {
 			return null;
 		}
 
-		const flDepDate = new Date(flight.departureDate);
-		const flArrDate = new Date(flight.arrivalDate);
-
-
 		document.getElementById("departure_airfield").value = flight.departureAirfield;
 		document.getElementById("arrival_airfield").value = flight.arrivalAirfield;
-		document.getElementById("departure_date").value = flDepDate.getFullYear() + '-' + (flDepDate.getMonth().toString().length == 1 ? "0" : "") + flDepDate.getMonth() + '-' + (flDepDate.getDay().toString().length == 1 ? "0" : "") + flDepDate.getDay();
-		document.getElementById("departure_time").value = (flDepDate.getHours().toString().length == 1 ? "0" : "") + flDepDate.getHours() + ':' + (flDepDate.getMinutes().toString().length == 1 ? "0" : "") + flDepDate.getMinutes();
-		document.getElementById("arrival_date").value = flArrDate.getFullYear() + '-' + (flArrDate.getMonth().toString().length == 1 ? "0" : "") + flArrDate.getMonth() + '-' + (flArrDate.getDay().toString().length == 1 ? "0" : "") + flArrDate.getDay();
-		document.getElementById("arrival_time").value = (flArrDate.getHours().toString().length == 1 ? "0" : "") + flArrDate.getHours() + ':' + (flArrDate.getMinutes().toString().length == 1 ? "0" : "") + flArrDate.getMinutes();
+		document.getElementById("departure_date").value = flight.departureDate;
+		document.getElementById("departure_time").value = flight.departureTime;
+		document.getElementById("arrival_date").value = flight.arrivalDate;
+		document.getElementById("arrival_time").value = flight.arrivalTime;
 		document.getElementById("nb_places").value = flight.numberPlaces;
 		document.getElementById("ticket_price").value = flight.ticketPrice;
 	 });
 
     $('#plan_flight_form').on('submit', async function(event){
 		event.preventDefault();
-
-		const departure_date = document.getElementById("departure_date").value;
-		const departure_time = document.getElementById("departure_time").value;
-		const arrival_date = document.getElementById("arrival_date").value;
-		const arrival_time = document.getElementById("arrival_time").value;
 
         const current_user = JSON.parse(sessionStorage.getItem("current_user"));
         const flightID = document.getElementById("flight_id").value;
@@ -50,8 +41,10 @@ $(function () {
 			flightID: flightID,
             departureAirfield: document.getElementById("departure_airfield").value,
             arrivalAirfield: document.getElementById("arrival_airfield").value,
-            departureDate: departure_date + "T" + departure_time + ":00.000+02:00",
-            arrivalDate: arrival_date + "T" + arrival_time + ":00.000+02:00",
+            departureDate: document.getElementById("departure_date").value,
+			departureTime: document.getElementById("departure_time").value,
+            arrivalDate: document.getElementById("arrival_date").value,
+            arrivalTime: document.getElementById("arrival_time").value,
             numberPlaces: document.getElementById("nb_places").value,
             ticketPrice: document.getElementById("ticket_price").value
 		};
