@@ -61,8 +61,6 @@ public class FlightDAOImpl implements FlightDAO {
 		// TODO Auto-generated method stub
 		List<Flight> flights = new ArrayList<Flight>();
 		for (Flight f : this.getFlights()) {
-			System.out.println(f.getDepartureAirfield());
-			System.out.println(departureAirfield);
 			if (f.getDepartureAirfield().equals(departureAirfield) && f.getArrivalAirfield().equals(arrivalAirfield)
 					&& f.getDepartureDate().equals(departureDate)) {
 				flights.add(f);
