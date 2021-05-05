@@ -2,19 +2,16 @@ $(function () {
     $('#plan_flight_form').on('submit', function(event){
 		event.preventDefault();
 
-		const departure_date = document.getElementById("departure_date").value;
-		const departure_time = document.getElementById("departure_time").value;
-		const arrival_date = document.getElementById("arrival_date").value;
-		const arrival_time = document.getElementById("arrival_time").value;
-
         const current_user = JSON.parse(sessionStorage.getItem("current_user"));
         console.log(current_user);
 		
 		let data = {
             departureAirfield: document.getElementById("departure_airfield").value,
             arrivalAirfield: document.getElementById("arrival_airfield").value,
-            departureDate: departure_date + "T" + departure_time + ":00.000+02:00",
-            arrivalDate: arrival_date + "T" + arrival_time + ":00.000+02:00",
+            departureDate:  document.getElementById("departure_date").value,
+			departureTime:  document.getElementById("departure_time").value,
+            arrivalDate:  document.getElementById("arrival_date").value,
+            arrivalTime:  document.getElementById("arrival_time").value,
             numberPlaces: document.getElementById("nb_places").value,
             pilot: current_user.userID,
             ticketPrice: document.getElementById("ticket_price").value

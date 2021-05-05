@@ -18,7 +18,7 @@ function searchFlights() {
 	const departure = document.getElementById("dep").value;
 	const arrival = document.getElementById("arrival").value;
 	const date = document.getElementById("date").value;
-	const url = "ws/coavionnage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_time=" + date;
+	const url = "ws/coavionnage/flights/search?departure=" + departure + "&arrival=" + arrival + "&departure_date=" + date;
 	console.log(url);
 
 	$.ajax({
@@ -78,19 +78,19 @@ function updateFlightsList(flights) {
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = (flDepDate.getDay().toString().length == 1 ? "0" : "") + flDepDate.getDay() + '-' + (flDepDate.getMonth().toString().length == 1 ? "0" : "") + flDepDate.getMonth() + '-' + flDepDate.getFullYear();
+		flightCol.innerText = flight.departureDate;
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flDepDate.getHours() + "h" + (flDepDate.getMinutes().toString().length == 1 ? "0" : "") + flDepDate.getMinutes();
+		flightCol.innerText = flight.departureTime;
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = (flArrDate.getDay().toString().length == 1 ? "0" : "") + flArrDate.getDay() + '-' + (flArrDate.getMonth().toString().length == 1 ? "0" : "") + flArrDate.getMonth() + '-' + flArrDate.getFullYear();
+		flightCol.innerText = flight.arrivalDate;
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
-		flightCol.innerText = flArrDate.getHours() + "h" + (flArrDate.getMinutes().toString().length == 1 ? "0" : "") + flArrDate.getMinutes();
+		flightCol.innerText = flight.arrivalTime;
 		flightRow.append(flightCol);
 
 		flightCol = document.createElement("td");
@@ -128,3 +128,8 @@ $(document).ready(function(){
 $("#btn-search").click(()=>{
 	searchFlights();
 })
+
+$('#date').datetimepicker({
+	format:'Y-m-d',
+	timepicker:false
+});
