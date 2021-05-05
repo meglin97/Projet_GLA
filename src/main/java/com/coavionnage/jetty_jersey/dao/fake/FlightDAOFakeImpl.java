@@ -19,8 +19,7 @@ public class FlightDAOFakeImpl implements FlightDAO {
 	}
 
 	@Override
-	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate,
-			String arrivalDate) {
+	public List<Flight> searchByCriteria(String departureAirfield, String arrivalAirfield, String departureDate) {
 		// TODO Auto-generated method stub
 		return null;
 	}

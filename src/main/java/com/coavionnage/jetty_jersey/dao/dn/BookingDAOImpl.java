@@ -221,8 +221,9 @@ public class BookingDAOImpl implements BookingDAO {
 			message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Booking confirmation");
 			// for the tests, we send a mail to a default address
-			message.setText("Hello " + u.getFirstName() + "," + "\nThank you for your bookings.\nYou booked "
-					+ bookNumber + " places for the flight " + flight);
+			message.setText("Hello " + u.getFirstName() + "," + "\n\nThank you for your bookings.\nYou booked "
+					+ bookNumber + " places for the flight " + flight
+					+ " .\n\nPlease join the airfield two hours before the departure.\n\nUberPlane");
 
 			Transport.send(message);
 
